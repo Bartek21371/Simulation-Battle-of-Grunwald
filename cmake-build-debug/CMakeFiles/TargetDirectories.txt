@@ -1,0 +1,3 @@
+/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug/CMakeFiles/Simulation_Battle_of_Grunwald.dir
+/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug/CMakeFiles/rebuild_cache.dir
