@@ -2,7 +2,7 @@
 #include <memory>
 #include <iostream>
 
-#include "Battle.hpp"
+#include <core/Battle.hpp>
 
 
 Battle::Battle(const Army& hussarsArmy,

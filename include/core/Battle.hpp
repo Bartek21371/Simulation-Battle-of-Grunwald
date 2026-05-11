@@ -3,7 +3,7 @@
 
 #include <vector>
 
-class Batle {
+class Battle {
 private:
     Army Hussars;
     Army TeutonicKnight;
