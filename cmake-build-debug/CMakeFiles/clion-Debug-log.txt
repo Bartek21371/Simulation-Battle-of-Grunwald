@@ -1,16 +1,6 @@
-/opt/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/opt/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/bart/Dokumenty/Simulation_Battle_of_Grunwald -B /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug
--- The C compiler identification is GNU 16.1.1
--- The CXX compiler identification is GNU 16.1.1
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
--- Configuring done (1.0s)
--- Generating done (0.0s)
--- Build files have been written to: /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug
+"C:\Program Files\JetBrains\CLion 2025.3.3\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles" -S C:\Users\bartl\CLionProjects\Simulation-Battle-of-Grunwald -B C:\Users\bartl\CLionProjects\Simulation-Battle-of-Grunwald\cmake-build-debug
+CMake Error at CMakeLists.txt:1 (cmake_minimum_required):
+  CMake 4.2 or higher is required.  You are running version 4.1.2
+
+
+-- Configuring incomplete, errors occurred!
