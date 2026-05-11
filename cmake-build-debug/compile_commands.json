@@ -1,14 +1,14 @@
 [
 {
   "directory": "/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug",
-  "command": "/usr/bin/c++ -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -g -std=gnu++23 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o -c /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/main.cpp",
+  "command": "/usr/bin/c++ -g -std=gnu++23 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o -c /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/main.cpp",
   "file": "/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/main.cpp",
   "output": "/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug/CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o"
 },
 {
   "directory": "/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug",
-  "command": "/usr/bin/c++ -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -g -std=gnu++23 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o -c /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/config/ConfigLoader.cpp",
-  "file": "/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/config/ConfigLoader.cpp",
-  "output": "/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug/CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o"
+  "command": "/usr/bin/c++ -g -std=gnu++23 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o -c /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/core/Battle.cpp",
+  "file": "/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/core/Battle.cpp",
+  "output": "/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug/CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o"
 }
 ]
