@@ -1,3 +1,0 @@
-ninja_dyndep_version = 1.0
-build CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o: dyndep
-
