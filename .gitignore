@@ -1,14 +1,10 @@
-# CLion
 .idea/
 
-# CMake
 cmake-build-*/
 build/
 
-# binaries
 *.o
 *.out
 *.exe
 
-# system
 .DS_Store
