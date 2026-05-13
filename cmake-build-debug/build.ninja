@@ -53,7 +53,7 @@ build CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.ddi: CXX_SCAN__Sim
   DEP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.ddi
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets
+  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src
   OBJ_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.ddi.i
 
@@ -62,32 +62,32 @@ build CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o: CXX_COMPILER__Sim
   DEP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.modmap
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets
+  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src
   OBJECT_DIR = CMakeFiles/Simulation_Battle_of_Grunwald.dir
   OBJECT_FILE_DIR = CMakeFiles/Simulation_Battle_of_Grunwald.dir
   TARGET_SUPPORT_DIR = CMakeFiles/Simulation_Battle_of_Grunwald.dir
   dyndep = CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXX.dd
 
-build CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.ddi: CXX_SCAN__Simulation_Battle_of_Grunwald_Debug /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/core/Battle.cpp || cmake_object_order_depends_target_Simulation_Battle_of_Grunwald
-  DEP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.ddi.d
-  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.ddi
+build CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.ddi: CXX_SCAN__Simulation_Battle_of_Grunwald_Debug /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/config/ConfigLoader.cpp || cmake_object_order_depends_target_Simulation_Battle_of_Grunwald
+  DEP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.ddi
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets
-  OBJ_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o
-  PREPROCESSED_OUTPUT_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.ddi.i
+  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src
+  OBJ_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.ddi.i
 
-build CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o: CXX_COMPILER__Simulation_Battle_of_Grunwald_scanned_Debug /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/core/Battle.cpp | CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.modmap || cmake_object_order_depends_target_Simulation_Battle_of_Grunwald CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXX.dd
+build CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o: CXX_COMPILER__Simulation_Battle_of_Grunwald_scanned_Debug /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/config/ConfigLoader.cpp | CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.modmap || cmake_object_order_depends_target_Simulation_Battle_of_Grunwald CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXX.dd
   CONFIG = Debug
-  DEP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.d
-  DYNDEP_MODULE_MAP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.modmap
+  DEP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.modmap
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets
+  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src
   OBJECT_DIR = CMakeFiles/Simulation_Battle_of_Grunwald.dir
-  OBJECT_FILE_DIR = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core
+  OBJECT_FILE_DIR = CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config
   TARGET_SUPPORT_DIR = CMakeFiles/Simulation_Battle_of_Grunwald.dir
   dyndep = CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXX.dd
 
-build CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXX.dd | CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXXModules.json CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.modmap CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.modmap: CXX_DYNDEP__Simulation_Battle_of_Grunwald_Debug CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.ddi CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o.ddi | /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug/CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXXDependInfo.json
+build CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXX.dd | CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXXModules.json CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.modmap CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.modmap: CXX_DYNDEP__Simulation_Battle_of_Grunwald_Debug CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o.ddi CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o.ddi | /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug/CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXXDependInfo.json
 
 
 # =============================================================================
@@ -97,7 +97,7 @@ build CMakeFiles/Simulation_Battle_of_Grunwald.dir/CXX.dd | CMakeFiles/Simulatio
 #############################################
 # Link the executable Simulation_Battle_of_Grunwald
 
-build Simulation_Battle_of_Grunwald: CXX_EXECUTABLE_LINKER__Simulation_Battle_of_Grunwald_Debug CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/core/Battle.cpp.o
+build Simulation_Battle_of_Grunwald: CXX_EXECUTABLE_LINKER__Simulation_Battle_of_Grunwald_Debug CMakeFiles/Simulation_Battle_of_Grunwald.dir/main.cpp.o CMakeFiles/Simulation_Battle_of_Grunwald.dir/src/config/ConfigLoader.cpp.o
   CONFIG = Debug
   DEP_FILE = CMakeFiles/Simulation_Battle_of_Grunwald.dir/link.d
   FLAGS = -g
@@ -108,6 +108,75 @@ build Simulation_Battle_of_Grunwald: CXX_EXECUTABLE_LINKER__Simulation_Battle_of
   TARGET_FILE = Simulation_Battle_of_Grunwald
   TARGET_PDB = Simulation_Battle_of_Grunwald.dbg
   TARGET_SUPPORT_DIR = CMakeFiles/Simulation_Battle_of_Grunwald.dir
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_config
+
+
+#############################################
+# Order-only phony target for test_config
+
+build cmake_object_order_depends_target_test_config: phony || .
+
+build CMakeFiles/test_config.dir/tests/test_config.cpp.o.ddi: CXX_SCAN__test_config_Debug /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/tests/test_config.cpp || cmake_object_order_depends_target_test_config
+  DEP_FILE = CMakeFiles/test_config.dir/tests/test_config.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/test_config.dir/tests/test_config.cpp.o.ddi
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src
+  OBJ_FILE = CMakeFiles/test_config.dir/tests/test_config.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/test_config.dir/tests/test_config.cpp.o.ddi.i
+
+build CMakeFiles/test_config.dir/tests/test_config.cpp.o: CXX_COMPILER__test_config_scanned_Debug /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/tests/test_config.cpp | CMakeFiles/test_config.dir/tests/test_config.cpp.o.modmap || cmake_object_order_depends_target_test_config CMakeFiles/test_config.dir/CXX.dd
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles/test_config.dir/tests/test_config.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/test_config.dir/tests/test_config.cpp.o.modmap
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src
+  OBJECT_DIR = CMakeFiles/test_config.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_config.dir/tests
+  TARGET_SUPPORT_DIR = CMakeFiles/test_config.dir
+  dyndep = CMakeFiles/test_config.dir/CXX.dd
+
+build CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o.ddi: CXX_SCAN__test_config_Debug /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/config/ConfigLoader.cpp || cmake_object_order_depends_target_test_config
+  DEP_FILE = CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o.ddi
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src
+  OBJ_FILE = CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o.ddi.i
+
+build CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o: CXX_COMPILER__test_config_scanned_Debug /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src/config/ConfigLoader.cpp | CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o.modmap || cmake_object_order_depends_target_test_config CMakeFiles/test_config.dir/CXX.dd
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o.modmap
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/include -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/assets -I/home/bart/Dokumenty/Simulation_Battle_of_Grunwald/src
+  OBJECT_DIR = CMakeFiles/test_config.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_config.dir/src/config
+  TARGET_SUPPORT_DIR = CMakeFiles/test_config.dir
+  dyndep = CMakeFiles/test_config.dir/CXX.dd
+
+build CMakeFiles/test_config.dir/CXX.dd | CMakeFiles/test_config.dir/CXXModules.json CMakeFiles/test_config.dir/tests/test_config.cpp.o.modmap CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o.modmap: CXX_DYNDEP__test_config_Debug CMakeFiles/test_config.dir/tests/test_config.cpp.o.ddi CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o.ddi | /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug/CMakeFiles/test_config.dir/CXXDependInfo.json
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_config
+
+
+#############################################
+# Link the executable test_config
+
+build test_config: CXX_EXECUTABLE_LINKER__test_config_Debug CMakeFiles/test_config.dir/tests/test_config.cpp.o CMakeFiles/test_config.dir/src/config/ConfigLoader.cpp.o
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles/test_config.dir/link.d
+  FLAGS = -g
+  LINK_FLAGS = -Wl,--dependency-file=CMakeFiles/test_config.dir/link.d
+  OBJECT_DIR = CMakeFiles/test_config.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = test_config
+  TARGET_PDB = test_config.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles/test_config.dir
 
 
 #############################################
@@ -150,7 +219,7 @@ build codegen: phony
 #############################################
 # Folder: /home/bart/Dokumenty/Simulation_Battle_of_Grunwald/cmake-build-debug
 
-build all: phony Simulation_Battle_of_Grunwald
+build all: phony Simulation_Battle_of_Grunwald test_config
 
 # =============================================================================
 # Built-in targets

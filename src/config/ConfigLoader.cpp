@@ -9,9 +9,19 @@
 #include <string>
 
 #include <config/ConfigLoader.hpp>
-#include <configs/testfile.csv>
 
-BattleConfig ConfigLoader::LoadFromFile(std::string filename) {
+BattleConfig ConfigLoader::LoadFromFile(const std::string& filename) {
     BattleConfig config;
-    
+
+
+    std::ifstream file_to_read(filename);
+    std::string line;
+    if (!file_to_read) {
+        std::cerr << "Could not open file " << filename << std::endl;
+    }
+    while (std::getline(file_to_read, line)) {
+        std::cout<<line<<std::endl;
+    }
+
+    return config;
 };
