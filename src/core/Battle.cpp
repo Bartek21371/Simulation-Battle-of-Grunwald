@@ -5,21 +5,13 @@
 #include <core/Battle.hpp>
 
 
-Battle::Battle(const Army& hussarsArmy,
-               const Army& teutonicArmy,
-               const Weather& battleWeather) :
-        Hussars(hussarsArmy),
-        TeutonicKnights(teutonicArmy),
-        round(0),
-        weather(battleWeather) {}
-
-
-void Battle::add_Random_Event(
-    std::shared_ptr<RandomEvent> event) {
-
-    randomEvents.push_back(event);
-}
-
+Battle::Battle() :   //gettery do zrobienia
+    Hussars(get_Hussars),
+    TeutonicKnights(get_TeutonicKnights),
+    round(0),
+    weather(get_weather),
+    randomEvents(get_randomEvents)
+{}
 
 
 
@@ -29,17 +21,17 @@ void Battle::apply_Weather() {
 }
 
 
+
 void Battle::activate_Random_Event() {
 
     if (randomEvents.empty()) {
         return;
     }
 
-    static std::random_device rd;
+    static std::random_device rd;      //random number generator
     static std::mt19937 gen(rd());
 
     std::uniform_int_distribution<> eventDist(0, randomEvents.size() - 1);
-
     std::uniform_int_distribution<> armyDist(0, 1);
 
     int eventIndex = eventDist(gen);
@@ -51,6 +43,7 @@ void Battle::activate_Random_Event() {
 
     randomEvents[eventIndex]->activate(targetArmy);
 }
+
 
 
 BattleResult Battle::check_Winner() {
@@ -75,27 +68,18 @@ BattleResult Battle::check_Winner() {
 }
 
 
+
 void Battle::start_Battle() {
 
     while (true) {
 
         do_Round();
 
-        switch (BattleResult result = check_Winner()) {
+        if (check_Winner() != BattleResult::NON) return;
 
-            case BattleResult::NON: continue;
-
-            case BattleResult::HUSSARS_WINS:
-                break;
-
-            case BattleResult::TEUTONIC_WINS:
-                break;
-
-            case BattleResult::DRAW:
-                break;
-        }
     }
 }
+
 
 
 void Battle::do_Round() {
@@ -113,7 +97,7 @@ void Battle::do_Round() {
     static std::random_device rd;
     static std::mt19937 gen(rd());
 
-    bool hussarsAttackFirst = (round % 2 == 1);
+    const bool hussarsAttackFirst = (round % 2 == 1);
 
     std::uniform_int_distribution<> distH(0, hussarsWarriors.size() - 1);
     std::uniform_int_distribution<> distT(0, teutonicWarriors.size() - 1);
@@ -137,12 +121,11 @@ void Battle::do_Round() {
         }
     }
 
-    hussars.remove_The_Fallen();
-    teutonicKnights.remove_The_Fallen();
+    Hussars.remove_The_Fallen();
+    TeutonicKnights.remove_The_Fallen();
 
-    stats.update_Stats(hussars, teutonicKnights);
+    stats.update_Stats(Hussars, TeutonicKnights);
 
-    notify_Observers();
 }
 
 

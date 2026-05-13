@@ -3,13 +3,17 @@ project(Simulation_Battle_of_Grunwald)
 
 set(CMAKE_CXX_STANDARD 23)
 
-#add_executable(Simulation_Battle_of_Grunwald main.cpp
-    #src/core/Battle.cpp)
+add_executable(Simulation_Battle_of_Grunwald main.cpp
+    src/core/Battle.cpp
+        include/warriors/Warrior.hpp
+        include/warriors/Knight.hpp
+        include/warriors/Archer.hpp
+        include/warriors/Cavaleryman.hpp)
 
 
 
-add_executable(Simulation_Battle_of_Grunwald main.cpp src/config/ConfigLoader.cpp
-        include/core/Army.hpp)
+#add_executable(Simulation_Battle_of_Grunwald main.cpp src/config/ConfigLoader.cpp
+        #include/core/Army.hpp)
 
 add_executable(test_config tests/test_config.cpp src/config/ConfigLoader.cpp)
 

@@ -5,10 +5,11 @@
 
 class Battle {
 private:
-    Army Hussars;
-    Army TeutonicKnight;
 
-    int round = 0;
+    Army Hussars;
+    Army TeutonicKnights;
+
+    int round;
 
     Weather weather;
     BattleStats stats;
@@ -18,13 +19,9 @@ private:
 
 public:
 
-    Battle(const Army& hussarsArmy,
-           const Army& teutonicArmy,
-           const Weather& battleWeather);
+    Battle();
 
     void apply_Weather();
-
-    void activate_Random_Event();
 
     void activate_Random_Event();
 
