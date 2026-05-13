@@ -8,7 +8,8 @@ set(CMAKE_CXX_STANDARD 23)
 
 
 
-add_executable(Simulation_Battle_of_Grunwald main.cpp src/config/ConfigLoader.cpp)
+add_executable(Simulation_Battle_of_Grunwald main.cpp src/config/ConfigLoader.cpp
+        include/core/Army.hpp)
 
 add_executable(test_config tests/test_config.cpp src/config/ConfigLoader.cpp)
 

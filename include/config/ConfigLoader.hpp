@@ -7,12 +7,12 @@
 // Declaration of class responsible for read config
 
 #include <string>
-#include "BattleConfig.hpp"
+#include "FractionConfig.hpp"
 
 
 class ConfigLoader{
     public:
-        static BattleConfig LoadFromFile(const std::string& filename);
+        static FractionConfig LoadFromFile(const std::string& filename);
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_CONFIGLOADER_HPP

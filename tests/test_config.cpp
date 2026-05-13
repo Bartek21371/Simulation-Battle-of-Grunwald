@@ -5,5 +5,5 @@
 #include <config/ConfigLoader.hpp>
 
 int main() {
-    BattleConfig config = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv");
+    FractionConfig config = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv");
 }
