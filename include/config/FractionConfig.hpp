@@ -8,8 +8,10 @@
 // Keep start parameters for one fraction
 
 #include <core/UnitStats.hpp>
+#include <string>
 
 struct FractionConfig {
+    std::string fraction;
     UnitStats knight;
     UnitStats archer;
     UnitStats cavalry;

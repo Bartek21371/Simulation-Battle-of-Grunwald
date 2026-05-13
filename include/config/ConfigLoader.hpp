@@ -7,12 +7,13 @@
 // Declaration of class responsible for read config
 
 #include <string>
+#include <vector>
 #include "FractionConfig.hpp"
 
 
 class ConfigLoader{
     public:
-        static FractionConfig LoadFromFile(const std::string& filename);
+        static std::vector<FractionConfig> LoadFromFile(const std::string& filename);
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_CONFIGLOADER_HPP

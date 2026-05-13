@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <fstream>
-#include <ranges>
 #include <sstream>
 #include <vector>
 #include <string>
@@ -13,8 +12,8 @@
 
 // Implementation of loading from csv file
 
-FractionConfig ConfigLoader::LoadFromFile(const std::string& filename) {
-    FractionConfig config;
+std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filename) {
+    std::vector<FractionConfig> configs;
 
 
     std::ifstream file_to_read(filename);
@@ -35,21 +34,34 @@ FractionConfig ConfigLoader::LoadFromFile(const std::string& filename) {
             continue;
         }
 
+        FractionConfig config;
         std::vector<std::string> values;
+
         std::stringstream ss(line);
         std::string value;
 
-        while (!ss.eof()) {
-            getline(ss, value, ',');
+        while (getline(ss, value,',')) {
             values.push_back(value);
         }
-        for (std::string val : values) {
-            std::cout<<val<<std::endl;
-        }
 
+        // Assignment of all corresponding values to fraction
+        config.fraction = values[0];
 
+        config.knight.hp = std::stoi(values[1]);
+        config.knight.attack = std::stoi(values[2]);
+        config.knight.defense = std::stoi(values[3]);
+
+        config.archer.hp = std::stoi(values[4]);                // !!!!!! add validation is 9 values ?
+        config.archer.attack = std::stoi(values[5]);
+        config.archer.defense = std::stoi(values[6]);
+
+        config.cavalry.hp = std::stoi(values[7]);
+        config.cavalry.attack = std::stoi(values[8]);
+        config.cavalry.defense = std::stoi(values[9]);
+
+        configs.push_back(config);
 
     }
 
-    return config;
+    return configs;
 };
