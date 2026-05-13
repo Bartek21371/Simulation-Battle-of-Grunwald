@@ -17,7 +17,7 @@ void test_loading_file() {
     std::cout<<config[1].fraction<<std::endl;
     std::cout<<config[1].knight.hp<<std::endl;
     std::cout<<config[1].knight.attack<<std::endl;
-    std::cout<<config[1].knight.defense<<std::endl;
+    std::cout<<config[0].knight.defense<<std::endl;
 };
 
 int main() {
