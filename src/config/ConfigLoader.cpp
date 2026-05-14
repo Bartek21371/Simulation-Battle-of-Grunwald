@@ -11,6 +11,9 @@
 #include <config/ConfigLoader.hpp>
 
 bool is_config_valid(FractionConfig config);
+bool is_integer(std::vector<std::string> str);
+bool isnot_empty_string(std::vector<std::string> str);
+
 
 
 // Implementation of loading params from csv file
@@ -24,7 +27,7 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
 
     // Handle error while opening file broken/unaccessed
     if (!file_to_read) {
-        std::cerr << "Could not open file " << filename << std::endl;
+        std::cerr << "Could not open file " << filename << "\n";
     }
 
 
@@ -37,7 +40,7 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
             continue;
         }
 
-        FractionConfig config;
+        FractionConfig config{};
         std::vector<std::string> values;
 
         std::stringstream ss(line);
@@ -49,46 +52,58 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
             values.push_back(value);
         }
 
-        // Assignment of all corresponding values to fraction
+        // Assignment of all corresponding values to fraction and catch errors
         if (values.size() == 13) {
             try {
-                config.fraction = values[0];
+                if (is_integer(values) && isnot_empty_string(values) ) {
+                    config.fraction = values[0];
 
-                config.knight_stats.hp = std::stoi(values[1]);
-                config.knight_stats.attack = std::stoi(values[2]);
-                config.knight_stats.defense = std::stoi(values[3]);
-                config.knight_count = std::stoi(values[4]);
+                    config.knight_stats.hp = std::stoi(values[1]);
+                    config.knight_stats.attack = std::stoi(values[2]);
+                    config.knight_stats.defense = std::stoi(values[3]);
+                    config.knight_count = std::stoi(values[4]);
 
-                config.archer_stats.hp = std::stoi(values[5]);
-                config.archer_stats.attack = std::stoi(values[6]);
-                config.archer_stats.defense = std::stoi(values[7]);
-                config.archer_count = std::stoi(values[8]);
+                    config.archer_stats.hp = std::stoi(values[5]);
+                    config.archer_stats.attack = std::stoi(values[6]);
+                    config.archer_stats.defense = std::stoi(values[7]);
+                    config.archer_count = std::stoi(values[8]);
 
 
-                config.cavalry_stats.hp = std::stoi(values[9]);
-                config.cavalry_stats.attack = std::stoi(values[10]);
-                config.cavalry_stats.defense = std::stoi(values[11]);
-                config.cavalry_count = std::stoi(values[12]);
+                    config.cavalry_stats.hp = std::stoi(values[9]);
+                    config.cavalry_stats.attack = std::stoi(values[10]);
+                    config.cavalry_stats.defense = std::stoi(values[11]);
+                    config.cavalry_count = std::stoi(values[12]);
 
-                if (is_config_valid(config)) {
-                    configs.push_back(config);
+                    if (is_config_valid(config)) {
+                        configs.push_back(config);
+                    }
+                    else {
+                        config.valid = false;
+                        configs.push_back(config);
+                        std::cout<<"Error, all values must be greater than zero" << "\n";
+                    }
                 }
                 else {
                     config.valid = false;
                     configs.push_back(config);
-                    std::cout<<"Error, all values must be grather than zero"<<std::endl;
+                    std::cout<<"Error, params of warriors must contain only digits and all values not be empty" << "\n";
                 }
-                // !!!! Delete second fraction readed if one is bad!!!!
             }
             catch (const std::invalid_argument& e) {
-                std::cerr << "Error, value must be number" << e.what() << std::endl;
+                config.valid = false;
+                configs.push_back(config);
+                std::cerr << "Error, value must be number" << e.what() << "\n";
             }
             catch (const std::out_of_range& e) {
-                std::cerr << "Error, value out of range" << e.what() << std::endl;
+                config.valid = false;
+                configs.push_back(config);
+                std::cerr << "Error, value out of range" << e.what() << "\n";
             }
         }
         else {
-            std::cerr << "No enough values!" << filename << std::endl;
+            config.valid = false;
+            configs.push_back(config);
+            std::cerr << "No enough values!" << filename << "\n";
         }
     }
 
@@ -112,5 +127,28 @@ bool is_config_valid(FractionConfig config) {
         return false;
     }
 
+    return true;
+}
+
+
+// Validate input is integer
+bool is_integer(const std::vector<std::string> str) {
+    for (int i = 1; i<13;i++){
+        for (char c : str[i]) {
+            if (isdigit(c) == false) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+// Validate is input string not empty
+bool isnot_empty_string(const std::vector<std::string> str) {
+    for (int i = 0; i<13;i++) {
+        if (str[i] == "") {
+            return false;
+        }
+    }
     return true;
 }

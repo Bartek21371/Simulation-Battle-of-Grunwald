@@ -5,6 +5,11 @@
 #ifndef SIMULATION_BATTLE_OF_GRUNWALD_WARRIOR_HPP
 #define SIMULATION_BATTLE_OF_GRUNWALD_WARRIOR_HPP
 
+#include <iostream>
+#include <core/UnitStats.hpp>
+
+//
+
 class Warrior {
 private:
 
@@ -14,14 +19,15 @@ private:
 
     bool alive;
 
-
 public:
 
-    attack_Enemy();
+    Warrior(UnitStats);
 
-    take_Damage();
+    int take_Damage();
 
-    is_Alive();
+    bool is_Alive();
+
+    int attack_Enemy();
 
 };
 
