@@ -7,9 +7,9 @@
 
 #include <warrior.hpp>
 
-class Cavaleryman : public Warrior {
+class Cavalryman : public Warrior {  // nazwy do poprawy na Cavalryman
 public:
-    Cavaleryman();
+    Cavalryman();
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_CAVALERYMAN_HPP

@@ -27,7 +27,7 @@ public:
 
     bool is_Alive();
 
-    int attack_Enemy();
+    int attack_Enemy(Warrior);
 
 };
 

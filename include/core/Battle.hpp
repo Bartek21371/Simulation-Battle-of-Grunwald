@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <core/Army.hpp>
+
 class Battle {
 private:
 
@@ -22,15 +24,12 @@ public:
     Battle();
 
     void apply_Weather();
-
     void activate_Random_Event();
-
-    void do_Round();
-
-    BattleResult check_Winner();
+    static int random_Number(int min, int max);
 
     void start_Battle();
-
+    void do_Round();
+    BattleResult check_Winner();
     BattleStats& get_Stats();
 
     int get_Round() const;

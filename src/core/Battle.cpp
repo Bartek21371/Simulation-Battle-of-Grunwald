@@ -4,14 +4,25 @@
 
 #include <core/Battle.hpp>
 
-
-Battle::Battle() :   //gettery do zrobienia
+/*
+Battle::Battle() :   // to do
     Hussars(get_Hussars),
     TeutonicKnights(get_TeutonicKnights),
     round(0),
     weather(get_weather),
     randomEvents(get_randomEvents)
 {}
+*/
+
+
+int Battle::random_Number(int min, int max) {
+
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_int_distribution<> numberRange(min, max);
+
+    return numberRange(gen);
+}
 
 
 
@@ -28,24 +39,14 @@ void Battle::activate_Random_Event() {
         return;
     }
 
-    static std::random_device rd;      //random number generator
-    static std::mt19937 gen(rd());
+    int eventIndex = random_Number(0, randomEvents.size() - 1);
+    int armyIndex = random_Number(0, 1);
 
-    std::uniform_int_distribution<> eventDist(0, randomEvents.size() - 1);
-    std::uniform_int_distribution<> armyDist(0, 1);
-
-    int eventIndex = eventDist(gen);
-
-    std::vector<Warrior*>& targetArmy =
-        (armyDist(gen) == 0)
-        ? hussars
-        : teutonicKnights;
-
-    randomEvents[eventIndex]->activate(targetArmy);
+    randomEvents[eventIndex]->activate(armyIndex);
 }
 
 
-
+/*  to do
 BattleResult Battle::check_Winner() {
 
     bool hussarsAlive = !Hussars.get_Warriors().empty();
@@ -79,7 +80,7 @@ void Battle::start_Battle() {
 
     }
 }
-
+*/
 
 
 void Battle::do_Round() {
@@ -89,35 +90,33 @@ void Battle::do_Round() {
     apply_Weather();
     activate_Random_Event();
 
-    auto& hussarsWarriors = Hussars.get_Warriors();
-    auto& teutonicWarriors = TeutonicKnights.get_Warriors();
+    std::vector<Warrior> hussarsWarriors = Hussars.get_Warriors();  // do usunięcia po zrobieniu konstrktorów army
+    std::vector<Warrior> teutonicWarriors = TeutonicKnights.get_Warriors();
 
     if (hussarsWarriors.empty() || teutonicWarriors.empty()) return;
 
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-
     const bool hussarsAttackFirst = (round % 2 == 1);
 
-    std::uniform_int_distribution<> distH(0, hussarsWarriors.size() - 1);
-    std::uniform_int_distribution<> distT(0, teutonicWarriors.size() - 1);
+    int randomHussarsIndex = random_Number(0, hussarsWarriors.size() - 1);
+    int randomTeutonicIndex = random_Number(0, teutonicWarriors.size() - 1);
+
 
     if (hussarsAttackFirst) {
 
-        Warrior* attacker = hussarsWarriors[distH(gen)];
-        Warrior* target = teutonicWarriors[distT(gen)];
+        Warrior* attacker = &hussarsWarriors[randomHussarsIndex];
+        Warrior* target = &teutonicWarriors[randomTeutonicIndex];
 
         if (attacker->is_Alive() && target->is_Alive()) {
-            attacker->attack_Enemy(target);
+            //attack
         }
 
     } else {
 
-        Warrior* attacker = teutonicWarriors[distT(gen)];
-        Warrior* target = hussarsWarriors[distH(gen)];
+        Warrior* attacker = &teutonicWarriors[randomTeutonicIndex];
+        Warrior* target = &hussarsWarriors[randomHussarsIndex];
 
         if (attacker->is_Alive() && target->is_Alive()) {
-            attacker->attack_Enemy(target);
+            //attack
         }
     }
 
