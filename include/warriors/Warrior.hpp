@@ -8,7 +8,7 @@
 #include <iostream>
 #include <core/UnitStats.hpp>
 
-//
+// Abstract class of warrior
 
 class Warrior {
 private:
@@ -23,11 +23,17 @@ public:
 
     Warrior(UnitStats);
 
-    int take_Damage();
+    void take_Damage(int damage);
 
     bool is_Alive();
 
-    int attack_Enemy(Warrior);
+    void attack_Enemy(Warrior& enemy);
+
+    // Getters
+
+    int get_Health();
+
+    int get_Attack();
 
 };
 

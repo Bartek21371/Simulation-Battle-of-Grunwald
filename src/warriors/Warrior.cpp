@@ -15,7 +15,7 @@ Warrior::Warrior(UnitStats stats) {
 };
 
 
-bool Warrior::isAlive() {
+bool Warrior::is_Alive() {
     if (health <= 0) {
         alive = false;
     }
@@ -26,10 +26,19 @@ bool Warrior::isAlive() {
 };
 
 void Warrior::take_Damage(int damage) {
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!formula for calculate dammage!!!!!!!!!
     health -= damage;
-    isAlive();
+    is_Alive();
 };
 
 void Warrior::attack_Enemy(Warrior& enemy) {
     enemy.take_Damage(attack);
 };
+
+int Warrior::get_Health() {
+    return health;
+};
+
+int Warrior::get_Attack() {
+    return attack;
+}
