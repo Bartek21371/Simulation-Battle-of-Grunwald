@@ -10,7 +10,10 @@
 
 #include <config/ConfigLoader.hpp>
 
-// Implementation of loading from csv file
+bool is_config_valid(FractionConfig config);
+
+
+// Implementation of loading params from csv file
 
 std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filename) {
     std::vector<FractionConfig> configs;
@@ -19,7 +22,7 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
     std::ifstream file_to_read(filename);
     std::string line;
 
-    // Handle error flags
+    // Handle error while opening file broken/unaccessed
     if (!file_to_read) {
         std::cerr << "Could not open file " << filename << std::endl;
     }
@@ -40,28 +43,74 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
         std::stringstream ss(line);
         std::string value;
 
+
+        // Get ready line with one fraction values
         while (getline(ss, value,',')) {
             values.push_back(value);
         }
 
         // Assignment of all corresponding values to fraction
-        config.fraction = values[0];
+        if (values.size() == 13) {
+            try {
+                config.fraction = values[0];
 
-        config.knight.hp = std::stoi(values[1]);
-        config.knight.attack = std::stoi(values[2]);
-        config.knight.defense = std::stoi(values[3]);
+                config.knight_stats.hp = std::stoi(values[1]);
+                config.knight_stats.attack = std::stoi(values[2]);
+                config.knight_stats.defense = std::stoi(values[3]);
+                config.knight_count = std::stoi(values[4]);
 
-        config.archer.hp = std::stoi(values[4]);                // !!!!!! add validation is 9 values ?
-        config.archer.attack = std::stoi(values[5]);
-        config.archer.defense = std::stoi(values[6]);
+                config.archer_stats.hp = std::stoi(values[5]);
+                config.archer_stats.attack = std::stoi(values[6]);
+                config.archer_stats.defense = std::stoi(values[7]);
+                config.archer_count = std::stoi(values[8]);
 
-        config.cavalry.hp = std::stoi(values[7]);
-        config.cavalry.attack = std::stoi(values[8]);
-        config.cavalry.defense = std::stoi(values[9]);
 
-        configs.push_back(config);
+                config.cavalry_stats.hp = std::stoi(values[9]);
+                config.cavalry_stats.attack = std::stoi(values[10]);
+                config.cavalry_stats.defense = std::stoi(values[11]);
+                config.cavalry_count = std::stoi(values[12]);
 
+                if (is_config_valid(config)) {
+                    configs.push_back(config);
+                }
+                else {
+                    config.valid = false;
+                    configs.push_back(config);
+                    std::cout<<"Error, all values must be grather than zero"<<std::endl;
+                }
+                // !!!! Delete second fraction readed if one is bad!!!!
+            }
+            catch (const std::invalid_argument& e) {
+                std::cerr << "Error, value must be number" << e.what() << std::endl;
+            }
+            catch (const std::out_of_range& e) {
+                std::cerr << "Error, value out of range" << e.what() << std::endl;
+            }
+        }
+        else {
+            std::cerr << "No enough values!" << filename << std::endl;
+        }
     }
 
     return configs;
 };
+
+// Function for checking is all values is correct
+// OPTIONAL SUGGEST add limit for count of types of warriors!
+bool is_config_valid(FractionConfig config) {
+
+    if (config.knight_stats.hp < 0 || config.knight_stats.attack < 0 || config.knight_stats.defense < 0) {
+        return false;
+    }
+    if (config.archer_stats.hp < 0 || config.archer_stats.attack < 0 || config.archer_stats.defense < 0) {
+        return false;
+    }
+    if (config.cavalry_stats.hp < 0 || config.cavalry_stats.attack < 0 || config.cavalry_stats.defense < 0) {
+        return false;
+    }
+    if (config.knight_count < 0 || config.archer_count < 0 || config.cavalry_count < 0) {
+        return false;
+    }
+
+    return true;
+}

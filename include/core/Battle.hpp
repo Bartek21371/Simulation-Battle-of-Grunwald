@@ -8,7 +8,7 @@ private:
 
     Army Hussars;
     Army TeutonicKnights;
-
+    //if army1.valid && army2.valid
     int round;
 
     Weather weather;
