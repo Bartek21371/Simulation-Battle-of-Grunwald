@@ -16,23 +16,19 @@ Warrior::Warrior(UnitStats stats) {
 
 
 bool Warrior::is_Alive() {
-    if (health <= 0) {
-        alive = false;
-    }
-    else {
-        alive = true;
-    }
-    return alive;
+    return health>0;
 };
 
-void Warrior::take_Damage(int damage) {
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!formula for calculate dammage!!!!!!!!!
+void Warrior::take_Damage(double damage) {
     health -= damage;
-    is_Alive();
+    if (health <= 0) health = 0;
 };
+
+// !!! ADD MORE EXTENDED VERSIO OF CALC DAMAGE (COUNT OF KNIGHTS ETC...)
 
 void Warrior::attack_Enemy(Warrior& enemy) {
-    enemy.take_Damage(attack);
+    double calc_final_damage = attack*(100.0/(100.0+enemy.defense));
+    enemy.take_Damage(calc_final_damage);
 };
 
 int Warrior::get_Health() {

@@ -23,7 +23,7 @@ public:
 
     Warrior(UnitStats);
 
-    void take_Damage(int damage);
+    void take_Damage(double damage);
 
     bool is_Alive();
 
