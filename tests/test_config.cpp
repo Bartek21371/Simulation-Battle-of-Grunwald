@@ -8,8 +8,11 @@
 #include <config/ConfigLoader.hpp>
 #include <vector>
 
+// Test loading from file (checking errors,validate data,show data)
+
 void test_loading_file() {
     std::vector<FractionConfig> config1 = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv");
+
     for (size_t i=0; i<config1.size(); i++) {
         std::cout<<"Name: "<<config1[i].fraction<<"\n";
         std::cout<<"Knight hp: "<<config1[i].knight_stats.hp<<"\n";

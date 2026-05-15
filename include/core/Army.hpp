@@ -4,6 +4,8 @@
 
 #ifndef SIMULATION_BATTLE_OF_GRUNWALD_ARMY_HPP
 #define SIMULATION_BATTLE_OF_GRUNWALD_ARMY_HPP
+
+
 // vector<FractionConfig>
 // Army army1(configs[0])...
 
@@ -11,11 +13,13 @@
 #include <vector>
 
 #include <warriors/Warrior.hpp>
+#include <config/FractionConfig.hpp>
 
-enum class ArmyType {
+
+/*enum class ArmyType {
     typeHussars,
     typeTeutonic
-};
+};*/
 
 class Army {
 private:
@@ -30,16 +34,19 @@ private:
 
 public:
 
-    Army(ArmyType type);
+    Army(FractionConfig config);
 
-    void add_Warrior();
+    void get_ArmySize();
+
+    /*void add_Warrior();
 
     void remove_The_Fallen();
 
     std::vector<Warrior>& get_Warriors();
+
     int get_attackBonus() const;
     int get_defenseBonus() const;
-    int get_moraleLevel() const;
+    int get_moraleLevel() const;*/
 
 };
 
