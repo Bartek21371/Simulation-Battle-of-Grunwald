@@ -4,17 +4,23 @@
 
 #include <core/Army.hpp>
 
-/* to do
-Army::Army(ArmyType type) {
+#include "config/FractionConfig.hpp"
 
-    if (type == ArmyType::Hussars) {
 
-    } else if (type == ArmyType::Teutonic) {
+Army::Army() {
 
-    }
+
+
+    std::vector<FractionConfig> config1 = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv");;
+
+
 }
-*/
 
+
+
+void Army::add_Warrior() {
+    warriors.push_back()
+}
 
 std::vector<Warrior>& Army::get_Warriors() {
     return warriors;

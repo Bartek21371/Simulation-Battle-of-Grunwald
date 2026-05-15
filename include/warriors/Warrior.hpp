@@ -35,6 +35,8 @@ public:
 
     int get_Attack();
 
+    void set_Stats(UnitStats health);
+
 };
 
 

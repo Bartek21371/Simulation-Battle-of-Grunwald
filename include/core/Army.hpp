@@ -13,8 +13,8 @@
 #include <warriors/Warrior.hpp>
 
 enum class ArmyType {
-    Hussars,
-    Teutonic
+    typeHussars,
+    typeTeutonic
 };
 
 class Army {
@@ -31,9 +31,6 @@ private:
 public:
 
     Army(ArmyType type);
-
-    void create_Hussars_Army();
-    void create_Teutonic_Army();
 
     void add_Warrior();
 
