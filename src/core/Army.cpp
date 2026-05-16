@@ -26,6 +26,20 @@ Army::Army(FractionConfig config) {
     }
 }
 
-void Army::get_ArmySize() {
-    std::cout<<"Army size: "<<warriors.size()<<"\n";
+int Army::get_ArmySize() {
+    return warriors.size();
+}
+
+std::vector<Warrior>& Army::get_Warriors(){
+    return warriors;
+}
+
+int Army::count_AliveWarriors() {
+    int count = 0;
+    for (Warrior& w : warriors) {
+        if (w.is_Alive()) {
+            count++;
+        }
+    }
+    return count;
 }

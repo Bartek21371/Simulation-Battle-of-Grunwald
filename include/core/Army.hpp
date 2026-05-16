@@ -36,7 +36,11 @@ public:
 
     Army(FractionConfig config);
 
-    void get_ArmySize();
+    int get_ArmySize();
+
+    std::vector<Warrior>& get_Warriors();
+
+    int count_AliveWarriors();
 
     /*void add_Warrior();
 
