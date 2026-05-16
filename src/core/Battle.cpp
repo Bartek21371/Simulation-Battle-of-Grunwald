@@ -14,8 +14,36 @@ Battle::Battle() :   // to do
 {}
 */
 
+// Main loop of battle ( attack and defend )
 
-int Battle::random_Number(int min, int max) {
+Battle::Battle(Army HussarsArmy, Army TeutonicArmy):
+    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(0){
+}
+
+// Start Battle loop
+void Battle::start_Battle() {
+    while (Hussars.count_AliveWarriors()>0 && Teutonic.count_AliveWarriors()>0) {
+        do_Round();
+    }
+}
+
+// Logic of doing round
+void Battle::do_Round() {
+    Warrior& attacker = Hussars.get_FirstAliveWarrior();
+    Warrior& defender = Teutonic.get_FirstAliveWarrior();
+    attacker.attack_Enemy(defender);
+    if (defender.is_Alive()) {
+        defender.attack_Enemy(attacker);
+    }
+    round++;
+}
+
+// Getter
+int Battle::get_Round() const {
+    return round;
+}
+
+/*int Battle::random_Number(int min, int max) {
 
     static std::random_device rd;
     static std::mt19937 gen(rd());
@@ -27,7 +55,6 @@ int Battle::random_Number(int min, int max) {
 
 
 void Battle::apply_Weather() {
-
     weather.effect_on_Battle();
 }
 
@@ -44,7 +71,7 @@ void Battle::activate_Random_Event() {
 
     randomEvents[eventIndex]->activate(armyIndex);
 }
-
+*/
 
 /*  to do
 BattleResult Battle::check_Winner() {
@@ -67,22 +94,9 @@ BattleResult Battle::check_Winner() {
 
     return BattleResult::NON;
 }
-
-
-
-void Battle::start_Battle() {
-
-    while (true) {
-
-        do_Round();
-
-        if (check_Winner() != BattleResult::NON) return;
-
-    }
-}
 */
 
-
+/*
 void Battle::do_Round() {
 
     round++;
@@ -126,6 +140,6 @@ void Battle::do_Round() {
     stats.update_Stats(Hussars, TeutonicKnights);
 
 }
-
+*/
 
 

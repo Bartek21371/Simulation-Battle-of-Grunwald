@@ -9,30 +9,36 @@ class Battle {
 private:
 
     Army Hussars;
-    Army TeutonicKnights;
+    Army Teutonic;
     //if army1.valid && army2.valid
     int round;
 
-    Weather weather;
+
+    /*Weather weather;
     BattleStats stats;
 
     std::vector<std::shared_ptr<RandomEvent>> randomEvents;
-
+    */
 
 public:
 
-    Battle();
-
-    void apply_Weather();
-    void activate_Random_Event();
-    static int random_Number(int min, int max);
+    Battle(Army HussarsArmy,Army TeutonicArmy);
 
     void start_Battle();
-    void do_Round();
-    BattleResult check_Winner();
-    BattleStats& get_Stats();
 
+    void do_Round();
+
+    // Getter
     int get_Round() const;
+
+    /*void apply_Weather();
+    void activate_Random_Event();*/
+    //static int random_Number(int min, int max);
+
+    /*BattleResult check_Winner();
+    BattleStats& get_Stats();*/
+
+    //int get_Round() const;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_BATTLE_HPP

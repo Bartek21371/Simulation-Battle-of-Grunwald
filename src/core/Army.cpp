@@ -5,7 +5,7 @@
 
 #include <core/Army.hpp>
 
-
+// ADD INITLIAZER LIST
 Army::Army(FractionConfig config) {
 
     name = config.fraction;
@@ -42,4 +42,15 @@ int Army::count_AliveWarriors() {
         }
     }
     return count;
+}
+
+Warrior& Army::get_FirstAliveWarrior() {
+    for (Warrior& w : warriors) {
+        if (w.is_Alive()) {
+            return w;
+        }
+        else {
+            continue;
+        }
+    }
 }

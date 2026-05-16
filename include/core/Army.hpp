@@ -6,9 +6,6 @@
 #define SIMULATION_BATTLE_OF_GRUNWALD_ARMY_HPP
 
 
-// vector<FractionConfig>
-// Army army1(configs[0])...
-
 #include <string>
 #include <vector>
 
@@ -42,12 +39,9 @@ public:
 
     int count_AliveWarriors();
 
-    /*void add_Warrior();
+    Warrior& get_FirstAliveWarrior();
 
-    void remove_The_Fallen();
-
-    std::vector<Warrior>& get_Warriors();
-
+    /*
     int get_attackBonus() const;
     int get_defenseBonus() const;
     int get_moraleLevel() const;*/

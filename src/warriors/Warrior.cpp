@@ -4,7 +4,7 @@
 
 #include <warriors/Warrior.hpp>
 #include <core/UnitStats.hpp>
-
+// ADD INITALIZER LIST
 Warrior::Warrior(UnitStats stats) {
 
     health = stats.hp;

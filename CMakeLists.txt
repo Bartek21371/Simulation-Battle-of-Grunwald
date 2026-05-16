@@ -15,7 +15,8 @@ add_executable(test_config tests/test_config.cpp src/config/ConfigLoader.cpp)
 
 add_executable(test_combat tests/test_combat.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp)
 
-add_executable(test_army tests/test_army.cpp src/core/Army.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp)
+add_executable(test_army tests/test_army.cpp src/core/Army.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp
+        tests/test_battle.cpp)
 
 
 target_include_directories(Simulation_Battle_of_Grunwald
