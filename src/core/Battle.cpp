@@ -1,5 +1,4 @@
 #include <random>
-#include <memory>
 #include <iostream>
 
 #include <core/Battle.hpp>
@@ -17,8 +16,8 @@ Battle::Battle() :   // to do
 
 // Main loop of battle ( attack and defend )
 
-Battle::Battle(Army HussarsArmy, Army TeutonicArmy):
-    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(0){
+Battle::Battle(Army& HussarsArmy, Army& TeutonicArmy):
+    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1){
 }
 
 // Start Battle loop
@@ -36,6 +35,7 @@ void Battle::start_Battle() {
     }
 }
 
+
 // Logic of doing round
 void Battle::do_Round() {
     std::cout<<"Hussars alive count: "<<Hussars.count_AliveWarriors()<<"\n";
@@ -43,32 +43,43 @@ void Battle::do_Round() {
     std::cout<<"-------------------------------"<<"\n";
     std::cout<<"Round: "<<round<<"\n";
 
-    Warrior& attacker = Hussars.get_FirstAliveWarrior();
-    std::cout<<"Attacker hp: "<<attacker.get_Health()<<"\n";
-    std::cout<<"Attacker attack: "<<attacker.get_Attack()<<"\n";
+    Warrior& hussars = Hussars.get_FirstAliveWarrior();
+    std::cout<<"Hussars hp: "<<hussars.get_Health()<<"\n";
+    std::cout<<"Hussars attack: "<<hussars.get_Attack()<<"\n";
 
-    Warrior& defender = Teutonic.get_FirstAliveWarrior();
-    std::cout<<"Defender hp: "<<defender.get_Health()<<"\n";
-    std::cout<<"Defender attack: "<<defender.get_Attack()<<"\n";
+    Warrior& teutonic = Teutonic.get_FirstAliveWarrior();
+    std::cout<<"Teutonic hp: "<<teutonic.get_Health()<<"\n";
+    std::cout<<"Teutonic attack: "<<teutonic.get_Attack()<<"\n";
 
-    attacker.attack_Enemy(defender);   // MAKE THIS RANDOM (ONE TIME ATTACKER ATTACK ONE TIME DEFENDER ATTACK
-    if (defender.is_Alive()) {
-        defender.attack_Enemy(attacker);
+    if (random_Number(0,1)==0) {
+        hussars.attack_Enemy(teutonic);
+        if (teutonic.is_Alive()) {
+            teutonic.attack_Enemy(hussars);
+        }
+    }
+    else {
+        teutonic.attack_Enemy(hussars);
+        if (hussars.is_Alive()) {
+            hussars.attack_Enemy(teutonic);
+        }
     }
 
     std::cout<<"Result after round: "<<round<<"\n";
-    std::cout<<"Attacker hp: "<<attacker.get_Health()<<"\n";
-    std::cout<<"Defender hp: "<<defender.get_Health()<<"\n";
+    std::cout<<"Attacker hp: "<<hussars.get_Health()<<"\n";
+    std::cout<<"Defender hp: "<<teutonic.get_Health()<<"\n";
 
     round++;
 }
+
 
 // Getter
 int Battle::get_Round() const {
     return round;
 }
 
-/*int Battle::random_Number(int min, int max) {
+
+// Helper function for random choice of hussars and teutonic in do_Round
+int Battle::random_Number(int min, int max) {
 
     static std::random_device rd;
     static std::mt19937 gen(rd());
@@ -78,6 +89,9 @@ int Battle::get_Round() const {
 }
 
 
+
+
+/*
 
 void Battle::apply_Weather() {
     weather.effect_on_Battle();
@@ -142,19 +156,19 @@ void Battle::do_Round() {
 
     if (hussarsAttackFirst) {
 
-        Warrior* attacker = &hussarsWarriors[randomHussarsIndex];
+        Warrior* hussars = &hussarsWarriors[randomHussarsIndex];
         Warrior* target = &teutonicWarriors[randomTeutonicIndex];
 
-        if (attacker->is_Alive() && target->is_Alive()) {
+        if (hussars->is_Alive() && target->is_Alive()) {
             //attack
         }
 
     } else {
 
-        Warrior* attacker = &teutonicWarriors[randomTeutonicIndex];
+        Warrior* hussars = &teutonicWarriors[randomTeutonicIndex];
         Warrior* target = &hussarsWarriors[randomHussarsIndex];
 
-        if (attacker->is_Alive() && target->is_Alive()) {
+        if (hussars->is_Alive() && target->is_Alive()) {
             //attack
         }
     }

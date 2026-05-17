@@ -1,7 +1,6 @@
 #ifndef SIMULATION_BATTLE_OF_GRUNWALD_BATTLE_HPP
 #define SIMULATION_BATTLE_OF_GRUNWALD_BATTLE_HPP
 
-#include <vector>
 
 #include <core/Army.hpp>
 
@@ -22,18 +21,20 @@ private:
 
 public:
 
-    Battle(Army HussarsArmy,Army TeutonicArmy);
+    Battle(Army& HussarsArmy,Army& TeutonicArmy);
 
     void start_Battle();
 
     void do_Round();
 
+    static int random_Number(int min, int max);
+
     // Getter
     int get_Round() const;
 
+
     /*void apply_Weather();
     void activate_Random_Event();*/
-    //static int random_Number(int min, int max);
 
     /*BattleResult check_Winner();
     BattleStats& get_Stats();*/
