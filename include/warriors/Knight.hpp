@@ -5,11 +5,19 @@
 #ifndef SIMULATION_BATTLE_OF_GRUNWALD_KNIGHT_HPP
 #define SIMULATION_BATTLE_OF_GRUNWALD_KNIGHT_HPP
 
-#include <warrior.hpp>
+#include <warriors/warrior.hpp>
 
 class Knight : public Warrior {
+private:
+    int atkBonus;
+    int defBonus;
+
 public:
-    Archer();
+    explicit Knight(const UnitStats& stats);
+
+    //void take_Damage(double damage) override;
+
+    //void attack_Enemy(Warrior& enemy) override;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_KNIGHT_HPP

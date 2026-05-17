@@ -21,14 +21,15 @@ private:
 
 public:
 
-    Warrior(UnitStats);
+    explicit Warrior(UnitStats);
 
-    void take_Damage(double damage);
+    virtual ~Warrior() = default;
+
+    virtual void take_Damage(double damage);
+
+    virtual void attack_Enemy(Warrior& enemy);
 
     bool is_Alive();
-
-    void attack_Enemy(Warrior& enemy);
-
     // Getters
 
     int get_Health();

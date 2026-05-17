@@ -19,7 +19,7 @@ bool Warrior::is_Alive() {
     return health>0;
 };
 
-void Warrior::take_Damage(double damage) {
+void Warrior::take_Damage(const double damage) {
     health -= damage;
     if (health <= 0) health = 0;
 };
