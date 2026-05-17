@@ -15,8 +15,9 @@ add_executable(test_config tests/test_config.cpp src/config/ConfigLoader.cpp)
 
 add_executable(test_combat tests/test_combat.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp)
 
-add_executable(test_army tests/test_army.cpp src/core/Army.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp
-        tests/test_battle.cpp)
+add_executable(test_army tests/test_army.cpp src/core/Army.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp)
+
+add_executable(test_battle tests/test_battle.cpp src/core/Battle.cpp src/core/Army.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp)
 
 
 target_include_directories(Simulation_Battle_of_Grunwald
@@ -41,6 +42,13 @@ target_include_directories(test_combat
 )
 
 target_include_directories(test_army
+        PUBLIC
+        ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/assets
+        ${CMAKE_SOURCE_DIR}/src
+)
+
+target_include_directories(test_battle
         PUBLIC
         ${CMAKE_SOURCE_DIR}/include
         ${CMAKE_SOURCE_DIR}/assets

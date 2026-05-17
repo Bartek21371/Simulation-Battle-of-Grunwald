@@ -4,6 +4,7 @@
 
 #include <core/Battle.hpp>
 
+
 /*
 Battle::Battle() :   // to do
     Hussars(get_Hussars),
@@ -17,24 +18,41 @@ Battle::Battle() :   // to do
 // Main loop of battle ( attack and defend )
 
 Battle::Battle(Army HussarsArmy, Army TeutonicArmy):
-    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(0){
+    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1){
 }
 
 // Start Battle loop
 void Battle::start_Battle() {
     while (Hussars.count_AliveWarriors()>0 && Teutonic.count_AliveWarriors()>0) {
         do_Round();
+        std::cout<<"--------Next round--------"<<"\n";
     }
 }
 
 // Logic of doing round
 void Battle::do_Round() {
+    std::cout<<"Hussars alive count: "<<Hussars.count_AliveWarriors()<<"\n";
+    std::cout<<"Teutonic alive count: "<<Teutonic.count_AliveWarriors()<<"\n";
+    std::cout<<"-------------------------------"<<"\n";
+    std::cout<<"Round: "<<round<<"\n";
+
     Warrior& attacker = Hussars.get_FirstAliveWarrior();
+    std::cout<<"Attacker hp: "<<attacker.get_Health()<<"\n";
+    std::cout<<"Attacker attack: "<<attacker.get_Attack()<<"\n";
+
     Warrior& defender = Teutonic.get_FirstAliveWarrior();
+    std::cout<<"Defender hp: "<<defender.get_Health()<<"\n";
+    std::cout<<"Defender attack: "<<defender.get_Attack()<<"\n";
+
     attacker.attack_Enemy(defender);
     if (defender.is_Alive()) {
         defender.attack_Enemy(attacker);
     }
+
+    std::cout<<"Result after round: "<<round<<"\n";
+    std::cout<<"Attacker hp: "<<attacker.get_Health()<<"\n";
+    std::cout<<"Defender hp: "<<defender.get_Health()<<"\n";
+
     round++;
 }
 

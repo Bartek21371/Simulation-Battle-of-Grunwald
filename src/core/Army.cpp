@@ -49,8 +49,5 @@ Warrior& Army::get_FirstAliveWarrior() {
         if (w.is_Alive()) {
             return w;
         }
-        else {
-            continue;
-        }
     }
 }
