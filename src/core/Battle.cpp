@@ -63,10 +63,10 @@ void Battle::do_Round() {
             hussars.attack_Enemy(teutonic);
         }
     }
-
+                                                            //// RANDOM WARRIOR SELECT TO FIGHT NOT ONLY WARRIOR.ALIVE[0]
     std::cout<<"Result after round: "<<round<<"\n";
-    std::cout<<"Attacker hp: "<<hussars.get_Health()<<"\n";
-    std::cout<<"Defender hp: "<<teutonic.get_Health()<<"\n";
+    std::cout<<"Hussars hp: "<<hussars.get_Health()<<"\n";
+    std::cout<<"Teutonic hp: "<<teutonic.get_Health()<<"\n";
 
     round++;
 }
