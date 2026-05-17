@@ -18,7 +18,7 @@ Battle::Battle() :   // to do
 // Main loop of battle ( attack and defend )
 
 Battle::Battle(Army HussarsArmy, Army TeutonicArmy):
-    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1){
+    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(0){
 }
 
 // Start Battle loop
@@ -26,6 +26,13 @@ void Battle::start_Battle() {
     while (Hussars.count_AliveWarriors()>0 && Teutonic.count_AliveWarriors()>0) {
         do_Round();
         std::cout<<"--------Next round--------"<<"\n";
+    }
+
+    if (Hussars.count_AliveWarriors()>0) {
+        std::cout<<"Hussars wins"<<"\n";
+    }
+    else {
+        std::cout<<"Teutonic wins"<<"\n";
     }
 }
 
@@ -44,7 +51,7 @@ void Battle::do_Round() {
     std::cout<<"Defender hp: "<<defender.get_Health()<<"\n";
     std::cout<<"Defender attack: "<<defender.get_Attack()<<"\n";
 
-    attacker.attack_Enemy(defender);
+    attacker.attack_Enemy(defender);   // MAKE THIS RANDOM (ONE TIME ATTACKER ATTACK ONE TIME DEFENDER ATTACK
     if (defender.is_Alive()) {
         defender.attack_Enemy(attacker);
     }
