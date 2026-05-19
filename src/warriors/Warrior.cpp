@@ -4,7 +4,12 @@
 
 #include <warriors/Warrior.hpp>
 #include <core/UnitStats.hpp>
+
+
 // ADD INITALIZER LIST
+// Make pure virtual for get abstract class
+
+
 Warrior::Warrior(UnitStats stats) {
 
     health = stats.hp;

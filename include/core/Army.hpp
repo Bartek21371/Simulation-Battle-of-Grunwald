@@ -39,7 +39,9 @@ public:
 
     int count_AliveWarriors();
 
-    Warrior& get_FirstAliveWarrior();
+    Warrior& get_RandomAliveWarrior();
+
+    static int random_Number(int min, int max);
 
     /*
     int get_attackBonus() const;
