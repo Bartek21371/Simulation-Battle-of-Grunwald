@@ -18,7 +18,7 @@ bool isnot_empty_string(std::vector<std::string> str);
 
 // Implementation of loading params from csv file
 
-std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filename) {
+std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filename, bool printErrors = true) {
     std::vector<FractionConfig> configs;
 
 
@@ -27,7 +27,9 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
 
     // Handle error while opening file broken/unaccessed
     if (!file_to_read) {
-        std::cerr << "Could not open file " << filename << "\n";
+        if (printErrors) {
+            std::cerr << "Could not open file " << filename << "\n";
+        }
     }
 
 
@@ -80,30 +82,40 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
                     else {
                         config.valid = false;
                         configs.push_back(config);
-                        std::cout<<"Error, all values must be greater than zero" << "\n";
+                        if (printErrors) {
+                            std::cout<<"Error, all values must be greater than zero" << "\n";
+                        }
                     }
                 }
                 else {
                     config.valid = false;
                     configs.push_back(config);
-                    std::cout<<"Error, params of warriors must contain only digits and all values not be empty" << "\n";
+                    if (printErrors) {
+                        std::cout<<"Error, params of warriors must contain only digits and all values not be empty" << "\n";
+                    }
                 }
             }
             catch (const std::invalid_argument& e) {
                 config.valid = false;
                 configs.push_back(config);
-                std::cerr << "Error, value must be number" << e.what() << "\n";
+                if (printErrors) {
+                    std::cerr << "Error, value must be number" << e.what() << "\n";
+                }
             }
             catch (const std::out_of_range& e) {
                 config.valid = false;
                 configs.push_back(config);
-                std::cerr << "Error, value out of range" << e.what() << "\n";
+                if (printErrors) {
+                    std::cerr << "Error, value out of range" << e.what() << "\n";
+                }
             }
         }
         else {
             config.valid = false;
             configs.push_back(config);
-            std::cerr << "No enough values!" << filename << "\n";
+            if (printErrors) {
+                std::cerr << "No enough values!" << filename << "\n";
+            }
         }
     }
 

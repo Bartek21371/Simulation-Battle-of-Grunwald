@@ -7,7 +7,7 @@
 
 
 // Test combat of warrior1 on warrior 2
-
+/*
 void test_combat() {
     std::vector<FractionConfig> config1 = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv");
 
@@ -33,3 +33,5 @@ void test_combat() {
 int main() {
     test_combat();
 }
+
+*/

@@ -3,54 +3,61 @@ project(Simulation_Battle_of_Grunwald)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(Simulation_Battle_of_Grunwald main.cpp
-    src/core/Battle.cpp
-        src/warriors/Warrior.cpp)
-        #include/warriors/Warrior.hpp
-        #include/warriors/Knight.hpp
-        #include/warriors/Archer.hpp
-        #include/warriors/Cavaleryman.hpp
+# Catch2
+include(FetchContent)
 
-add_executable(test_config tests/test_config.cpp src/config/ConfigLoader.cpp)
+FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG v3.15.0
+)
 
-add_executable(test_combat tests/test_combat.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp)
+FetchContent_MakeAvailable(Catch2)
 
-add_executable(test_army tests/test_army.cpp src/core/Army.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp)
+# Main
+add_executable(
+        Simulation_Battle_of_Grunwald
 
-add_executable(test_battle tests/test_battle.cpp src/core/Battle.cpp src/core/Army.cpp src/warriors/Warrior.cpp src/config/ConfigLoader.cpp)
+        main.cpp
+        src/core/Battle.cpp
+        src/core/Army.cpp
+        src/warriors/Warrior.cpp
+        src/config/ConfigLoader.cpp
 
+)
 
-target_include_directories(Simulation_Battle_of_Grunwald
+target_include_directories(
+        Simulation_Battle_of_Grunwald
         PUBLIC
         ${CMAKE_SOURCE_DIR}/include
         ${CMAKE_SOURCE_DIR}/assets
         ${CMAKE_SOURCE_DIR}/src
 )
 
-target_include_directories(test_config
+#Tests
+add_executable(
+        tests
+
+        tests/test_config.cpp
+        tests/test_combat.cpp
+        tests/test_army.cpp
+        tests/test_battle.cpp
+
+        src/core/Battle.cpp
+        src/core/Army.cpp
+        src/warriors/Warrior.cpp
+        src/config/ConfigLoader.cpp
+)
+
+target_include_directories(
+        tests
         PUBLIC
         ${CMAKE_SOURCE_DIR}/include
         ${CMAKE_SOURCE_DIR}/assets
         ${CMAKE_SOURCE_DIR}/src
 )
 
-target_include_directories(test_combat
-        PUBLIC
-        ${CMAKE_SOURCE_DIR}/include
-        ${CMAKE_SOURCE_DIR}/assets
-        ${CMAKE_SOURCE_DIR}/src
-)
-
-target_include_directories(test_army
-        PUBLIC
-        ${CMAKE_SOURCE_DIR}/include
-        ${CMAKE_SOURCE_DIR}/assets
-        ${CMAKE_SOURCE_DIR}/src
-)
-
-target_include_directories(test_battle
-        PUBLIC
-        ${CMAKE_SOURCE_DIR}/include
-        ${CMAKE_SOURCE_DIR}/assets
-        ${CMAKE_SOURCE_DIR}/src
+target_link_libraries(
+        tests
+        PRIVATE Catch2::Catch2WithMain
 )

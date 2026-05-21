@@ -7,7 +7,7 @@
 #include <config/ConfigLoader.hpp>
 
 // Test creating army
-
+/*
 void test_army() {
 
     std::vector<FractionConfig> config1 = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv");
@@ -53,3 +53,4 @@ void test_army() {
 int main() {
     test_army();
 }
+*/

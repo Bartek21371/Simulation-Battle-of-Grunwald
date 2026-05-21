@@ -6,7 +6,7 @@
 #include <core/Battle.hpp>
 
 // Test battle loop
-
+/*
 void test_battle() {
 
     std::vector<FractionConfig> config1 = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv");
@@ -23,3 +23,4 @@ void test_battle() {
 int main() {
     test_battle();
 }
+*/

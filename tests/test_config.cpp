@@ -7,43 +7,89 @@
 #include <ostream>
 #include <config/ConfigLoader.hpp>
 #include <vector>
+#include <catch2/catch_test_macros.hpp>
 
-// Test loading from file (checking errors,validate data,show data)
+// Test loading from file (checking errors,validate data)
 
-void test_loading_file() {
-    std::vector<FractionConfig> config1 = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv");
+TEST_CASE("Loading from file correctly") {
+    auto configs = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv", false);
 
-    for (size_t i=0; i<config1.size(); i++) {
-        std::cout<<"Name: "<<config1[i].fraction<<"\n";
-        std::cout<<"Knight hp: "<<config1[i].knight_stats.hp<<"\n";
-        std::cout<<"Knight attack: "<<config1[i].knight_stats.attack<<"\n";
-        std::cout<<"Knight defense: "<<config1[i].knight_stats.defense<<"\n";
-        std::cout<<"Knights count: "<<config1[i].knight_count<<"\n";
-        std::cout<<"Is valid: "<<config1[i].valid<<"\n";
-        if (i%2==1) {
-            std::cout<<"-------------------------------------------------------------------------"<<"\n";
-        }
+    REQUIRE(configs.size()==2);
+
+    SECTION("First fraction loaded correctly") {
+
+        REQUIRE(configs[0].knight_stats.hp==66);
+        REQUIRE(configs[0].knight_stats.attack==40);
+        REQUIRE(configs[0].knight_stats.defense==20);
+
+        REQUIRE(configs[0].knight_count==50);
+
+        REQUIRE(configs[0].archer_stats.hp==80);
+        REQUIRE(configs[0].archer_stats.attack==45);
+        REQUIRE(configs[0].archer_stats.defense==10);
+
+        REQUIRE(configs[0].archer_count==45);
+
+        REQUIRE(configs[0].cavalry_stats.hp==100);
+        REQUIRE(configs[0].cavalry_stats.attack==25);
+        REQUIRE(configs[0].cavalry_stats.defense==60);
+
+        REQUIRE(configs[0].cavalry_count==40);
+
+        REQUIRE(configs[0].valid);
     }
 
-    std::cout<<"|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"<<"\n";
+    SECTION("Second fraction loaded correctly") {
 
-    std::vector<FractionConfig> config2 = ConfigLoader::LoadFromFile("../assets/configs/testfile_5.csv");
-    for (size_t i=0; i<config2.size(); i++) {
-        std::cout<<"Name: "<<config2[i].fraction<<"\n";
-        std::cout<<"Knight hp: "<<config2[i].knight_stats.hp<<"\n";
-        std::cout<<"Knight attack: "<<config2[i].knight_stats.attack<<"\n";
-        std::cout<<"Knight defense: "<<config2[i].knight_stats.defense<<"\n";
-        std::cout<<"Knights count: "<<config2[i].knight_count<<"\n";
-        std::cout<<"Is valid: "<<config2[i].valid<<"\n";
-        if (i%2==1) {
-            std::cout<<"-------------------------------------------------------------------------"<<"\n";
-        }
+        REQUIRE(configs[1].knight_stats.hp==90);
+        REQUIRE(configs[1].knight_stats.attack==35);
+        REQUIRE(configs[1].knight_stats.defense==25);
+
+        REQUIRE(configs[1].knight_count==80);
+
+        REQUIRE(configs[1].archer_stats.hp==50);
+        REQUIRE(configs[1].archer_stats.attack==50);
+        REQUIRE(configs[1].archer_stats.defense==10);
+
+        REQUIRE(configs[1].archer_count==20);
+
+        REQUIRE(configs[1].cavalry_stats.hp==80);
+        REQUIRE(configs[1].cavalry_stats.attack==25);
+        REQUIRE(configs[1].cavalry_stats.defense==55);
+
+        REQUIRE(configs[1].cavalry_count==55);
+
+        REQUIRE(configs[1].valid);
     }
 
+}
 
+TEST_CASE("Loading from file and detect errors") {
+    auto configs1 = ConfigLoader::LoadFromFile("../assets/configs/testfile_5.csv", false);
 
-};
+    REQUIRE(configs1.size()==10);
 
-int main() {
-    test_loading_file();
+    SECTION("No enough values") {
+        REQUIRE_FALSE(configs1[0].valid);
+    }
+
+    SECTION("Value lower than 0") {
+        REQUIRE_FALSE(configs1[2].valid);
+    }
+
+    SECTION("Value out of range") {
+        REQUIRE_FALSE(configs1[1].valid);
+    }
+
+    SECTION("Value contains number with letters") {
+        REQUIRE_FALSE(configs1[6].valid);
+    }
+
+    SECTION("Value contain only letters") {
+        REQUIRE_FALSE(configs1[9].valid);
+    }
+
+    SECTION("Value is empty string") {
+        REQUIRE_FALSE(configs1[3].valid);
+    }
 }

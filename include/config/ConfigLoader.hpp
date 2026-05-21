@@ -13,7 +13,7 @@
 
 class ConfigLoader{
     public:
-        static std::vector<FractionConfig> LoadFromFile(const std::string& filename);
+        static std::vector<FractionConfig> LoadFromFile(const std::string& filename, bool printErrors);
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_CONFIGLOADER_HPP
