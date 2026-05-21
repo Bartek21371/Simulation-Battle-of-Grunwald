@@ -5,8 +5,14 @@
 
 #include <core/Army.hpp>
 #include <config/ConfigLoader.hpp>
+#include <catch2/catch_test_macros.hpp>
+
 
 // Test creating army
+
+//TEST_CASE("Test creating two armies") {
+
+
 /*
 void test_army() {
 

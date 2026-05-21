@@ -16,7 +16,7 @@ TEST_CASE("Loading from file correctly") {
 
     REQUIRE(configs.size()==2);
 
-    SECTION("First fraction loaded correctly") {
+    SECTION("First fraction loaded correctly", "[config]") {
 
         REQUIRE(configs[0].knight_stats.hp==66);
         REQUIRE(configs[0].knight_stats.attack==40);
@@ -64,32 +64,32 @@ TEST_CASE("Loading from file correctly") {
 
 }
 
-TEST_CASE("Loading from file and detect errors") {
-    auto configs1 = ConfigLoader::LoadFromFile("../assets/configs/testfile_5.csv", false);
+TEST_CASE("Loading from file and detect errors", "[config]") {
+    auto configs = ConfigLoader::LoadFromFile("../assets/configs/testfile_5.csv", false);
 
-    REQUIRE(configs1.size()==10);
+    REQUIRE(configs.size()==10);
 
     SECTION("No enough values") {
-        REQUIRE_FALSE(configs1[0].valid);
+        REQUIRE_FALSE(configs[0].valid);
     }
 
     SECTION("Value lower than 0") {
-        REQUIRE_FALSE(configs1[2].valid);
+        REQUIRE_FALSE(configs[2].valid);
     }
 
     SECTION("Value out of range") {
-        REQUIRE_FALSE(configs1[1].valid);
+        REQUIRE_FALSE(configs[1].valid);
     }
 
     SECTION("Value contains number with letters") {
-        REQUIRE_FALSE(configs1[6].valid);
+        REQUIRE_FALSE(configs[6].valid);
     }
 
     SECTION("Value contain only letters") {
-        REQUIRE_FALSE(configs1[9].valid);
+        REQUIRE_FALSE(configs[9].valid);
     }
 
     SECTION("Value is empty string") {
-        REQUIRE_FALSE(configs1[3].valid);
+        REQUIRE_FALSE(configs[3].valid);
     }
 }
