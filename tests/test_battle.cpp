@@ -4,23 +4,25 @@
 
 #include <config/ConfigLoader.hpp>
 #include <core/Battle.hpp>
+#include <catch2/catch_test_macros.hpp>
+
 
 // Test battle loop
-/*
-void test_battle() {
 
-    std::vector<FractionConfig> config1 = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv");
+TEST_CASE("Test battle", "[battle]") {
+    auto configs = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv", false);
 
-    Army Hussars = Army(config1[0]);
-    Army Teutonic = Army(config1[1]);
+    Army Hussars(configs[0]);
+    Army Teutonic(configs[1]);
 
-    Battle battle = Battle(Hussars,Teutonic);
+    Battle battle(Hussars, Teutonic);
 
     battle.start_Battle();
-}
 
+    SECTION("Valid winner of battle") {
+        auto winner = battle.get_Winner();
 
-int main() {
-    test_battle();
+        REQUIRE_FALSE(winner.empty());
+        REQUIRE( (winner == "Hussars" || winner == "Teutonic") );
+    }
 }
-*/

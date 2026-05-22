@@ -1,7 +1,7 @@
 #ifndef SIMULATION_BATTLE_OF_GRUNWALD_BATTLE_HPP
 #define SIMULATION_BATTLE_OF_GRUNWALD_BATTLE_HPP
 
-
+#include <string>
 #include <core/Army.hpp>
 
 class Battle {
@@ -10,7 +10,8 @@ private:
     Army Hussars;
     Army Teutonic;
     //if army1.valid && army2.valid
-    int round;
+    int round{};
+    std::string winner{};
 
 
     /*Weather weather;
@@ -31,6 +32,7 @@ public:
 
     // Getter
     int get_Round() const;
+    std::string get_Winner() const;
 
 
     /*void apply_Weather();
