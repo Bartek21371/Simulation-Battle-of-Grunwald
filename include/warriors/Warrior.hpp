@@ -29,14 +29,12 @@ public:
 
     virtual void attack_Enemy(Warrior& enemy);
 
-    bool is_Alive();
+    bool is_Alive() const;
+
     // Getters
+    int get_Health() const;
 
-    int get_Health();
-
-    int get_Attack();
-
-    void set_Stats(UnitStats health);
+    int get_Attack() const;
 
 };
 

@@ -31,8 +31,10 @@ public:
     static int random_Number(int min, int max);
 
     // Getter
-    int get_Round() const;
+    int get_Rounds() const;
     std::string get_Winner() const;
+    const Army& get_HussarsArmy() const;
+    const Army& get_TeutonicArmy() const;
 
 
     /*void apply_Weather();

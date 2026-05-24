@@ -35,9 +35,9 @@ std::vector<Warrior>& Army::get_Warriors(){
     return warriors;
 }
 
-int Army::count_AliveWarriors() {
+int Army::count_AliveWarriors() const{
     int count = 0;
-    for (Warrior& w : warriors) {
+    for (const Warrior& w : warriors) {
         if (w.is_Alive()) {
             count++;
         }

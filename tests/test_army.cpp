@@ -16,7 +16,7 @@ TEST_CASE("Test creating two armies", "[army]") {
     Army Hussars(configs[0]);
     Army Teutonic(configs[1]);
 
-    SECTION("Check sizes of armies for 1 pair of armies to battle") {
+    SECTION("Check sizes of armies for one pair of armies to battle") {
         REQUIRE(Hussars.get_ArmySize()==135);
         REQUIRE(Teutonic.get_ArmySize()==155);
     }
@@ -42,4 +42,5 @@ TEST_CASE("Test creating two armies", "[army]") {
     }
 
     //add test for one invalid army from pair
+
 }

@@ -37,7 +37,7 @@ public:
 
     std::vector<Warrior>& get_Warriors();
 
-    int count_AliveWarriors();
+    int count_AliveWarriors() const;
 
     Warrior& get_RandomAliveWarrior();
 

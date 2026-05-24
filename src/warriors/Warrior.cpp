@@ -9,7 +9,6 @@
 // ADD INITALIZER LIST
 // Make pure virtual for get abstract class
 
-
 Warrior::Warrior(UnitStats stats) {
 
     health = stats.hp;
@@ -20,7 +19,7 @@ Warrior::Warrior(UnitStats stats) {
 };
 
 
-bool Warrior::is_Alive() {
+bool Warrior::is_Alive() const{
     return health>0;
 };
 
@@ -36,10 +35,10 @@ void Warrior::attack_Enemy(Warrior& enemy) {
     enemy.take_Damage(calc_final_damage);
 };
 
-int Warrior::get_Health() {
+int Warrior::get_Health() const{
     return health;
 };
 
-int Warrior::get_Attack() {
+int Warrior::get_Attack() const{
     return attack;
 }

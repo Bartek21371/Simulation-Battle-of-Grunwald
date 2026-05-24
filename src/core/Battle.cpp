@@ -56,13 +56,22 @@ void Battle::do_Round() {
 
 
 // Getter
-int Battle::get_Round() const {
+int Battle::get_Rounds() const {
     return round;
 }
 
 std::string Battle::get_Winner() const {
     return winner;
 }
+
+const Army& Battle::get_HussarsArmy() const {
+    return Hussars;
+}
+
+const Army& Battle::get_TeutonicArmy() const {
+    return Teutonic;
+}
+
 
 
 // Helper function for random choice of hussars and teutonic in do_Round
