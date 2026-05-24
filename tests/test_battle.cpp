@@ -25,4 +25,6 @@ TEST_CASE("Test battle", "[battle]") {
         REQUIRE_FALSE(winner.empty());
         REQUIRE( (winner == "Hussars" || winner == "Teutonic") );
     }
+
+    // test for more battles of pairs of armies from csv
 }

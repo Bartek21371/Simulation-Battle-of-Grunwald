@@ -5,24 +5,25 @@
 #include <random>
 #include <core/Army.hpp>
 
-// ADD INITLIAZER LIST
-Army::Army(FractionConfig config) {
 
-    name = config.fraction;
-    attackBonus = 0;
-    defenseBonus = 0;
-    moraleLevel = 0;
+Army::Army(FractionConfig config):
+    name(config.fraction),attackBonus(0),defenseBonus(0),moraleLevel(0){
+
+
+    if (!config.valid) {
+        throw std::runtime_error("Invalid config");
+    }
 
     for (int i = 0; i<config.knight_count; i++) {
-        warriors.push_back(Warrior(config.knight_stats));
+        warriors.emplace_back(config.knight_stats);
     }
 
     for (int i = 0; i<config.archer_count; i++) {
-        warriors.push_back(Warrior(config.archer_stats));
+        warriors.emplace_back(config.archer_stats);
     }
 
     for (int i = 0; i<config.cavalry_count; i++) {
-        warriors.push_back(Warrior(config.cavalry_stats));
+        warriors.emplace_back(config.cavalry_stats);
     }
 }
 
@@ -49,7 +50,7 @@ Warrior& Army::get_RandomAliveWarrior() {
 
     for (Warrior& w : warriors) {
         if (w.is_Alive()) {
-            aliveWarriors.push_back(&w);
+            aliveWarriors.emplace_back(&w);
         }
     }
 
