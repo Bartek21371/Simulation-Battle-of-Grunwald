@@ -1,14 +1,23 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <config/ConfigLoader.hpp>
 #include <core/Battle.hpp>
+#include <reports/BattleReport.hpp>
 
-// Battle loop
+// Battle loop with load config and save result
 
 void battle() {
     std::vector<FractionConfig> config = ConfigLoader::LoadFromFile("../assets/configs/testfile_someinfected.csv",false);
 
     int battleNumber{1};
+
+    std::string filename = "../assets/reports/battleReport1.csv";
+
+    std::ofstream file(filename);
+    file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Status\n";
+    file.close();
+
 
     for (size_t i = 0; i < config.size()-1; i+=2) {
         try {
@@ -17,10 +26,10 @@ void battle() {
             std::cout<<config[i].fraction<<" vs "<<config[i+1].fraction<<"\n";
             std::cout<<"========================"<<"\n";
 
-            Army Hussars = Army(config[i]);
-            Army Teutonic = Army(config[i + 1]);
+            Army Hussars(config[i]);
+            Army Teutonic(config[i + 1]);
 
-            Battle battle = Battle(Hussars, Teutonic);
+            Battle battle(Hussars, Teutonic);
 
             battle.start_Battle();
 
@@ -29,13 +38,17 @@ void battle() {
             std::cout<<"Alive "<<config[i].fraction<<":"<<battle.get_HussarsArmy().count_AliveWarriors()<<"\n";
             std::cout<<"Alive "<<config[i+1].fraction<<":"<<battle.get_TeutonicArmy().count_AliveWarriors()<<"\n";
 
-            battleNumber++;
+            BattleReport::save(battle, filename, battleNumber);
+
         }
         catch (const std::exception& e) {
-                std::cout<<"Battle skipped: "<<e.what()<<"\n";
-        }
-    }
+            std::cout<<"Battle skipped: "<<e.what()<<"\n";
 
+            BattleReport::save_skipped(filename, battleNumber, e.what());
+        }
+
+        battleNumber++;
+    }
 }
 
 int main() {

@@ -3,6 +3,8 @@
 cmake-build-*/
 build/
 
+
+assets/reports/
 *.o
 *.out
 *.exe

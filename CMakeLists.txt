@@ -23,6 +23,8 @@ add_executable(
         src/core/Army.cpp
         src/warriors/Warrior.cpp
         src/config/ConfigLoader.cpp
+        include/reports/BattleReport.hpp
+        src/reports/BattleReport.cpp
 
 )
 
@@ -47,6 +49,7 @@ add_executable(
         src/core/Army.cpp
         src/warriors/Warrior.cpp
         src/config/ConfigLoader.cpp
+        tests/test_resultsave.cpp
 )
 
 target_include_directories(
