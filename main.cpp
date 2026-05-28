@@ -15,7 +15,7 @@ void battle() {
     std::string filename = "../assets/reports/battleReport1.csv";
 
     std::ofstream file(filename);
-    file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Status\n";
+    file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Status,Date\n";
     file.close();
 
 
