@@ -4,6 +4,10 @@
 
 #include <warriors/Archer.hpp>
 #include <core/UnitStats.hpp>
+#include "utils/Random.hpp"
+
+// Archer(light unit) logic and attributes
+
 
 Archer::Archer(const UnitStats& stats) :
     Warrior(stats),
@@ -13,18 +17,14 @@ Archer::Archer(const UnitStats& stats) :
 
 void Archer::attack_Enemy(Warrior& enemy) {
     enemy.take_Damage(get_Attack());
+
+    if (Random::random_Int(1, 100) <= 20) {
+        enemy.take_Damage(get_Attack());
+    }
+
 }
 
-
-/*
 void Archer::take_Damage(double damage) {
-    health -= (damage);
-    if (health <= 0) health = 0;
+    damage*=1.2;
+    Warrior::take_Damage(damage);
 };
-
-
-void Archer::attack_Enemy(Warrior& enemy) {
-    double calc_final_damage = attack*(100.0/(100.0+enemy.defense));
-    enemy.take_Damage(calc_final_damage);
-};
-*/

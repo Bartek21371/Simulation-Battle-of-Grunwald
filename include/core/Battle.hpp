@@ -28,8 +28,6 @@ public:
 
     void do_Round();
 
-    static int random_Number(int min, int max);
-
     // Getter
     int get_Rounds() const;
     std::string get_Winner() const;

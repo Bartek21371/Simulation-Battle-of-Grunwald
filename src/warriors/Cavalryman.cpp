@@ -5,26 +5,30 @@
 #include <warriors/Cavalryman.hpp>
 #include <core/UnitStats.hpp>
 
+// Cavalryman(medium unit) logic and attributes
+
+
 Cavalryman::Cavalryman(const UnitStats& stats) :
     Warrior(stats),
+    firstAttack(true),
     atkBonus(10),
     defBonus(5)
 {}
 
 void Cavalryman::attack_Enemy(Warrior& enemy) {
-    enemy.take_Damage(get_Attack());
+
+    int damage = get_Attack();
+
+    if (firstAttack) {
+        damage*=2;
+        firstAttack=false;
+    }
+
+    enemy.take_Damage(damage);
+
 }
 
-
-/*
-void Archer::take_Damage(double damage) {
-    health -= (damage);
-    if (health <= 0) health = 0;
+void Cavalryman::take_Damage(double damage) {
+    damage*=0.95;
+    Warrior::take_Damage(damage);
 };
-
-
-void Archer::attack_Enemy(Warrior& enemy) {
-    double calc_final_damage = attack*(100.0/(100.0+enemy.defense));
-    enemy.take_Damage(calc_final_damage);
-};
-*/

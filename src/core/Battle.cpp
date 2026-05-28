@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include <core/Battle.hpp>
+#include <utils/Random.hpp>
 
 
 /*
@@ -38,7 +39,7 @@ void Battle::do_Round() {
 
     Warrior& teutonic = Teutonic.get_RandomAliveWarrior();
 
-    if (random_Number(0,1)==0) {
+    if (Random::random_Int(0,1)==0) {
         hussars.attack_Enemy(teutonic);
         if (teutonic.is_Alive()) {
             teutonic.attack_Enemy(hussars);
@@ -71,19 +72,6 @@ const Army& Battle::get_HussarsArmy() const {
 const Army& Battle::get_TeutonicArmy() const {
     return Teutonic;
 }
-
-
-
-// Helper function for random choice of hussars and teutonic in do_Round
-int Battle::random_Number(int min, int max) {
-
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::uniform_int_distribution<> numberRange(min, max);
-
-    return numberRange(gen);
-}
-
 
 
 

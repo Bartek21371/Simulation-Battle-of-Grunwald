@@ -42,8 +42,6 @@ public:
 
     Warrior& get_RandomAliveWarrior();
 
-    static int random_Number(int min, int max);
-
     /*
     int get_attackBonus() const;
     int get_defenseBonus() const;

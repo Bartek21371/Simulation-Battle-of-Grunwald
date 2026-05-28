@@ -28,6 +28,8 @@ add_executable(
         src/config/ConfigLoader.cpp
         include/reports/BattleReport.hpp
         src/reports/BattleReport.cpp
+        include/utils/Random.hpp
+        src/utils/Random.cpp
 
 )
 

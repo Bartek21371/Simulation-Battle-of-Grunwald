@@ -16,8 +16,7 @@ public:
     explicit Archer(const UnitStats& stats);
 
     void attack_Enemy(Warrior& enemy) override;
-
-    //void take_Damage(double damage) override;
+    void take_Damage(double damage) override;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_ARCHER_HPP

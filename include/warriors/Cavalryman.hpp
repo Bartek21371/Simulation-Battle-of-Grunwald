@@ -9,6 +9,7 @@
 
 class Cavalryman : public Warrior {
 private:
+    bool firstAttack;
     int atkBonus;
     int defBonus;
 
@@ -16,8 +17,7 @@ public:
     explicit Cavalryman(const UnitStats& stats);
 
     void attack_Enemy(Warrior& enemy) override;
-
-    //void take_Damage(double damage) override;
+    void take_Damage(double damage) override;
 
 };
 
