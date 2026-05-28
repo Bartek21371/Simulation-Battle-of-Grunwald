@@ -30,7 +30,7 @@ void Warrior::take_Damage(const double damage) {
 
 // !!! ADD MORE EXTENDED VERSIO OF CALC DAMAGE (COUNT OF KNIGHTS ETC...)
 
-void Warrior::attack_Enemy(Warrior& enemy) {
+void Warrior::attack_Enemy(Warrior& enemy, double moraleModifier) {
     double calc_final_damage = attack*(100.0/(100.0+enemy.defense));
     enemy.take_Damage(calc_final_damage);
 };

@@ -65,3 +65,24 @@ Warrior& Army::get_RandomAliveWarrior() {
     int randomWarrior_id = Random::random_Int(0, static_cast<int>(aliveWarriors.size())-1);
     return *aliveWarriors[randomWarrior_id];
 }
+
+double Army::get_MoraleModifier() const {
+    if (moraleLevel >= 70) {
+        return 1.2;
+    }
+    if (moraleLevel <= 30) {
+        return 0.8;
+    }
+
+    return 1.0;
+}
+
+void Army::increase_Morale(int amount) {
+    moraleLevel += amount;
+    moraleLevel = std::min(moraleLevel,100);
+}
+
+void Army::decrease_Morale(int amount) {
+    moraleLevel -= amount;
+    moraleLevel = std::max(moraleLevel,0);
+}

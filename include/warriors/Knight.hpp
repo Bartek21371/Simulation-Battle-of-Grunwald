@@ -16,7 +16,7 @@ public:
     explicit Knight(const UnitStats& stats);
 
 
-    void attack_Enemy(Warrior& enemy) override;
+    void attack_Enemy(Warrior& enemy, double moraleModifier) override;
     void take_Damage(double damage) override;
 
 };

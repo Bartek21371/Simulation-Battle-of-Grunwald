@@ -13,8 +13,10 @@ Knight::Knight(const UnitStats& stats) :
     defBonus(10)
 {}
 
-void Knight::attack_Enemy(Warrior& enemy) {
-    enemy.take_Damage(get_Attack());
+void Knight::attack_Enemy(Warrior& enemy, double moraleModifier) {
+    int damage = (get_Attack()*moraleModifier);
+
+    enemy.take_Damage(damage);
 }
 
 void Knight::take_Damage(double damage) {

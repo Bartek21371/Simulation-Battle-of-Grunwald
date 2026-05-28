@@ -40,16 +40,25 @@ void Battle::do_Round() {
     Warrior& teutonic = Teutonic.get_RandomAliveWarrior();
 
     if (Random::random_Int(0,1)==0) {
-        hussars.attack_Enemy(teutonic);
+        hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier());
         if (teutonic.is_Alive()) {
-            teutonic.attack_Enemy(hussars);
+            teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier());
         }
     }
     else {
-        teutonic.attack_Enemy(hussars);
+        teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier());
         if (hussars.is_Alive()) {
-            hussars.attack_Enemy(teutonic);
+            hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier());
         }
+    }
+
+    if (!hussars.is_Alive()) {
+        Hussars.decrease_Morale(5);
+        Teutonic.increase_Morale(5);
+    }
+    if (!teutonic.is_Alive()) {
+        Teutonic.decrease_Morale(5);
+        Hussars.increase_Morale(5);
     }
 
     round++;

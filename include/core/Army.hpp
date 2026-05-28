@@ -42,6 +42,11 @@ public:
 
     Warrior& get_RandomAliveWarrior();
 
+    double get_MoraleModifier() const;
+
+    void increase_Morale(int amount);
+    void decrease_Morale(int amount);
+
     /*
     int get_attackBonus() const;
     int get_defenseBonus() const;
