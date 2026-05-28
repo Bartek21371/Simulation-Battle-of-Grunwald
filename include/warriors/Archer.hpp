@@ -5,7 +5,7 @@
 #ifndef SIMULATION_BATTLE_OF_GRUNWALD_ARCHER_HPP
 #define SIMULATION_BATTLE_OF_GRUNWALD_ARCHER_HPP
 
-#include <warriors/warrior.hpp>
+#include <warriors/Warrior.hpp>
 
 class Archer : public Warrior {
 private:
@@ -15,9 +15,9 @@ private:
 public:
     explicit Archer(const UnitStats& stats);
 
-    //void take_Damage(double damage) override;
+    void attack_Enemy(Warrior& enemy) override;
 
-    //void attack_Enemy(Warrior& enemy) override;
+    //void take_Damage(double damage) override;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_ARCHER_HPP

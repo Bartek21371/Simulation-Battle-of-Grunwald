@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include <warriors/Warrior.hpp>
 #include <config/FractionConfig.hpp>
@@ -22,7 +23,7 @@ class Army {
 private:
 
     std::string name;
-    std::vector<Warrior> warriors;
+    std::vector<std::shared_ptr<Warrior>> warriors;
 
     int attackBonus;
     int defenseBonus;
@@ -33,9 +34,9 @@ public:
 
     Army(FractionConfig config);
 
-    int get_ArmySize();
+    int get_ArmySize() const;
 
-    std::vector<Warrior>& get_Warriors();
+    const std::vector<std::shared_ptr<Warrior>>& get_Warriors() const;
 
     int count_AliveWarriors() const;
 

@@ -27,7 +27,7 @@ public:
 
     virtual void take_Damage(double damage);
 
-    virtual void attack_Enemy(Warrior& enemy);
+    virtual void attack_Enemy(Warrior& enemy) = 0;
 
     bool is_Alive() const;
 

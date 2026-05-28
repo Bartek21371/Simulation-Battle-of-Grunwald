@@ -5,7 +5,7 @@
 #ifndef SIMULATION_BATTLE_OF_GRUNWALD_KNIGHT_HPP
 #define SIMULATION_BATTLE_OF_GRUNWALD_KNIGHT_HPP
 
-#include <warriors/warrior.hpp>
+#include <warriors/Warrior.hpp>
 
 class Knight : public Warrior {
 private:
@@ -15,9 +15,10 @@ private:
 public:
     explicit Knight(const UnitStats& stats);
 
+    void attack_Enemy(Warrior& enemy) override;
+
     //void take_Damage(double damage) override;
 
-    //void attack_Enemy(Warrior& enemy) override;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_KNIGHT_HPP

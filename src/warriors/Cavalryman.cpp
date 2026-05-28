@@ -11,6 +11,11 @@ Cavalryman::Cavalryman(const UnitStats& stats) :
     defBonus(5)
 {}
 
+void Cavalryman::attack_Enemy(Warrior& enemy) {
+    enemy.take_Damage(get_Attack());
+}
+
+
 /*
 void Archer::take_Damage(double damage) {
     health -= (damage);
