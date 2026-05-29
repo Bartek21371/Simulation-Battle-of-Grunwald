@@ -3,23 +3,54 @@
 //
 
 #include <events/Weather.hpp>
+#include <utils/Random.hpp>
 
 
-int Weather::effect_on_Battle_Atc() const {
+Weather::Weather() {
+    int weather = Random::random_Int(0, 3);
 
-    if (weather_Name == "SUNNY") return 10;
-    if (weather_Name == "RAINY") return 11;
-    if (weather_Name == "CLOUDY") return 12;
-    if (weather_Name == "SNOWY") return 13;
-    return 0;
+    switch (weather) {
+        case 0:
+            weatherType = WeatherType::SUNNY;
+            break;
+        case 1:
+            weatherType = WeatherType::RAINY;
+            break;
+        case 2:
+            weatherType = WeatherType::FOGGY;
+            break;
+        case 3:
+            weatherType = WeatherType::SNOWY;
+            break;
+    }
+}
+
+double Weather::effect_on_Battle_Atc() const {
+    switch (weatherType) {
+        case WeatherType::SUNNY:
+            return 1.0;
+        case WeatherType::RAINY:
+            return 0.87;
+        case WeatherType::FOGGY:
+            return 0.5;
+        case WeatherType::SNOWY:
+            return 0.45;
+    }
+    return 1.0;
+
 }
 
 
-int Weather::effect_on_Battle_Def() const {
-
-    if (weather_Name == "SUNNY") return 3;
-    if (weather_Name == "RAINY") return 4;
-    if (weather_Name == "CLOUDY") return 5;
-    if (weather_Name == "SNOWY") return 6;
-    return 0;
+double Weather::effect_on_Battle_Def() const {
+    switch (weatherType) {
+        case WeatherType::SUNNY:
+            return 1.0;
+        case WeatherType::RAINY:
+            return 0.95;
+        case WeatherType::FOGGY:
+            return 0.6;
+        case WeatherType::SNOWY:
+            return 0.8;
+    }
+    return 1.0;
 }

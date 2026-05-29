@@ -32,7 +32,7 @@ void battle() {
             Battle battle(Hussars, Teutonic);
 
             battle.start_Battle();
-
+            std::cout<<"Weather: "<<battle.
             std::cout<<"Winner: "<<battle.get_Winner()<<"\n";
             std::cout<<"Rounds: "<<battle.get_Rounds()<<"\n";
             std::cout<<"Alive "<<config[i].fraction<<":"<<battle.get_HussarsArmy().count_AliveWarriors()<<"\n";

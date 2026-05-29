@@ -15,9 +15,9 @@ Cavalryman::Cavalryman(const UnitStats& stats) :
     defBonus(5)
 {}
 
-void Cavalryman::attack_Enemy(Warrior& enemy, double moraleModifier) {
+void Cavalryman::attack_Enemy(Warrior& enemy, double moraleModifier, double effect_on_Battle_Atc) {
 
-    int damage = (get_Attack()*moraleModifier);
+    int damage = (get_Attack()*moraleModifier*effect_on_Battle_Atc);
 
     if (firstAttack) {
         damage*=2;

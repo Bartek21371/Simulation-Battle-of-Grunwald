@@ -3,18 +3,21 @@
 
 #include <string>
 #include <core/Army.hpp>
+#include <events/Weather.hpp>
 
 class Battle {
 private:
 
     Army Hussars;
     Army Teutonic;
-    //if army1.valid && army2.valid
+
     int round{};
     std::string winner{};
 
+    Weather weather;
 
-    /*Weather weather;
+
+    /*;
     BattleStats stats;
 
     std::vector<std::shared_ptr<RandomEvent>> randomEvents;
@@ -33,6 +36,7 @@ public:
     std::string get_Winner() const;
     const Army& get_HussarsArmy() const;
     const Army& get_TeutonicArmy() const;
+    std::string get_Weather() const;
 
 
     /*void apply_Weather();

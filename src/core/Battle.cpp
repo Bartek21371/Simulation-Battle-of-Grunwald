@@ -14,7 +14,7 @@ Battle::Battle() :   // to do
 // Main loop of battle ( attack and defend )
 
 Battle::Battle(Army& HussarsArmy, Army& TeutonicArmy):
-    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1),winner({}){
+    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1),winner({}),weather(){
 }
 
 // Start Battle loop
@@ -39,16 +39,18 @@ void Battle::do_Round() {
 
     Warrior& teutonic = Teutonic.get_RandomAliveWarrior();
 
+    double weatherModifier_atc = weather.effect_on_Battle_Atc();
+
     if (Random::random_Int(0,1)==0) {
-        hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier());
+        hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier_atc);
         if (teutonic.is_Alive()) {
-            teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier());
+            teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier_atc);
         }
     }
     else {
-        teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier());
+        teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier_atc);
         if (hussars.is_Alive()) {
-            hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier());
+            hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier_atc);
         }
     }
 
@@ -82,6 +84,9 @@ const Army& Battle::get_TeutonicArmy() const {
     return Teutonic;
 }
 
+std::string Battle::get_Weather() const {
+    return std::to_string(double weather); //sss
+}
 
 
 /*

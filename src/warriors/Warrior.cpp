@@ -7,15 +7,10 @@
 
 
 // ADD INITALIZER LIST
-// Make pure virtual for get abstract class
+// Abstract warrior class
 
-Warrior::Warrior(UnitStats stats) {
+Warrior::Warrior(UnitStats stats): health(stats.hp), attack(stats.attack), defense(stats.defense), alive(true) {
 
-    health = stats.hp;
-    attack = stats.attack;
-    defense = stats.defense;
-
-    alive = true;
 };
 
 
@@ -30,7 +25,7 @@ void Warrior::take_Damage(const double damage) {
 
 // !!! ADD MORE EXTENDED VERSIO OF CALC DAMAGE (COUNT OF KNIGHTS ETC...)
 
-void Warrior::attack_Enemy(Warrior& enemy, double moraleModifier) {
+void Warrior::attack_Enemy(Warrior& enemy, double moraleModifier, double weatherModifier_atc) {
     double calc_final_damage = attack*(100.0/(100.0+enemy.defense));
     enemy.take_Damage(calc_final_damage);
 };

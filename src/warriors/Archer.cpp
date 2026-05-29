@@ -15,8 +15,8 @@ Archer::Archer(const UnitStats& stats) :
     defBonus(0)
 {}
 
-void Archer::attack_Enemy(Warrior& enemy, double moraleModifier) {
-    int damage = (get_Attack()*moraleModifier);
+void Archer::attack_Enemy(Warrior& enemy, double moraleModifier, double effect_on_Battle_Atc) {
+    int damage = (get_Attack()*moraleModifier*effect_on_Battle_Atc);
     enemy.take_Damage(damage);
 
     if (Random::random_Int(1, 100) <= 20) {
