@@ -22,6 +22,10 @@ void BattleReport::save(const Battle& battle, const std::string& filename, int b
     <<battle.get_Rounds()<<","
     <<battle.get_HussarsArmy().count_AliveWarriors()<<","
     <<battle.get_TeutonicArmy().count_AliveWarriors()<<","
+    <<battle.get_Stats().get_HussarsDamage_Dealt()<<","
+    <<battle.get_Stats().get_TeutonicDamage_Dealt()<<","
+    <<battle.get_Stats().get_HussarsKills()<<","
+    <<battle.get_Stats().get_TeutonicKills()<<","
     <<battle.get_Weather()<<","
     <<"OK"<<","
     <<date<<"\n";
@@ -33,6 +37,10 @@ void BattleReport::save_skipped(const std::string& filename, int battleNumber, c
 
     file<<battleNumber<<","
     <<"SKIPPED"<<","
+    <<"-"<<","
+    <<"-"<<","
+    <<"-"<<","
+    <<"-"<<","
     <<"-"<<","
     <<"-"<<","
     <<"-"<<","

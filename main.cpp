@@ -15,7 +15,7 @@ void battle() {
     std::string filename = "../assets/reports/battleReport1.csv";
 
     std::ofstream file(filename);
-    file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Weather,Status,Date\n";
+    file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Hussars Total Damage,Teutonic Total Damage,Hussars Kills,Teutonic Kills,Weather,Status,Date\n";
     file.close();
 
 
@@ -33,10 +33,19 @@ void battle() {
 
             battle.start_Battle();
             std::cout<<"Weather: "<<battle.get_Weather()<<"\n";
+
             std::cout<<"Winner: "<<battle.get_Winner()<<"\n";
+
             std::cout<<"Rounds: "<<battle.get_Rounds()<<"\n";
+
             std::cout<<"Alive "<<config[i].fraction<<":"<<battle.get_HussarsArmy().count_AliveWarriors()<<"\n";
             std::cout<<"Alive "<<config[i+1].fraction<<":"<<battle.get_TeutonicArmy().count_AliveWarriors()<<"\n";
+
+            std::cout<<"Hussars Total Damage: "<<battle.get_Stats().get_HussarsDamage_Dealt()<<"\n";
+            std::cout<<"Teutonic Total Damage: "<<battle.get_Stats().get_TeutonicDamage_Dealt()<<"\n";
+
+            std::cout<<"Hussars kills: "<<battle.get_Stats().get_HussarsKills()<<"\n";
+            std::cout<<"Teutonic kills: "<<battle.get_Stats().get_TeutonicKills()<<"\n";
 
             BattleReport::save(battle, filename, battleNumber);
 

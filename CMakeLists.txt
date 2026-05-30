@@ -32,6 +32,8 @@ add_executable(
         src/utils/Random.cpp
         include/events/WeatherType.hpp
         src/events/Weather.cpp
+        include/core/BattleStats.hpp
+        src/core/BattleStats.cpp
 
 )
 

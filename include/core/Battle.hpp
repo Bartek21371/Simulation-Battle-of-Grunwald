@@ -2,8 +2,11 @@
 #define SIMULATION_BATTLE_OF_GRUNWALD_BATTLE_HPP
 
 #include <string>
+
 #include <core/Army.hpp>
 #include <events/Weather.hpp>
+#include "BattleStats.hpp"
+
 
 class Battle {
 private:
@@ -16,10 +19,9 @@ private:
 
     Weather weather;
 
-
-    /*;
     BattleStats stats;
 
+    /*;
     std::vector<std::shared_ptr<RandomEvent>> randomEvents;
     */
 
@@ -33,19 +35,16 @@ public:
 
     // Getter
     int get_Rounds() const;
+
     std::string get_Winner() const;
+
     const Army& get_HussarsArmy() const;
     const Army& get_TeutonicArmy() const;
+
     std::string get_Weather() const;
 
+    const BattleStats& get_Stats() const;
 
-    /*void apply_Weather();
-    void activate_Random_Event();*/
-
-    /*BattleResult check_Winner();
-    BattleStats& get_Stats();*/
-
-    //int get_Round() const;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_BATTLE_HPP

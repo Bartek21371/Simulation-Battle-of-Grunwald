@@ -6,15 +6,15 @@
 
 
 /*
-Battle::Battle() :   // to do
-    weather(get_weather),
     randomEvents(get_randomEvents)
 */
+
+
 
 // Main loop of battle ( attack and defend )
 
 Battle::Battle(Army& HussarsArmy, Army& TeutonicArmy):
-    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1),winner({}),weather(){
+    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1),winner({}),weather(),stats(){
 }
 
 // Start Battle loop
@@ -41,26 +41,54 @@ void Battle::do_Round() {
 
     WeatherType weatherModifier = weather.get_WeatherType();
 
+    double damage_dealt{};
+
     if (Random::random_Int(0,1)==0) {
+        damage_dealt = teutonic.get_Health();
+
         hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier);
+
+        damage_dealt -= teutonic.get_Health();
+        stats.add_HussarsDamage(damage_dealt);
+
         if (teutonic.is_Alive()) {
+            damage_dealt = hussars.get_Health();
+
             teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier);
+
+            damage_dealt -= hussars.get_Health();
+            stats.add_TeutonicDamage(damage_dealt);
         }
     }
     else {
+        damage_dealt = hussars.get_Health();
+
         teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier);
+
+        damage_dealt -= hussars.get_Health();
+        stats.add_TeutonicDamage(damage_dealt);
+
         if (hussars.is_Alive()) {
+            damage_dealt = teutonic.get_Health();
+
             hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier);
+
+            damage_dealt -= teutonic.get_Health();
+            stats.add_HussarsDamage(damage_dealt);
         }
     }
 
     if (!hussars.is_Alive()) {
         Hussars.decrease_Morale(5);
         Teutonic.increase_Morale(5);
+
+        stats.add_TeutonicKill();
     }
     if (!teutonic.is_Alive()) {
         Teutonic.decrease_Morale(5);
         Hussars.increase_Morale(5);
+
+        stats.add_HussarsKill();
     }
 
     round++;
@@ -88,13 +116,12 @@ std::string Battle::get_Weather() const {
     return weather.to_String();
 }
 
-
-/*
-
-void Battle::apply_Weather() {
-    weather.effect_on_Battle();
+const BattleStats& Battle::get_Stats() const {
+    return stats;
 }
 
+
+/*
 void Battle::activate_Random_Event() {
 
     if (randomEvents.empty()) {
