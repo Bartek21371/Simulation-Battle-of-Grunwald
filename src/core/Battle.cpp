@@ -85,7 +85,7 @@ const Army& Battle::get_TeutonicArmy() const {
 }
 
 std::string Battle::get_Weather() const {
-    return std::to_string(double weather); //sss
+    return weather.to_String();
 }
 
 

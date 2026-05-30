@@ -15,7 +15,7 @@ void battle() {
     std::string filename = "../assets/reports/battleReport1.csv";
 
     std::ofstream file(filename);
-    file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Status,Date\n";
+    file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Weather,Status,Date\n";
     file.close();
 
 
@@ -32,7 +32,7 @@ void battle() {
             Battle battle(Hussars, Teutonic);
 
             battle.start_Battle();
-            std::cout<<"Weather: "<<battle.
+            std::cout<<"Weather: "<<battle.get_Weather()<<"\n";
             std::cout<<"Winner: "<<battle.get_Winner()<<"\n";
             std::cout<<"Rounds: "<<battle.get_Rounds()<<"\n";
             std::cout<<"Alive "<<config[i].fraction<<":"<<battle.get_HussarsArmy().count_AliveWarriors()<<"\n";

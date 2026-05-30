@@ -54,3 +54,18 @@ double Weather::effect_on_Battle_Def() const {
     }
     return 1.0;
 }
+
+std::string Weather::to_String() const {
+    switch (weatherType) {
+        case WeatherType::SUNNY:
+            return "SUNNY";
+        case WeatherType::RAINY:
+            return "RAINY";
+        case WeatherType::FOGGY:
+            return "FOGGY";
+        case WeatherType::SNOWY:
+            return "SNOWY";
+    }
+
+    return "UNKNOWN";
+}
