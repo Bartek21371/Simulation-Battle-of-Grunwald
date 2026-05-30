@@ -39,18 +39,18 @@ void Battle::do_Round() {
 
     Warrior& teutonic = Teutonic.get_RandomAliveWarrior();
 
-    double weatherModifier_atc = weather.effect_on_Battle_Atc();
+    WeatherType weatherModifier = weather.get_WeatherType();
 
     if (Random::random_Int(0,1)==0) {
-        hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier_atc);
+        hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier);
         if (teutonic.is_Alive()) {
-            teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier_atc);
+            teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier);
         }
     }
     else {
-        teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier_atc);
+        teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier);
         if (hussars.is_Alive()) {
-            hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier_atc);
+            hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier);
         }
     }
 

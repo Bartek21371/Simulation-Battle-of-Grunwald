@@ -16,8 +16,9 @@ public:
     explicit Knight(const UnitStats& stats);
 
 
-    void attack_Enemy(Warrior& enemy, double moraleModifier, double weatherModifier_atc) override;
+    void attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType weather) override;
     void take_Damage(double damage) override;
+    double get_WeatherModifier(WeatherType weather) const override;
 
 };
 

@@ -25,36 +25,13 @@ Weather::Weather() {
     }
 }
 
-double Weather::effect_on_Battle_Atc() const {
-    switch (weatherType) {
-        case WeatherType::SUNNY:
-            return 1.0;
-        case WeatherType::RAINY:
-            return 0.87;
-        case WeatherType::FOGGY:
-            return 0.5;
-        case WeatherType::SNOWY:
-            return 0.45;
-    }
-    return 1.0;
-
+// Get weather type for modify stats of each subclass warrior
+WeatherType Weather::get_WeatherType() const {
+    return weatherType;
 }
 
 
-double Weather::effect_on_Battle_Def() const {
-    switch (weatherType) {
-        case WeatherType::SUNNY:
-            return 1.0;
-        case WeatherType::RAINY:
-            return 0.95;
-        case WeatherType::FOGGY:
-            return 0.6;
-        case WeatherType::SNOWY:
-            return 0.8;
-    }
-    return 1.0;
-}
-
+// Switch to string for showing in program and saving result
 std::string Weather::to_String() const {
     switch (weatherType) {
         case WeatherType::SUNNY:

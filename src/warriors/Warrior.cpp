@@ -5,6 +5,8 @@
 #include <warriors/Warrior.hpp>
 #include <core/UnitStats.hpp>
 
+#include "events/WeatherType.hpp"
+
 
 // ADD INITALIZER LIST
 // Abstract warrior class
@@ -23,12 +25,7 @@ void Warrior::take_Damage(const double damage) {
     if (health <= 0) health = 0;
 };
 
-// !!! ADD MORE EXTENDED VERSIO OF CALC DAMAGE (COUNT OF KNIGHTS ETC...)
-
-void Warrior::attack_Enemy(Warrior& enemy, double moraleModifier, double weatherModifier_atc) {
-    double calc_final_damage = attack*(100.0/(100.0+enemy.defense));
-    enemy.take_Damage(calc_final_damage);
-};
+// Getters
 
 int Warrior::get_Health() const{
     return health;
@@ -36,4 +33,8 @@ int Warrior::get_Health() const{
 
 int Warrior::get_Attack() const{
     return attack;
+}
+
+int Warrior::get_Defense() const {
+    return defense;
 }

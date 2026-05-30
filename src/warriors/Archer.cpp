@@ -15,8 +15,25 @@ Archer::Archer(const UnitStats& stats) :
     defBonus(0)
 {}
 
-void Archer::attack_Enemy(Warrior& enemy, double moraleModifier, double effect_on_Battle_Atc) {
-    int damage = (get_Attack()*moraleModifier*effect_on_Battle_Atc);
+double Archer::get_WeatherModifier(WeatherType weather) const {
+    switch (weather) {
+        case WeatherType::SUNNY:
+            return 1.0;
+        case WeatherType::RAINY:
+            return 0.75;
+        case WeatherType::FOGGY:
+            return 0.65;
+        case WeatherType::SNOWY:
+            return 0.85;
+    }
+    return 1.0;
+
+}
+
+void Archer::attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType weather) {
+    double damage = (get_Attack()*moraleModifier*get_WeatherModifier(weather));
+    damage *= (100.0 / (100.0+enemy.get_Defense()));
+
     enemy.take_Damage(damage);
 
     if (Random::random_Int(1, 100) <= 20) {

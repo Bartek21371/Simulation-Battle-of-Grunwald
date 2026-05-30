@@ -15,9 +15,24 @@ Cavalryman::Cavalryman(const UnitStats& stats) :
     defBonus(5)
 {}
 
-void Cavalryman::attack_Enemy(Warrior& enemy, double moraleModifier, double effect_on_Battle_Atc) {
+double Cavalryman::get_WeatherModifier(WeatherType weather) const {
+    switch (weather) {
+        case WeatherType::SUNNY:
+            return 1.0;
+        case WeatherType::RAINY:
+            return 0.9;
+        case WeatherType::FOGGY:
+            return 0.85;
+        case WeatherType::SNOWY:
+            return 0.70;
+    }
+    return 1.0;
 
-    int damage = (get_Attack()*moraleModifier*effect_on_Battle_Atc);
+}
+
+void Cavalryman::attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType weather) {
+    double damage = (get_Attack()*moraleModifier*get_WeatherModifier(weather));
+    damage *= (100.0 / (100.0+enemy.get_Defense()));
 
     if (firstAttack) {
         damage*=2;

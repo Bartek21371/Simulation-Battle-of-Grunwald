@@ -23,10 +23,10 @@ public:
 
     WeatherType get_Weather() const;
 
-    double effect_on_Battle_Atc() const;
-    double effect_on_Battle_Def() const;
-
     std::string to_String() const;
+
+    // Getter
+    WeatherType get_WeatherType() const;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_WEATHER_HPP

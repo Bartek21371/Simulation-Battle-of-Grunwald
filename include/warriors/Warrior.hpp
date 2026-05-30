@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <core/UnitStats.hpp>
+#include <events/WeatherType.hpp>
 
 // Abstract class of warrior
 
@@ -27,15 +28,18 @@ public:
 
     virtual void take_Damage(double damage);
 
-    virtual void attack_Enemy(Warrior& enemy, double moraleModifier, double weatherModifier_atc) = 0;
+    virtual void attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType weather) = 0;
 
     bool is_Alive() const;
+
+    virtual double get_WeatherModifier(WeatherType weather) const=0;
 
     // Getters
     int get_Health() const;
 
     int get_Attack() const;
 
+    int get_Defense() const;
 };
 
 
