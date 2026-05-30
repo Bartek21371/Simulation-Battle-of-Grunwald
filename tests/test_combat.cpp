@@ -9,6 +9,8 @@
 
 // Test combat of warrior1 on warrior 2
 
+//NEED FIX
+
 TEST_CASE("Attack reduces enemy health", "[combat]") {
     auto configs = ConfigLoader::LoadFromFile("../assets/configs/testfile.csv", false);
 

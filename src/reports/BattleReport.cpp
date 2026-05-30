@@ -9,7 +9,6 @@
 #include "reports/BattleReport.hpp"
 
 void BattleReport::save(const Battle& battle, const std::string& filename, int battleNumber) {
-
     auto now = std::chrono::system_clock::now();
     std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
     std::string date = std::ctime(&currentTime);

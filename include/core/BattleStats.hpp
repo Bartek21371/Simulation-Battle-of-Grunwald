@@ -13,6 +13,25 @@ private:
     int HussarsKills{};
     int TeutonicKills{};
 
+    /* TODODODODO
+    ?????? total hussars and teutonnic
+    int numKnights_Hussars{};
+    int numArchers_Hussars{};
+    int numCavalrymans_Hussars{};
+
+    int numKnights_Teutonic{};
+    int numArchers_Teutonic{};
+    int numCavalrymans_Teutonic{};
+
+    int moraleLevelHussars{};
+    int moraleLevelTeutonic{};
+
+    int ProbabilityVictoryHussars{};
+    int ProbabilityVictoryTeutonic{};
+
+    */
+
+
 public:
     void add_HussarsDamage(double damage);
     void add_TeutonicDamage(double damage);

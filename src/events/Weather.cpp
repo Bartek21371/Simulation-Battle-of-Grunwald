@@ -7,9 +7,8 @@
 
 
 Weather::Weather() {
-    int weather = Random::random_Int(0, 3);
 
-    switch (weather) {
+    switch (Random::random_Int(0, 3)) {
         case 0:
             weatherType = WeatherType::SUNNY;
             break;
@@ -21,6 +20,9 @@ Weather::Weather() {
             break;
         case 3:
             weatherType = WeatherType::SNOWY;
+            break;
+        default:
+            weatherType = WeatherType::SUNNY;
             break;
     }
 }
@@ -42,7 +44,7 @@ std::string Weather::to_String() const {
             return "FOGGY";
         case WeatherType::SNOWY:
             return "SNOWY";
+        default:
+            return "UNKNOWN";
     }
-
-    return "UNKNOWN";
 }

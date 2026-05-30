@@ -5,6 +5,7 @@
 
 #include "core/BattleStats.hpp"
 
+
 void BattleStats::add_HussarsDamage(double damage) {
     HussarsDamage_Dealt+=damage;
 }

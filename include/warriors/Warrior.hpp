@@ -5,7 +5,7 @@
 #ifndef SIMULATION_BATTLE_OF_GRUNWALD_WARRIOR_HPP
 #define SIMULATION_BATTLE_OF_GRUNWALD_WARRIOR_HPP
 
-#include <iostream>
+
 #include <core/UnitStats.hpp>
 #include <events/WeatherType.hpp>
 

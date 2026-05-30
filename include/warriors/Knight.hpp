@@ -9,8 +9,8 @@
 
 class Knight : public Warrior {
 private:
-    int atkBonus;
-    int defBonus;
+    double atkBonus;
+    double defBonus;
 
 public:
     explicit Knight(const UnitStats& stats);

@@ -14,9 +14,6 @@ private:
 
     WeatherType weatherType;
 
-    int modifyAttack;
-    int modifyDefense;
-
 public:
 
     Weather();

@@ -10,9 +10,9 @@
 
 #include <config/ConfigLoader.hpp>
 
-bool is_config_valid(FractionConfig config);
-bool is_integer(std::vector<std::string> str);
-bool isnot_empty_string(std::vector<std::string> str);
+bool is_config_valid(const FractionConfig& config);
+bool is_integer(const std::vector<std::string>& str);
+bool isnot_empty_string(const std::vector<std::string>& str);
 
 
 
@@ -24,6 +24,8 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
 
     std::ifstream file_to_read(filename);
     std::string line;
+
+    constexpr size_t EXPECTED_FIELDS = 13;
 
     // Handle error while opening file broken/unaccessed
     if (!file_to_read) {
@@ -37,6 +39,7 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
     std::getline(file_to_read, line);
 
 
+    // Load each Fraction config
     while (std::getline(file_to_read, line)) {
         if (line.empty() || line[0] == '#') {
             continue;
@@ -55,7 +58,7 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
         }
 
         // Assignment of all corresponding values to fraction and catch errors
-        if (values.size() == 13) {
+        if (values.size() == EXPECTED_FIELDS) {
             try {
                 if (is_integer(values) && isnot_empty_string(values) ) {
                     config.fraction = values[0];
@@ -114,17 +117,17 @@ std::vector<FractionConfig> ConfigLoader::LoadFromFile(const std::string& filena
             config.valid = false;
             configs.push_back(config);
             if (printErrors) {
-                std::cerr << "No enough values!" << filename << "\n";
+                std::cerr << "Not enough values!" << filename << "\n";
             }
         }
     }
 
     return configs;
-};
+}
 
 // Function for checking is all values is correct
 // OPTIONAL SUGGEST add limit for count of types of warriors!
-bool is_config_valid(FractionConfig config) {
+bool is_config_valid(const FractionConfig& config) {
 
     if (config.knight_stats.hp < 0 || config.knight_stats.attack < 0 || config.knight_stats.defense < 0) {
         return false;
@@ -144,10 +147,10 @@ bool is_config_valid(FractionConfig config) {
 
 
 // Validate input is integer
-bool is_integer(const std::vector<std::string> str) {
+bool is_integer(const std::vector<std::string>& str) {
     for (int i = 1; i<13;i++){
         for (char c : str[i]) {
-            if (isdigit(c) == false) {
+            if (!std::isdigit(static_cast<unsigned char>(c))) {
                 return false;
             }
         }
@@ -156,9 +159,9 @@ bool is_integer(const std::vector<std::string> str) {
 }
 
 // Validate is input string not empty
-bool isnot_empty_string(const std::vector<std::string> str) {
+bool isnot_empty_string(const std::vector<std::string>& str) {
     for (int i = 0; i<13;i++) {
-        if (str[i] == "") {
+        if (!str[i].empty()) {
             return false;
         }
     }

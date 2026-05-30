@@ -14,11 +14,6 @@
 #include <config/FractionConfig.hpp>
 
 
-/*enum class ArmyType {
-    typeHussars,
-    typeTeutonic
-};*/
-
 class Army {
 private:
 
@@ -32,9 +27,9 @@ private:
 
 public:
 
-    Army(FractionConfig config);
+    Army(const FractionConfig& config);
 
-    int get_ArmySize() const;
+    std::size_t get_ArmySize() const;
 
     const std::vector<std::shared_ptr<Warrior>>& get_Warriors() const;
 

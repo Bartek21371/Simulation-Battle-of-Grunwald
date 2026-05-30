@@ -5,15 +5,11 @@
 #include <warriors/Warrior.hpp>
 #include <core/UnitStats.hpp>
 
-#include "events/WeatherType.hpp"
 
-
-// ADD INITALIZER LIST
 // Abstract warrior class
 
-Warrior::Warrior(UnitStats stats): health(stats.hp), attack(stats.attack), defense(stats.defense), alive(true) {
-
-};
+Warrior::Warrior(UnitStats stats): health(stats.hp), attack(stats.attack), defense(stats.defense), alive(true)
+{};
 
 
 bool Warrior::is_Alive() const{

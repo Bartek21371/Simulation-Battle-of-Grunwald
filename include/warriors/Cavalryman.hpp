@@ -10,8 +10,8 @@
 class Cavalryman : public Warrior {
 private:
     bool firstAttack;
-    int atkBonus;
-    int defBonus;
+    double atkBonus;
+    double defBonus;
 
 public:
     explicit Cavalryman(const UnitStats& stats);

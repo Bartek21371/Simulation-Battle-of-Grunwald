@@ -10,7 +10,7 @@
 #include "utils/Random.hpp"
 
 
-Army::Army(FractionConfig config):
+Army::Army(const FractionConfig& config):
     name(config.fraction),attackBonus(0),defenseBonus(0),moraleLevel(0){
 
 
@@ -31,7 +31,7 @@ Army::Army(FractionConfig config):
     }
 }
 
-int Army::get_ArmySize() const{
+size_t Army::get_ArmySize() const{
     return warriors.size();
 }
 

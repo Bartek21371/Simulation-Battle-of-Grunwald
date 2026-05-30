@@ -6,7 +6,26 @@
 
 
 /*
+    todo
     randomEvents(get_randomEvents)
+    add helper function for calc damage_dealt>??>?>?
+
+    maybe?:"""::::
+        bool hussarsFirst = Random::random_Int(0,1) == 0;
+
+        if (hussarsFirst)
+        {
+            ...
+        }
+        else
+        {
+            ...
+        }
+
+
+        Maybe there is problem with cost of going through vector of warriors, big armies=big problem?
+        while (Hussars.count_AliveWarriors()>0 &&
+               Teutonic.count_AliveWarriors()>0)
 */
 
 
@@ -14,7 +33,7 @@
 // Main loop of battle ( attack and defend )
 
 Battle::Battle(Army& HussarsArmy, Army& TeutonicArmy):
-    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1),winner({}),weather(),stats(){
+    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1),winner(),weather(),stats(){
 }
 
 // Start Battle loop
@@ -35,11 +54,11 @@ void Battle::start_Battle() {
 // Logic of doing round
 void Battle::do_Round() {
 
-    Warrior& hussars = Hussars.get_RandomAliveWarrior();
+    Warrior& hussars(Hussars.get_RandomAliveWarrior());
 
-    Warrior& teutonic = Teutonic.get_RandomAliveWarrior();
+    Warrior& teutonic(Teutonic.get_RandomAliveWarrior());
 
-    WeatherType weatherModifier = weather.get_WeatherType();
+    WeatherType weatherModifier(weather.get_WeatherType());
 
     double damage_dealt{};
 

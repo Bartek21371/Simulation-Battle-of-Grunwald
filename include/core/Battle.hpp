@@ -27,7 +27,7 @@ private:
 
 public:
 
-    Battle(Army& HussarsArmy,Army& TeutonicArmy);
+    Battle(Army& HussarsArmy, Army& TeutonicArmy);
 
     void start_Battle();
 
