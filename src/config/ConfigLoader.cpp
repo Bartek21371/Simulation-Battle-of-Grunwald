@@ -161,7 +161,7 @@ bool is_integer(const std::vector<std::string>& str) {
 // Validate is input string not empty
 bool isnot_empty_string(const std::vector<std::string>& str) {
     for (int i = 0; i<13;i++) {
-        if (!str[i].empty()) {
+        if (str[i].empty()) {
             return false;
         }
     }

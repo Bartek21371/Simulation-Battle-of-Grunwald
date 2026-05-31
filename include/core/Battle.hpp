@@ -2,10 +2,12 @@
 #define SIMULATION_BATTLE_OF_GRUNWALD_BATTLE_HPP
 
 #include <string>
+#include <vector>
 
 #include <core/Army.hpp>
 #include <events/Weather.hpp>
 #include "BattleStats.hpp"
+#include "observer/BattleObserver.hpp"
 
 
 class Battle {
@@ -21,6 +23,8 @@ private:
 
     BattleStats stats;
 
+    std::vector<BattleObserver*> observers;
+
     /*;
     std::vector<std::shared_ptr<RandomEvent>> randomEvents;
     */
@@ -32,6 +36,10 @@ public:
     void start_Battle();
 
     void do_Round();
+
+    void attach(BattleObserver* observer);
+    void detach(BattleObserver* observer);
+    void notify();
 
     // Getter
     int get_Rounds() const;

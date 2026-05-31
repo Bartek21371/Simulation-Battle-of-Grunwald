@@ -111,6 +111,7 @@ void Battle::do_Round() {
     }
 
     round++;
+    notify();
 }
 
 
@@ -137,6 +138,16 @@ std::string Battle::get_Weather() const {
 
 const BattleStats& Battle::get_Stats() const {
     return stats;
+}
+
+void Battle::attach(BattleObserver* observer) {
+    observers.push_back(observer);
+}
+
+void Battle::notify() {
+    for (BattleObserver* observer : observers) {
+        observer->update();
+    }
 }
 
 
