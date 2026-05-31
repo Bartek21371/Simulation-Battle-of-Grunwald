@@ -5,7 +5,12 @@
 #include <core/Battle.hpp>
 #include <reports/BattleReport.hpp>
 
+//Gui
+#include <QApplication>
+#include <gui/MainWindow.hpp>
+
 // Battle loop with load config and save result
+
 
 void battle() {
     std::vector<FractionConfig> config = ConfigLoader::LoadFromFile("../assets/configs/testfile_someinfected.csv",false);
@@ -60,8 +65,14 @@ void battle() {
     }
 }
 
-int main() {
-    battle();
+int main(int argc, char *argv[]) {
+    //battle();
+    QApplication app(argc, argv);
+    MainWindow mainWindow;
+    mainWindow.show();
+
+    return app.exec();
+
 }
 
 

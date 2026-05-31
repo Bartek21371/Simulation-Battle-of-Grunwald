@@ -3,6 +3,12 @@ project(Simulation_Battle_of_Grunwald)
 
 set(CMAKE_CXX_STANDARD 23)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+find_package(Qt5 REQUIRED COMPONENTS Widgets) #  Qt5 for gui
+
 # Catch2
 include(FetchContent)
 
@@ -34,6 +40,8 @@ add_executable(
         src/events/Weather.cpp
         include/core/BattleStats.hpp
         src/core/BattleStats.cpp
+        src/gui/MainWindow.cpp
+        include/gui/MainWindow.hpp
 
 )
 
@@ -72,4 +80,9 @@ target_include_directories(
 target_link_libraries(
         tests
         PRIVATE Catch2::Catch2WithMain
+)
+
+target_link_libraries(
+        Simulation_Battle_of_Grunwald
+        PRIVATE Qt5::Widgets
 )
