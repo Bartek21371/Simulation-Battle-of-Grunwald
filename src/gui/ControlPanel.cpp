@@ -22,6 +22,16 @@ ControlPanel::ControlPanel(QWidget* parent): QWidget(parent) {
     exitButton->setMinimumHeight(50);
     layout->addWidget(exitButton);
 
+    speedComboBox=new QComboBox(this);
+    speedComboBox->addItem("Slow");
+    speedComboBox->addItem("Normal");
+    speedComboBox->addItem("Fast");
+
+    speedComboBox->setCurrentText("Normal");
+
+    layout->addWidget(speedComboBox);
+
+
     this->setLayout(layout);
 }
 
@@ -35,4 +45,8 @@ QPushButton* ControlPanel::get_LoadButton() const {
 
 QPushButton* ControlPanel::get_ExitButton() const {
     return exitButton;
+}
+
+QComboBox* ControlPanel::get_SpeedComboBox() const {
+    return speedComboBox;
 }

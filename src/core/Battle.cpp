@@ -8,24 +8,6 @@
 /*
     todo
     randomEvents(get_randomEvents)
-    add helper function for calc damage_dealt>??>?>?
-
-    maybe?:"""::::
-        bool hussarsFirst = Random::random_Int(0,1) == 0;
-
-        if (hussarsFirst)
-        {
-            ...
-        }
-        else
-        {
-            ...
-        }
-
-
-        Maybe there is problem with cost of going through vector of warriors, big armies=big problem?
-        while (Hussars.count_AliveWarriors()>0 &&
-               Teutonic.count_AliveWarriors()>0)
 */
 
 
@@ -38,15 +20,9 @@ Battle::Battle(Army& HussarsArmy, Army& TeutonicArmy):
 
 // Start Battle loop
 void Battle::start_Battle() {
-    while (Hussars.count_AliveWarriors()>0 && Teutonic.count_AliveWarriors()>0) {
+    if (is_finished()) {
         do_Round();
-    }
-
-    if (Hussars.count_AliveWarriors()>0) {
-        winner = "Hussars";
-    }
-    else {
-        winner = "Teutonic";
+        finishBattle();
     }
 }
 
@@ -123,6 +99,24 @@ void Battle::do_Round() {
     notify();
 }
 
+bool Battle::is_finished() const {
+    return Hussars.count_AliveWarriors()==0 || Teutonic.count_AliveWarriors()==0;
+}
+
+void Battle::finishBattle() {
+    if (Hussars.count_AliveWarriors()>0) {
+        winner = "Hussars";
+    }
+    else {
+        winner = "Teutonic";
+    }
+}
+
+void Battle::notify() {
+    for (BattleObserver* observer : observers) {
+        observer->update(*this);
+    }
+}
 
 // Getter
 int Battle::get_Rounds() const {
@@ -151,12 +145,6 @@ const BattleStats& Battle::get_Stats() const {
 
 void Battle::attach(BattleObserver* observer) {
     observers.push_back(observer);
-}
-
-void Battle::notify() {
-    for (BattleObserver* observer : observers) {
-        observer->update();
-    }
 }
 
 const std::string& Battle::get_CurrentEvent() const {

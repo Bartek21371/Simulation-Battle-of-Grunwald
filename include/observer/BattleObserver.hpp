@@ -7,11 +7,12 @@
 
 // Interface for stats panel and battle panel
 
+class Battle;
 
 class BattleObserver {
 public:
     virtual ~BattleObserver() = default;
-    virtual void update() = 0;
+    virtual void update(const Battle& battle) = 0;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_BATTLEOBSERVER_HPP

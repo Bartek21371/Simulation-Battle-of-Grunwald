@@ -9,25 +9,31 @@
 #include <QPixmap>
 #include <QHBoxLayout>
 
-void BattlePanel::update() {
-    /*
-    battle->get_Rounds();
 
-    battle->get_Weather();
 
-    battle->get_Winner();
+// Update for each round stats
+void BattlePanel::update(const Battle &battle) {
+    setRounds(battle.get_Rounds());
 
-    battle->get_HussarsArmy();
-    battle->get_TeutonicArmy();
-    */
+    setWeather(QString::fromStdString(battle.get_Weather()));
+
+    setHussarsMorale(battle.get_HussarsArmy().get_moraleLevel());
+    setTeutonicMorale(battle.get_TeutonicArmy().get_moraleLevel());
+
+    setCurrentEvent(QString::fromStdString(battle.get_CurrentEvent()));
 
 }
 
+// Gui look of battle panel
 BattlePanel::BattlePanel(QWidget* parent) : QWidget(parent), battle(nullptr) {
 
     QVBoxLayout* layout = new QVBoxLayout;
     QGroupBox* battleGroup = new QGroupBox("Battle Information", this);
     QVBoxLayout* battleLayout = new QVBoxLayout;
+
+    battleNumberLabel = new QLabel(this);
+    battleNumberLabel->setText("Battle Number: -/-");
+    battleLayout->addWidget(battleNumberLabel);
 
     roundLabel = new QLabel(this);
     roundLabel->setText("Rounds: -");
@@ -77,7 +83,16 @@ BattlePanel::BattlePanel(QWidget* parent) : QWidget(parent), battle(nullptr) {
     setLayout(layout);
 }
 
+
 // Setters
+
+void BattlePanel::setBattleNumber(int current, int total) {
+    battleNumberLabel->setText(
+        QString("Battle %1 / %2")
+        .arg(current)
+        .arg(total)
+    );
+}
 
 void BattlePanel::setRounds(int rounds) {
     roundLabel->setText("Rounds: " + QString::number(rounds));

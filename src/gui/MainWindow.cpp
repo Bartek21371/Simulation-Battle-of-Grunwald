@@ -2,23 +2,24 @@
 // Created by bart on 31.05.2026.
 //
 
+#include <iostream>
+#include <string>
+#include <fstream>
+
 #include "gui/MainWindow.hpp"
 
 #include "gui/BattlePanel.hpp"
 #include "gui/ControlPanel.hpp"
 #include "gui/HistoryPanel.hpp"
+#include <config/ConfigLoader.hpp>
+#include <core/Battle.hpp>
+#include <reports/BattleReport.hpp>
 
 #include <QPushButton>
 #include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
 
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <config/ConfigLoader.hpp>
-#include <core/Battle.hpp>
-#include <reports/BattleReport.hpp>
 
 
 // Gui
@@ -78,6 +79,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) {
     controlPanel = new ControlPanel(centralWidget);
     historyPanel = new HistoryPanel(centralWidget);
 
+    battleTimer = new QTimer(this);
+    battleTimer->setInterval(150);
 
     mainLayout->addWidget(title);
 
@@ -125,66 +128,235 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) {
     &QPushButton::clicked,
     this,
     &QWidget::close
+        );
+
+    connect(
+        battleTimer,
+        &QTimer::timeout,
+        this,
+        &MainWindow::battleStep
+        );
+
+    connect(
+    controlPanel->get_SpeedComboBox(),
+    &QComboBox::currentTextChanged,
+    this,
+    &MainWindow::changeSpeed
 );
 
 }
 
-void MainWindow::startBattle() {
+void MainWindow::startBattle()
+{
     historyPanel->clearHistoryList();
-    if (configPath.isEmpty()) {
+
+    if(configPath.isEmpty())
+    {
         QMessageBox::warning(
             this,
             "No config",
             "Load configuration first."
-        );
+            );
         return;
     }
 
-    std::vector<FractionConfig> config = ConfigLoader::LoadFromFile(configPath.toStdString(),false);
+    loadedConfig = ConfigLoader::LoadFromFile(configPath.toStdString(), false);
 
-    int battleNumber{1};
+    Reportfilename = "../assets/reports/battleReport1.csv";
 
-    int hussarsWins{};
-    int teutonicWins{};
+    std::ofstream file(Reportfilename);
+    file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Hussars Total Damage,Teutonic Total Damage,Hussars Kills,Teutonic Kills,Weather,Status,Date\n";
+    file.close();
 
+
+    currentBattleIndex = 0;
+
+    hussarsWins = 0;
+    teutonicWins = 0;
+
+    startNextBattle();
+}
+
+void MainWindow::loadConfig() {
+    QString filePath = QFileDialog::getOpenFileName(this,
+        "Select config to open",
+        "../assets/configs",
+        "CSV Files (*.csv)"
+        );
+
+    if (!filePath.isEmpty()) {
+        configPath = filePath;
+        qDebug() << "Loaded config: "<< configPath;
+        QMessageBox::information(
+            this,
+            "Config loaded",
+            "Configuration loaded successfully."
+        );
+    }
+}
+
+void MainWindow::battleStep() {
+    currentBattle->do_Round();
+
+    hussarsPanel->setAlive(currentBattle->get_HussarsArmy().count_AliveWarriors());
+    teutonicPanel->setAlive(currentBattle->get_TeutonicArmy().count_AliveWarriors());
+
+    hussarsPanel->setDamage(currentBattle->get_Stats().get_HussarsDamage_Dealt());
+    teutonicPanel->setDamage(currentBattle->get_Stats().get_TeutonicDamage_Dealt());
+    hussarsPanel->setKills(currentBattle->get_Stats().get_HussarsKills());
+    teutonicPanel->setKills(currentBattle->get_Stats().get_TeutonicKills());
+
+    if(currentBattle->is_finished())
+    {
+        battleTimer->stop();
+
+        currentBattle->finishBattle();
+
+        battlePanel->setWinner(QString::fromStdString(currentBattle->get_Winner()));
+
+        historyPanel->addBattleResult(
+            QString("%1 | Rounds: %2 | Weather: %3 | Alive: %4 vs %5")
+            .arg(QString::fromStdString(currentBattle->get_Winner()))
+            .arg(currentBattle->get_Rounds())
+            .arg(QString::fromStdString(currentBattle->get_Weather()))
+            .arg(currentBattle->get_HussarsArmy().count_AliveWarriors())
+            .arg(currentBattle->get_TeutonicArmy().count_AliveWarriors())
+            );
+
+        BattleReport::save(*currentBattle, Reportfilename, (currentBattleIndex/2)+1);
+
+        if(currentBattle->get_Winner() == "Hussars")
+        {
+            hussarsWins++;
+        }
+        else
+        {
+            teutonicWins++;
+        }
+
+        currentBattleIndex += 2;
+
+        delete currentBattle;
+        currentBattle = nullptr;
+
+        startNextBattle();
+
+    }
+}
+
+void MainWindow::startNextBattle()
+{
+    if(currentBattleIndex >= loadedConfig.size() - 1)
+    {
+        historyPanel->addBattleResult(
+        "=== Campaign Finished ==="
+        );
+
+        historyPanel->addBattleResult(
+            QString("Hussars Wins: %1")
+            .arg(hussarsWins)
+        );
+
+        historyPanel->addBattleResult(
+            QString("Teutonic Wins: %1")
+            .arg(teutonicWins)
+        );
+
+        historyPanel->addBattleResult(
+            QString("Total Battles: %1")
+            .arg(hussarsWins + teutonicWins)
+        );
+
+        QString champion =
+            (hussarsWins > teutonicWins)
+            ? "HUSSARS"
+            : "TEUTONIC";
+
+        historyPanel->addBattleResult(
+            QString("Campaign Winner: %1")
+                .arg(champion)
+        );
+
+        return;
+    }
+
+    try {
+
+        battlePanel->setBattleNumber((currentBattleIndex/2)+1, loadedConfig.size()/2);
+
+        Army Hussars(loadedConfig[currentBattleIndex]);
+
+        Army Teutonic(loadedConfig[currentBattleIndex + 1]);
+
+        currentBattle = new Battle(Hussars, Teutonic);
+
+        currentBattle->attach(battlePanel);
+
+        battleTimer->start(50);
+    }
+    catch (const std::exception& e) {
+        BattleReport::save_skipped(Reportfilename, (currentBattleIndex/2)+1, e.what());
+
+        historyPanel->addBattleResult(
+        QString("Battle %1 skipped: %2")
+            .arg(currentBattleIndex)
+            .arg(e.what())
+        );
+
+        currentBattleIndex += 2;
+
+        startNextBattle();
+    }
+
+}
+
+void MainWindow::changeSpeed() {
+    QString speed = controlPanel->get_SpeedComboBox()->currentText();
+
+    if(speed == "Slow")
+    {
+        battleTimer->setInterval(300);
+    }
+    else if(speed == "Normal")
+    {
+        battleTimer->setInterval(150);
+    }
+    else if(speed == "Fast")
+    {
+        battleTimer->setInterval(50);
+    }
+}
+
+
+/*
+ *
     std::string filename = "../assets/reports/battleReport1.csv";
 
     std::ofstream file(filename);
     file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Hussars Total Damage,Teutonic Total Damage,Hussars Kills,Teutonic Kills,Weather,Status,Date\n";
     file.close();
 
+    Army Hussars(config[i]);
+    Army Teutonic(config[i+1]);
 
-    for (size_t i = 0; i < config.size()-1; i+=2) {
-        try {
-            Army Hussars(config[i]);
-            Army Teutonic(config[i+1]);
+    currentBattle = new Battle(Hussars, Teutonic);
 
-            Battle battle(Hussars, Teutonic);
+    currentBattle.attach(battlePanel);
+    battleTimer->start(50);
 
-            battle.start_Battle();
-
-            battlePanel->setRounds(battle.get_Rounds());
-            battlePanel->setWeather(QString::fromStdString(battle.get_Weather()));
-            battlePanel->setHussarsMorale(battle.get_HussarsArmy().get_moraleLevel());
-            battlePanel->setTeutonicMorale(battle.get_TeutonicArmy().get_moraleLevel());
-            battlePanel->setCurrentEvent(QString::fromStdString(battle.get_CurrentEvent()));
-            battlePanel->setWinner(QString::fromStdString(battle.get_Winner()));
-
-            hussarsPanel->setDamage(battle.get_Stats().get_HussarsDamage_Dealt());
-            teutonicPanel->setDamage(battle.get_Stats().get_TeutonicDamage_Dealt());
-            hussarsPanel->setKills(battle.get_Stats().get_HussarsKills());
-            teutonicPanel->setKills(battle.get_Stats().get_TeutonicKills());
-
-            hussarsPanel->setAlive(battle.get_HussarsArmy().count_AliveWarriors());
-            teutonicPanel->setAlive(battle.get_TeutonicArmy().count_AliveWarriors());
+                battlePanel->setRounds(currentBattle.get_Rounds());
+                battlePanel->setWeather(QString::fromStdString(currentBattle.get_Weather()));
+                battlePanel->setHussarsMorale(currentBattle.get_HussarsArmy().get_moraleLevel());
+                battlePanel->setTeutonicMorale(currentBattle.get_TeutonicArmy().get_moraleLevel());
+                battlePanel->setCurrentEvent(QString::fromStdString(currentBattle.get_CurrentEvent()));
+                battlePanel->setWinner(QString::fromStdString(currentBattle.get_Winner()));
 
 
-            if (battle.get_Winner()=="HUSSARS") {
-                hussarsWins++;
-            }
-            else {
-                teutonicWins++;
-            }
+
+
+
+
+
 
             historyPanel->addBattleResult(
                 "===================="
@@ -206,22 +378,13 @@ void MainWindow::startBattle() {
             );
 
 
-            historyPanel->addBattleResult(
-                QString("%1 | Rounds: %2 | Weather: %3 | Alive: %4 vs %5")
-                .arg(QString::fromStdString(battle.get_Winner()))
-                .arg(battle.get_Rounds())
-                .arg(QString::fromStdString(battle.get_Weather()))
-                .arg(battle.get_HussarsArmy().count_AliveWarriors())
-                .arg(battle.get_TeutonicArmy().count_AliveWarriors())
-                );
 
 
-            BattleReport::save(battle, filename, battleNumber);
-        }
-        catch (const std::exception& e) {
-            std::cout<<"Battle skipped: "<<e.what()<<"\n";
+
+            BattleReport::save(currentBattle, filename, battleNumber);
+
+
             BattleReport::save_skipped(filename, battleNumber, e.what());
-        }
         battleNumber++;
     }
     QString champion =
@@ -235,23 +398,5 @@ void MainWindow::startBattle() {
     historyPanel->addBattleResult(
     QString("Campaign Winner: %1")
         .arg(champion)
-);
-}
-
-void MainWindow::loadConfig() {
-    QString filePath = QFileDialog::getOpenFileName(this,
-        "Select config to open",
-        "../assets/configs",
-        "CSV Files (*.csv)"
-        );
-
-    if (!filePath.isEmpty()) {
-        configPath = filePath;
-        qDebug() << "Loaded config: "<< configPath;
-        QMessageBox::information(
-            this,
-            "Config loaded",
-            "Configuration loaded successfully."
-        );
-    }
-}
+    );
+    */

@@ -16,6 +16,7 @@ class BattlePanel : public QWidget, public BattleObserver {
 private:
     Battle* battle;
 
+    QLabel* battleNumberLabel;
     QLabel* roundLabel;
     QLabel* weatherLabel;
 
@@ -32,9 +33,10 @@ private:
 public:
     BattlePanel(QWidget* parent = nullptr);
 
-    void update() override;
+    void update(const Battle& battle) override;
 
     // Setters
+    void setBattleNumber(int current, int total);
     void setRounds(int rounds);
     void setWeather(const QString& weather);
     void setHussarsMorale(int morale);

@@ -38,6 +38,9 @@ public:
     void start_Battle();
 
     void do_Round();
+    bool is_finished() const;
+
+    void finishBattle();
 
     void attach(BattleObserver* observer);
     void detach(BattleObserver* observer);
