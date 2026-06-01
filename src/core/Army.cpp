@@ -11,7 +11,11 @@
 
 
 Army::Army(const FractionConfig& config):
-    name(config.fraction),attackBonus(0),defenseBonus(0),moraleLevel(0){
+    name(config.fraction),attackBonus(0),defenseBonus(0),moraleLevel(50),
+    knightStats(config.knight_stats),
+    archerStats(config.archer_stats),
+    cavalryStats(config.cavalry_stats)
+{
 
 
     if (!config.valid) {
@@ -66,16 +70,7 @@ Warrior& Army::get_RandomAliveWarrior() {
     return *aliveWarriors[randomWarrior_id];
 }
 
-double Army::get_MoraleModifier() const {
-    if (moraleLevel >= 70) {
-        return 1.2;
-    }
-    if (moraleLevel <= 30) {
-        return 0.8;
-    }
-
-    return 1.0;
-}
+// Setters
 
 void Army::increase_Morale(int amount) {
     moraleLevel += amount;
@@ -87,6 +82,42 @@ void Army::decrease_Morale(int amount) {
     moraleLevel = std::max(moraleLevel,0);
 }
 
+
+void Army::add_Reinforcements(int amount) {
+    for(int i = 0; i < amount; i++){
+        int type = Random::random_Int(0,2);
+
+        switch(type){
+            case 0:
+                warriors.emplace_back(std::make_shared<Knight>(knightStats));
+                break;
+            case 1:
+                warriors.emplace_back(std::make_shared<Archer>(archerStats));
+                break;
+            case 2:
+                warriors.emplace_back(std::make_shared<Cavalryman>(cavalryStats));
+                break;
+        }
+    }
+}
+
+// Getter
+
 int Army::get_moraleLevel() const {
     return moraleLevel;
+}
+
+double Army::get_MoraleModifier() const {
+    if (moraleLevel >= 70) {
+        return 1.2;
+    }
+    if (moraleLevel <= 30) {
+        return 0.8;
+    }
+
+    return 1.0;
+}
+
+const std::string& Army::get_Name() const {
+    return name;
 }

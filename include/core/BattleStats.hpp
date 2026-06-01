@@ -23,9 +23,6 @@ private:
     int numArchers_Teutonic{};
     int numCavalrymans_Teutonic{};
 
-    int moraleLevelHussars{};
-    int moraleLevelTeutonic{};
-
     int ProbabilityVictoryHussars{};
     int ProbabilityVictoryTeutonic{};
 

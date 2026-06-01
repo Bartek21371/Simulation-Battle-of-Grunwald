@@ -3,19 +3,21 @@
 
 #include <core/Battle.hpp>
 #include <utils/Random.hpp>
-
-
-/*
-    todo
-    randomEvents(get_randomEvents)
-*/
-
+#include <events/CommanderDeath.hpp>
+#include <events/AlliedHelp.hpp>
+#include <events/PanicEvent.hpp>
 
 
 // Main loop of battle ( attack and defend )
 
 Battle::Battle(Army& HussarsArmy, Army& TeutonicArmy):
-    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1),winner(),weather(),stats(){
+    Hussars(HussarsArmy),Teutonic(TeutonicArmy),round(1),winner(),weather(),stats(),eventsTriggered(0),maxEvents(3){
+
+    randomEvents.push_back(std::make_unique<CommanderDeath>());
+
+    randomEvents.push_back(std::make_unique<AlliedHelp>());
+
+    randomEvents.push_back(std::make_unique<PanicEvent>());
 }
 
 // Start Battle loop
@@ -96,6 +98,14 @@ void Battle::do_Round() {
     }
 
     round++;
+
+    if (round > 20 && eventsTriggered<maxEvents) {
+        if (Random::random_Int(1,100)<=3) {
+            triggerRandomEvent();
+            eventsTriggered++;
+        }
+    }
+
     notify();
 }
 
@@ -151,17 +161,14 @@ const std::string& Battle::get_CurrentEvent() const {
     return currentEvent;
 }
 
+void Battle::triggerRandomEvent() {
+    int id = Random::random_Int(0, static_cast<int>(randomEvents.size()) - 1);
 
-/*
-void Battle::activate_Random_Event() {
+    Army& targetArmy = Random::random_Int(0,1) ? Hussars : Teutonic;
 
-    if (randomEvents.empty()) {
-        return;
-    }
+    randomEvents[id]->apply(targetArmy);
 
-    int eventIndex = random_Number(0, randomEvents.size() - 1);
-    int armyIndex = random_Number(0, 1);
+    currentEvent = targetArmy.get_Name() + ": " + randomEvents[id]->getName();
 
-    randomEvents[eventIndex]->activate(armyIndex);
+    notify();
 }
-*/

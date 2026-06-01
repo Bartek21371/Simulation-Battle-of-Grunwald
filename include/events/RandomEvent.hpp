@@ -8,23 +8,13 @@
 
 #include <core/Army.hpp>
 
-class RandomEvent {
+class RandomEvent
+{
 public:
+    virtual ~RandomEvent() = default;
 
-    RandomEvent();
-
-    void activate(Army& army);
-
-private:
-    int activationChance; // 0-100
-
-    bool commanderDeathHappened;
-    bool alliedHelpHappened;
-    bool panicHappened;
-
-    static void commanderDeath(Army& army);
-    static void alliedHelp(Army& army);
-    static void panic(Army& army);
+    virtual void apply(Army& army) = 0;
+    virtual std::string getName() const = 0;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_RANDOMEVENT_HPP

@@ -20,6 +20,10 @@ private:
     std::string name;
     std::vector<std::shared_ptr<Warrior>> warriors;
 
+    UnitStats knightStats;
+    UnitStats archerStats;
+    UnitStats cavalryStats;
+
     int attackBonus;
     int defenseBonus;
     int moraleLevel;
@@ -37,13 +41,15 @@ public:
 
     Warrior& get_RandomAliveWarrior();
 
-    double get_MoraleModifier() const;
-
-    void increase_Morale(int amount);
-    void decrease_Morale(int amount);
-
     // Getter
     int get_moraleLevel() const;
+    double get_MoraleModifier() const;
+    const std::string& get_Name() const;
+
+    // Setters
+    void add_Reinforcements(int amount);
+    void increase_Morale(int amount);
+    void decrease_Morale(int amount);
 
 };
 

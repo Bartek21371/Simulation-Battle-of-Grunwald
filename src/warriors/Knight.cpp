@@ -9,8 +9,8 @@
 
 Knight::Knight(const UnitStats& stats) :
     Warrior(stats),
-    atkBonus(5),
-    defBonus(10)
+    atkBonus(1.1),
+    defBonus(0.20)
 {}
 
 double Knight::get_WeatherModifier(WeatherType weather) const {
@@ -30,7 +30,7 @@ double Knight::get_WeatherModifier(WeatherType weather) const {
 
 
 void Knight::attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType weather) {
-    double damage = (get_Attack()*moraleModifier*get_WeatherModifier(weather));
+    double damage = (get_Attack()*moraleModifier*get_WeatherModifier(weather)*atkBonus);
     damage *= (100.0 / (100.0+enemy.get_Defense()));
 
     enemy.take_Damage(damage);
@@ -39,6 +39,6 @@ void Knight::attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType wea
 
 
 void Knight::take_Damage(double damage) {
-    damage *=0.8;
+    damage *= (1.0-defBonus);
     Warrior::take_Damage(damage);
 };

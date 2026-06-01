@@ -53,6 +53,12 @@ add_executable(
         src/gui/HussarsPanel.cpp
         include/gui/TeutonicPanel.hpp
         src/gui/TeutonicPanel.cpp
+        include/events/CommanderDeath.hpp
+        include/events/AlliedHelp.hpp
+        include/events/PanicEvent.hpp
+        src/events/CommanderDeath.cpp
+        src/events/AlliedHelp.cpp
+        src/events/PanicEvent.cpp
 
 )
 

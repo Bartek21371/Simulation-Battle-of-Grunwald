@@ -11,8 +11,8 @@
 
 Archer::Archer(const UnitStats& stats) :
     Warrior(stats),
-    atkBonus(15),
-    defBonus(0)
+    atkBonus(1.25),
+    defBonus(0.05)
 {}
 
 double Archer::get_WeatherModifier(WeatherType weather) const {
@@ -31,7 +31,7 @@ double Archer::get_WeatherModifier(WeatherType weather) const {
 }
 
 void Archer::attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType weather) {
-    double damage = (get_Attack()*moraleModifier*get_WeatherModifier(weather));
+    double damage = (get_Attack()*moraleModifier*get_WeatherModifier(weather)*atkBonus);
     damage *= (100.0 / (100.0+enemy.get_Defense()));
 
     enemy.take_Damage(damage);
@@ -43,6 +43,6 @@ void Archer::attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType wea
 }
 
 void Archer::take_Damage(double damage) {
-    damage*=1.2;
+    damage *= (1.0-defBonus);
     Warrior::take_Damage(damage);
 };

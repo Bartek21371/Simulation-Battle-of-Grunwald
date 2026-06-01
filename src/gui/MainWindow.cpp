@@ -80,7 +80,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) {
     historyPanel = new HistoryPanel(centralWidget);
 
     battleTimer = new QTimer(this);
-    battleTimer->setInterval(150);
+    battleTimer->setInterval(200);
 
     mainLayout->addWidget(title);
 
@@ -292,7 +292,7 @@ void MainWindow::startNextBattle()
 
         currentBattle->attach(battlePanel);
 
-        battleTimer->start(50);
+        battleTimer->start();
     }
     catch (const std::exception& e) {
         BattleReport::save_skipped(Reportfilename, (currentBattleIndex/2)+1, e.what());
@@ -315,11 +315,11 @@ void MainWindow::changeSpeed() {
 
     if(speed == "Slow")
     {
-        battleTimer->setInterval(300);
+        battleTimer->setInterval(500);
     }
     else if(speed == "Normal")
     {
-        battleTimer->setInterval(150);
+        battleTimer->setInterval(200);
     }
     else if(speed == "Fast")
     {

@@ -8,6 +8,7 @@
 #include <events/Weather.hpp>
 #include "BattleStats.hpp"
 #include "observer/BattleObserver.hpp"
+#include <events/RandomEvent.hpp>
 
 
 class Battle {
@@ -27,9 +28,10 @@ private:
 
     std::string currentEvent;
 
-    /*;
-    std::vector<std::shared_ptr<RandomEvent>> randomEvents;
-    */
+    std::vector<std::unique_ptr<RandomEvent>> randomEvents;
+    int eventsTriggered{};
+    const int maxEvents{};
+    void triggerRandomEvent();
 
 public:
 
