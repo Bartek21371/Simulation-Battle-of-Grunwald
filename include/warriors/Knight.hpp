@@ -20,6 +20,10 @@ public:
     void take_Damage(double damage) override;
     double get_WeatherModifier(WeatherType weather) const override;
 
+    std::string get_Type() const override {
+        return "Knight";
+    }
+
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_KNIGHT_HPP

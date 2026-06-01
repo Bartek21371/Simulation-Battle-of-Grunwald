@@ -16,10 +16,19 @@ class BattlePanel : public QWidget, public BattleObserver {
 private:
     Battle* battle;
 
-    QLabel* roundsLabel;
+    QLabel* roundLabel;
     QLabel* weatherLabel;
-    QLabel* winnerLabel;
 
+    QLabel* HussarsMoraleLabel;
+    QLabel* TeutonicMoraleLabel;
+
+    QLabel* VictoryChanceLabel;
+    QLabel* HussarsProbabilityLabel;
+    QLabel* TeutonicProbabilityLabel;
+
+    QLabel* currentEventLabel;
+
+    QLabel* winnerLabel;
 public:
     BattlePanel(QWidget* parent = nullptr);
 
@@ -28,6 +37,11 @@ public:
     // Setters
     void setRounds(int rounds);
     void setWeather(const QString& weather);
+    void setHussarsMorale(int morale);
+    void setTeutonicMorale(int morale);
+    void setHussarsProbability(int probability);
+    void setTeutonicProbability(int probability);
+    void setCurrentEvent(const QString& event);
     void setWinner(const QString& winner);
 };
 

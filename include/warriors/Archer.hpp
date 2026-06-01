@@ -18,6 +18,11 @@ public:
     void attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType weather) override;
     void take_Damage(double damage) override;
     double get_WeatherModifier(WeatherType weather) const override;
+
+    std::string get_Type() const override {
+        return "Archer";
+    }
+
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_ARCHER_HPP

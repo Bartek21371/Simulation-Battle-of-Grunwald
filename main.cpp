@@ -10,7 +10,7 @@
 #include <gui/MainWindow.hpp>
 
 #include "gui/BattlePanel.hpp"
-#include "gui/StatisticsPanel.hpp"
+
 
 // Battle loop with load config and save result
 
@@ -71,8 +71,7 @@ void battle() {
 int main(int argc, char *argv[]) {
     //battle(
     QApplication app(argc, argv);
-
-    StatisticsPanel statisticsPanel;
+    
     BattlePanel battlePanel;
 
     MainWindow mainWindow;

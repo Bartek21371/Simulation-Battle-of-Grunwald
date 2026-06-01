@@ -86,3 +86,7 @@ void Army::decrease_Morale(int amount) {
     moraleLevel -= amount;
     moraleLevel = std::max(moraleLevel,0);
 }
+
+int Army::get_moraleLevel() const {
+    return moraleLevel;
+}

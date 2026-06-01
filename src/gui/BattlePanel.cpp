@@ -6,6 +6,8 @@
 
 #include <QVBoxLayout>
 #include <QGroupBox>
+#include <QPixmap>
+#include <QHBoxLayout>
 
 void BattlePanel::update() {
     /*
@@ -27,16 +29,46 @@ BattlePanel::BattlePanel(QWidget* parent) : QWidget(parent), battle(nullptr) {
     QGroupBox* battleGroup = new QGroupBox("Battle Information", this);
     QVBoxLayout* battleLayout = new QVBoxLayout;
 
-    roundsLabel = new QLabel(this);
-    roundsLabel->setText("Rounds: 20");
-    battleLayout->addWidget(roundsLabel);
+    roundLabel = new QLabel(this);
+    roundLabel->setText("Rounds: -");
+    battleLayout->addWidget(roundLabel);
 
     weatherLabel = new QLabel(this);
-    weatherLabel->setText("Weather: Sunny");
+    weatherLabel->setText("Weather: -");
     battleLayout->addWidget(weatherLabel);
 
+    HussarsMoraleLabel = new QLabel(this);
+    HussarsMoraleLabel->setText("Hussars Morale: -");
+    battleLayout->addWidget(HussarsMoraleLabel);
+
+    TeutonicMoraleLabel = new QLabel(this);
+    TeutonicMoraleLabel->setText("Teutonic Morale: -");
+    battleLayout->addWidget(TeutonicMoraleLabel);
+
+    VictoryChanceLabel = new QLabel(this);
+    VictoryChanceLabel->setText("Victory Chance: -");
+    battleLayout->addWidget(VictoryChanceLabel);
+
+    HussarsProbabilityLabel = new QLabel(this);
+    HussarsProbabilityLabel->setText("Hussars: -%");
+    battleLayout->addWidget(HussarsProbabilityLabel);
+
+    TeutonicProbabilityLabel = new QLabel(this);
+    TeutonicProbabilityLabel->setText("Teutonic: -%");
+    battleLayout->addWidget(TeutonicProbabilityLabel);
+
+    currentEventLabel = new QLabel(this);
+    currentEventLabel->setText("Current Event: -");
+    battleLayout->addWidget(currentEventLabel);
+
+
+    QFont winnerFont;
+    winnerFont.setBold(true);
+    winnerFont.setPointSize(11);
+
     winnerLabel = new QLabel(this);
-    winnerLabel->setText("Winner: Hussars");
+    winnerLabel->setText("Winner: -");
+    winnerLabel->setFont(winnerFont);
     battleLayout->addWidget(winnerLabel);
 
     battleLayout->addStretch();
@@ -48,11 +80,43 @@ BattlePanel::BattlePanel(QWidget* parent) : QWidget(parent), battle(nullptr) {
 // Setters
 
 void BattlePanel::setRounds(int rounds) {
-    roundsLabel->setText("Rounds: " + QString::number(rounds));
+    roundLabel->setText("Rounds: " + QString::number(rounds));
 }
 void BattlePanel::setWeather(const QString& weather) {
     weatherLabel->setText("Weather: " + weather);
 }
+
+void BattlePanel::setHussarsMorale(int morale) {
+    HussarsMoraleLabel->setText("Hussars Morale: " + QString::number(morale));
+    if (morale >= 70)
+        HussarsMoraleLabel->setStyleSheet("color: green;");
+    else if (morale <= 30)
+        HussarsMoraleLabel->setStyleSheet("color: red;");
+    else
+        HussarsMoraleLabel->setStyleSheet("color: orange;");
+}
+
+void BattlePanel::setTeutonicMorale(int morale) {
+    TeutonicMoraleLabel->setText("Teutonic Morale: " + QString::number(morale));
+    if (morale >= 70)
+        TeutonicMoraleLabel->setStyleSheet("color: green;");
+    else if (morale <= 30)
+        TeutonicMoraleLabel->setStyleSheet("color: red;");
+    else
+        TeutonicMoraleLabel->setStyleSheet("color: orange;");
+}
+
+void BattlePanel::setCurrentEvent(const QString &event) {
+    currentEventLabel->setText("Current event: " + event);
+}
+
 void BattlePanel::setWinner(const QString& winner) {
     winnerLabel->setText("Winner: " + winner);
+
+    if (winner == "HUSSARS") {
+        winnerLabel->setStyleSheet("color: green");
+    }
+    else {
+        winnerLabel->setStyleSheet("color: red");
+    }
 }

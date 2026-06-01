@@ -65,6 +65,7 @@ void Battle::do_Round() {
     if (Random::random_Int(0,1)==0) {
         damage_dealt = teutonic.get_Health();
 
+        currentEvent = hussars.get_Type()+ " attacked "+teutonic.get_Type();
         hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier);
 
         damage_dealt -= teutonic.get_Health();
@@ -73,6 +74,7 @@ void Battle::do_Round() {
         if (teutonic.is_Alive()) {
             damage_dealt = hussars.get_Health();
 
+            currentEvent = teutonic.get_Type()+ " counter-attacked "+hussars.get_Type();
             teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier);
 
             damage_dealt -= hussars.get_Health();
@@ -82,6 +84,7 @@ void Battle::do_Round() {
     else {
         damage_dealt = hussars.get_Health();
 
+        currentEvent = teutonic.get_Type()+ " attacked "+hussars.get_Type();
         teutonic.attack_Enemy(hussars, Teutonic.get_MoraleModifier(), weatherModifier);
 
         damage_dealt -= hussars.get_Health();
@@ -90,6 +93,7 @@ void Battle::do_Round() {
         if (hussars.is_Alive()) {
             damage_dealt = teutonic.get_Health();
 
+            currentEvent = hussars.get_Type()+ " counter-attacked "+teutonic.get_Type();
             hussars.attack_Enemy(teutonic, Hussars.get_MoraleModifier(), weatherModifier);
 
             damage_dealt -= teutonic.get_Health();
@@ -102,12 +106,17 @@ void Battle::do_Round() {
         Teutonic.increase_Morale(5);
 
         stats.add_TeutonicKill();
+
+        currentEvent = teutonic.get_Type() + " killed " + hussars.get_Type();
     }
     if (!teutonic.is_Alive()) {
         Teutonic.decrease_Morale(5);
         Hussars.increase_Morale(5);
 
         stats.add_HussarsKill();
+
+        currentEvent = hussars.get_Type() + " killed " + teutonic.get_Type();
+
     }
 
     round++;
@@ -148,6 +157,10 @@ void Battle::notify() {
     for (BattleObserver* observer : observers) {
         observer->update();
     }
+}
+
+const std::string& Battle::get_CurrentEvent() const {
+    return currentEvent;
 }
 
 

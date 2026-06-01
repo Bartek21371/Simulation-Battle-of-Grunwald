@@ -42,10 +42,8 @@ public:
     void increase_Morale(int amount);
     void decrease_Morale(int amount);
 
-    /*
-    int get_attackBonus() const;
-    int get_defenseBonus() const;
-    int get_moraleLevel() const;*/
+    // Getter
+    int get_moraleLevel() const;
 
 };
 

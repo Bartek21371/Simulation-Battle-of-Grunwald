@@ -8,6 +8,7 @@
 
 #include <core/UnitStats.hpp>
 #include <events/WeatherType.hpp>
+#include <string>
 
 // Abstract class of warrior
 
@@ -35,6 +36,8 @@ public:
     virtual double get_WeatherModifier(WeatherType weather) const=0;
 
     // Getters
+    virtual std::string get_Type() const = 0;
+
     int get_Health() const;
 
     int get_Attack() const;

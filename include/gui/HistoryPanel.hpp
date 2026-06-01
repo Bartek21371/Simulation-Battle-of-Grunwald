@@ -15,6 +15,8 @@ private:
 public:
     HistoryPanel(QWidget* parent=nullptr);
 
+    void clearHistoryList();
+
     // Setter
     void addBattleResult(const QString& result);
 };

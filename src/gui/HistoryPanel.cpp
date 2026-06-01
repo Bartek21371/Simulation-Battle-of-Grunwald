@@ -23,6 +23,11 @@ HistoryPanel::HistoryPanel(QWidget *parent) {
 
 }
 
+void HistoryPanel::clearHistoryList() {
+    historyList->clear();
+}
+
+// Setter
 void HistoryPanel::addBattleResult(const QString& result) {
     historyList->addItem(result);
 }

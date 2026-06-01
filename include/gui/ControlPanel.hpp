@@ -11,13 +11,14 @@
 class ControlPanel : public QWidget {
 private:
     QPushButton* startButton;
-    QPushButton* saveButton;
-    QPushButton* exitButton;
     QPushButton* loadConfigButton;
+    QPushButton* exitButton;
 public:
     ControlPanel(QWidget *parent);
 
     QPushButton* get_StartButton() const;
+    QPushButton* get_LoadButton() const;
+    QPushButton* get_ExitButton() const;
 };
 
 #endif //SIMULATION_BATTLE_OF_GRUNWALD_CONTROLPANEL_HPP

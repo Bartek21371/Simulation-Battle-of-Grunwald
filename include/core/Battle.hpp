@@ -25,6 +25,8 @@ private:
 
     std::vector<BattleObserver*> observers;
 
+    std::string currentEvent;
+
     /*;
     std::vector<std::shared_ptr<RandomEvent>> randomEvents;
     */
@@ -52,6 +54,8 @@ public:
     std::string get_Weather() const;
 
     const BattleStats& get_Stats() const;
+
+    const std::string& get_CurrentEvent() const;
 
 };
 

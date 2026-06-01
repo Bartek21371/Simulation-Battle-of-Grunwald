@@ -43,14 +43,16 @@ add_executable(
         src/gui/MainWindow.cpp
         include/gui/MainWindow.hpp
         include/observer/BattleObserver.hpp
-        include/gui/StatisticsPanel.hpp
         include/gui/BattlePanel.hpp
-        src/gui/StatisticsPanel.cpp
         src/gui/BattlePanel.cpp
         src/gui/ControlPanel.cpp
         include/gui/ControlPanel.hpp
         include/gui/HistoryPanel.hpp
         src/gui/HistoryPanel.cpp
+        include/gui/HussarsPanel.hpp
+        src/gui/HussarsPanel.cpp
+        include/gui/TeutonicPanel.hpp
+        src/gui/TeutonicPanel.cpp
 
 )
 

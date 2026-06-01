@@ -11,18 +11,24 @@
 #include "BattlePanel.hpp"
 #include "ControlPanel.hpp"
 #include "HistoryPanel.hpp"
-#include "StatisticsPanel.hpp"
+#include "HussarsPanel.hpp"
+#include "TeutonicPanel.hpp"
 
 
 class MainWindow : public QMainWindow {
 private:
+
     Q_OBJECT
     BattlePanel* battlePanel;
-    StatisticsPanel* statisticsPanel;
+    HussarsPanel* hussarsPanel;
+    TeutonicPanel* teutonicPanel;
     ControlPanel* controlPanel;
     HistoryPanel* historyPanel;
 
+    QString configPath = "../assets/configs/testfile.csv";
+
     void startBattle();
+    void loadConfig();
 
 public:
     MainWindow(QWidget* parent = nullptr);
