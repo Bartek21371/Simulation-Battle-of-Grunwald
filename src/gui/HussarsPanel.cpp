@@ -26,13 +26,23 @@ HussarsPanel::HussarsPanel(QWidget* parent) {
 
 
     hussarsIMG = new QLabel(this);
+    hussarsIMG->setAlignment(Qt::AlignCenter);
     groupLayout->addWidget(hussarsIMG);
-    QPixmap hussarsPixmap("../assets/images/hussars.png");
+    QPixmap hussarsPixmap("../assets/images/hussarimg.png");
     hussarsIMG->setPixmap(hussarsPixmap.scaled(140,140, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
 
     aliveHussarsLabel = new QLabel("Alive: -");
     groupLayout->addWidget(aliveHussarsLabel);
+
+    aliveKnightsLabel = new QLabel("Knights: -");
+    groupLayout->addWidget(aliveKnightsLabel);
+    aliveArchersLabel = new QLabel("Archers: -");
+    groupLayout->addWidget(aliveArchersLabel);
+    aliveCavalrymansLabel = new QLabel("Cavalrymans: -");
+    groupLayout->addWidget(aliveCavalrymansLabel);
+
+
     hussarsDamageLabel = new QLabel("Damage: -");
     groupLayout->addWidget(hussarsDamageLabel);
     hussarsKillsLabel = new QLabel("Kills: -");
@@ -52,6 +62,18 @@ void HussarsPanel::setAlive(int alive) {
     aliveHussarsLabel->setText(
         "Alive: " + QString::number(alive)
     );
+}
+
+void HussarsPanel::setKnights(int knights) {
+    aliveKnightsLabel->setText("Knights: " + QString::number(knights));
+}
+
+void HussarsPanel::setArchers(int archers) {
+    aliveArchersLabel->setText("Archers: " + QString::number(archers));
+}
+
+void HussarsPanel::setCavalrymans(int cavalrymans) {
+    aliveCavalrymansLabel->setText("Cavalrymans: " + QString::number(cavalrymans));
 }
 
 void HussarsPanel::setDamage(double damage) {

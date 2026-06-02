@@ -14,7 +14,12 @@ private:
 
     QLabel* teutonicLabel;
     QLabel* teutonicIMG;
+
     QLabel* aliveTeutonicLabel;
+    QLabel* aliveKnightsLabel;
+    QLabel* aliveArchersLabel;
+    QLabel* aliveCavalrymansLabel;
+
     QLabel* teutonicDamageLabel;
     QLabel* teutonicKillsLabel;
 
@@ -23,6 +28,11 @@ public:
 
     // Setters
     void setAlive(int alive);
+
+    void setKnights(int knights);
+    void setArchers(int archers);
+    void setCavalrymans(int cavalrymans);
+
     void setDamage(double damage);
     void setKills(int kills);
 };

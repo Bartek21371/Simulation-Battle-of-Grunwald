@@ -25,14 +25,19 @@
 // Gui
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) {
-    setWindowTitle("Simulation Battle of Grunwald");
+    setWindowTitle("  ");
     resize(1000, 700);
 
     // Change design of window
     setStyleSheet(
-    "QMainWindow { background-color: #1e1e1e; }"
+    "QMainWindow {"
+        "background-image: url(../assets/images/backgroundbattle.jpg);"
+        "background-position: center;"
+        "background-repeat: no-repeat;"
+        "}"
 
     "QGroupBox {"
+    " background-color: rgba(30,30,30,180);"
     " color: white;"
     " border: 2px solid #444;"
     " border-radius: 5px;"
@@ -41,9 +46,17 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) {
     "}"
 
     "QGroupBox::title {"
+    " background-color: rgba(30,30,30,180);"
+    " color: white;"
     " subcontrol-origin: margin;"
     " left: 10px;"
     " padding: 0 5px;"
+    "}"
+
+    "QListWidget {"
+    " background-color: rgba(20,20,20,180);"
+    " color: white;"
+    " border: 1px solid #555;"
     "}"
 
     "QLabel {"
@@ -55,6 +68,24 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) {
     " color: white;"
     " padding: 8px;"
     " border: 1px solid #555;"
+    "}"
+
+    "QMessageBox {"
+    " background-color: #1e1e1e;"
+    "}"
+
+    "QMessageBox QLabel {"
+    " color: white;"
+    " margin: 0px;"
+    " padding: 0px;"
+    "}"
+
+    "QMessageBox QPushButton {"
+    " background-color: #303030;"
+    " color: white;"
+    " border: 1px solid #555;"
+    " padding: 6px;"
+    " min-width: 80px;"
     "}"
     );
 
@@ -162,9 +193,20 @@ void MainWindow::startBattle()
 
     loadedConfig = ConfigLoader::LoadFromFile(configPath.toStdString(), false);
 
-    Reportfilename = "../assets/reports/battleReport1.csv";
+    QString defaultReportName = QFileInfo(configPath).baseName()+"_report.csv";
 
-    std::ofstream file(Reportfilename);
+    QString savePath = QFileDialog::getSaveFileName(this,
+                                                "Save Battle Report",
+                                                    "../assets/reports/" + defaultReportName,
+                                                    "CSV Files (*.csv");
+
+    if (savePath.isEmpty()) {
+        return;
+    }
+
+    ReportFilename = savePath.toStdString();
+
+    std::ofstream file(ReportFilename);
     file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Hussars Total Damage,Teutonic Total Damage,Hussars Kills,Teutonic Kills,Weather,Status,Date\n";
     file.close();
 
@@ -198,15 +240,26 @@ void MainWindow::loadConfig() {
 void MainWindow::battleStep() {
     currentBattle->do_Round();
 
+    // Update count alive warriors
     hussarsPanel->setAlive(currentBattle->get_HussarsArmy().count_AliveWarriors());
     teutonicPanel->setAlive(currentBattle->get_TeutonicArmy().count_AliveWarriors());
 
+    // Update for each subclass count of alive units
+    hussarsPanel->setKnights(currentBattle->get_HussarsArmy().count_AliveKnights());
+    hussarsPanel->setArchers(currentBattle->get_HussarsArmy().count_AliveArchers());
+    hussarsPanel->setCavalrymans(currentBattle->get_HussarsArmy().count_AliveCavalry());
+
+    teutonicPanel->setKnights(currentBattle->get_TeutonicArmy().count_AliveKnights());
+    teutonicPanel->setArchers(currentBattle->get_TeutonicArmy().count_AliveArchers());
+    teutonicPanel->setCavalrymans(currentBattle->get_TeutonicArmy().count_AliveCavalry());
+
+    // Update total damage and kills
     hussarsPanel->setDamage(currentBattle->get_Stats().get_HussarsDamage_Dealt());
     teutonicPanel->setDamage(currentBattle->get_Stats().get_TeutonicDamage_Dealt());
     hussarsPanel->setKills(currentBattle->get_Stats().get_HussarsKills());
     teutonicPanel->setKills(currentBattle->get_Stats().get_TeutonicKills());
 
-    // probablity
+
     int aliveHussars = currentBattle->get_HussarsArmy().count_AliveWarriors();
     int aliveTeutonic = currentBattle->get_TeutonicArmy().count_AliveWarriors();
 
@@ -216,6 +269,7 @@ void MainWindow::battleStep() {
     int killsHussars = currentBattle->get_Stats().get_HussarsKills();
     int killsTeutonic = currentBattle->get_Stats().get_TeutonicKills();
 
+    // Probability update and logic
     double hussarsPower = aliveHussars*2+moraleHussars+killsHussars;
     double teutonicPower = aliveTeutonic*2+moraleTeutonic+killsTeutonic;
 
@@ -257,7 +311,7 @@ void MainWindow::battleStep() {
             .arg(currentBattle->get_TeutonicArmy().count_AliveWarriors())
             );
 
-        BattleReport::save(*currentBattle, Reportfilename, (currentBattleIndex/2)+1);
+        BattleReport::save(*currentBattle, ReportFilename, (currentBattleIndex/2)+1);
 
         if(currentBattle->get_Winner() == "Hussars")
         {
@@ -329,7 +383,7 @@ void MainWindow::startNextBattle()
         battleTimer->start();
     }
     catch (const std::exception& e) {
-        BattleReport::save_skipped(Reportfilename, (currentBattleIndex/2)+1, e.what());
+        BattleReport::save_skipped(ReportFilename, (currentBattleIndex/2)+1, e.what());
 
         historyPanel->addBattleResult(
         QString("Battle %1 skipped: %2")
@@ -360,77 +414,3 @@ void MainWindow::changeSpeed() {
         battleTimer->setInterval(50);
     }
 }
-
-
-/*
- *
-    std::string filename = "../assets/reports/battleReport1.csv";
-
-    std::ofstream file(filename);
-    file<<"Battle,Winner,Rounds,Hussars Alive,Teutonic Alive,Hussars Total Damage,Teutonic Total Damage,Hussars Kills,Teutonic Kills,Weather,Status,Date\n";
-    file.close();
-
-    Army Hussars(config[i]);
-    Army Teutonic(config[i+1]);
-
-    currentBattle = new Battle(Hussars, Teutonic);
-
-    currentBattle.attach(battlePanel);
-    battleTimer->start(50);
-
-                battlePanel->setRounds(currentBattle.get_Rounds());
-                battlePanel->setWeather(QString::fromStdString(currentBattle.get_Weather()));
-                battlePanel->setHussarsMorale(currentBattle.get_HussarsArmy().get_moraleLevel());
-                battlePanel->setTeutonicMorale(currentBattle.get_TeutonicArmy().get_moraleLevel());
-                battlePanel->setCurrentEvent(QString::fromStdString(currentBattle.get_CurrentEvent()));
-                battlePanel->setWinner(QString::fromStdString(currentBattle.get_Winner()));
-
-
-
-
-
-
-
-
-            historyPanel->addBattleResult(
-                "===================="
-            );
-
-            historyPanel->addBattleResult(
-                QString("Hussars Wins: %1")
-                    .arg(hussarsWins)
-            );
-
-            historyPanel->addBattleResult(
-                QString("Teutonic Wins: %1")
-                    .arg(teutonicWins)
-            );
-
-            historyPanel->addBattleResult(
-                QString("Total Battles: %1")
-                    .arg(hussarsWins + teutonicWins)
-            );
-
-
-
-
-
-            BattleReport::save(currentBattle, filename, battleNumber);
-
-
-            BattleReport::save_skipped(filename, battleNumber, e.what());
-        battleNumber++;
-    }
-    QString champion =
-    (hussarsWins > teutonicWins)
-        ? "HUSSARS"
-        : "TEUTONIC";
-
-    historyPanel->addBattleResult(
-    "===================="
-    );
-    historyPanel->addBattleResult(
-    QString("Campaign Winner: %1")
-        .arg(champion)
-    );
-    */

@@ -24,12 +24,23 @@ TeutonicPanel::TeutonicPanel(QWidget* parent) {
     groupLayout->addWidget(teutonicLabel);
 
     teutonicIMG = new QLabel(this);
+    teutonicIMG->setAlignment(Qt::AlignCenter);
     groupLayout->addWidget(teutonicIMG);
-    QPixmap teutonicPixmap("../assets/images/teutonic.png");
+    QPixmap teutonicPixmap("../assets/images/teutonicimg.png");
     teutonicIMG->setPixmap(teutonicPixmap.scaled(140,140, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
 
     aliveTeutonicLabel = new QLabel("Alive: -");
     groupLayout->addWidget(aliveTeutonicLabel);
+
+    aliveKnightsLabel = new QLabel("Knights: -");
+    groupLayout->addWidget(aliveKnightsLabel);
+    aliveArchersLabel = new QLabel("Archers: -");
+    groupLayout->addWidget(aliveArchersLabel);
+    aliveCavalrymansLabel = new QLabel("Cavalrymans: -");
+    groupLayout->addWidget(aliveCavalrymansLabel);
+
+
     teutonicDamageLabel = new QLabel("Damage: -");
     groupLayout->addWidget(teutonicDamageLabel);
     teutonicKillsLabel = new QLabel("Kills: -");
@@ -49,6 +60,18 @@ void TeutonicPanel::setAlive(int alive) {
     aliveTeutonicLabel->setText(
         "Alive: " + QString::number(alive)
     );
+}
+
+void TeutonicPanel::setKnights(int knights) {
+    aliveKnightsLabel->setText("Knights: " + QString::number(knights));
+}
+
+void TeutonicPanel::setArchers(int archers) {
+    aliveArchersLabel->setText("Archers: " + QString::number(archers));
+}
+
+void TeutonicPanel::setCavalrymans(int cavalrymans) {
+    aliveCavalrymansLabel->setText("Cavalrymans: " + QString::number(cavalrymans));
 }
 
 void TeutonicPanel::setDamage(double damage) {

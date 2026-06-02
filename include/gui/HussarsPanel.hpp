@@ -12,7 +12,12 @@ private:
 
     QLabel* hussarsLabel;
     QLabel* hussarsIMG;
+
     QLabel* aliveHussarsLabel;
+    QLabel* aliveKnightsLabel;
+    QLabel* aliveArchersLabel;
+    QLabel* aliveCavalrymansLabel;
+
     QLabel* hussarsDamageLabel;
     QLabel* hussarsKillsLabel;
 
@@ -22,6 +27,11 @@ public:
 
     // Setters
     void setAlive(int alive);
+
+    void setKnights(int knights);
+    void setArchers(int archers);
+    void setCavalrymans(int cavalrymans);
+
     void setDamage(double damage);
     void setKills(int kills);
 };

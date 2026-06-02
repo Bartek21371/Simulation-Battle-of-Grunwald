@@ -37,13 +37,13 @@ private:
     QTimer* battleTimer = nullptr;
     Battle* currentBattle = nullptr;
 
-    QString configPath = "../assets/configs/testfile.csv";
+    QString configPath = "../assets/configs/";
 
     void startBattle();
     void loadConfig();
     void startNextBattle();
 
-    std::string Reportfilename;
+    std::string ReportFilename;
 
 private slots:
     void battleStep();

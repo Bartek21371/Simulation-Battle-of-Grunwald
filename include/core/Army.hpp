@@ -39,6 +39,10 @@ public:
 
     int count_AliveWarriors() const;
 
+    int count_AliveKnights() const;
+    int count_AliveArchers() const;
+    int count_AliveCavalry() const;
+
     Warrior& get_RandomAliveWarrior();
 
     // Getter

@@ -35,14 +35,6 @@ Army::Army(const FractionConfig& config):
     }
 }
 
-size_t Army::get_ArmySize() const{
-    return warriors.size();
-}
-
-const std::vector<std::shared_ptr<Warrior>>& Army::get_Warriors() const{
-    return warriors;
-}
-
 int Army::count_AliveWarriors() const{
     int count = 0;
     for (const std::shared_ptr<Warrior>& w : warriors) {
@@ -51,6 +43,49 @@ int Army::count_AliveWarriors() const{
         }
     }
     return count;
+}
+
+int Army::count_AliveKnights() const {
+    int count{};
+
+    for (const auto& w : warriors) {
+        if (w->is_Alive() && dynamic_cast<Knight*>(w.get())) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int Army::count_AliveArchers() const {
+    int count{};
+
+    for (const auto& w : warriors) {
+        if (w->is_Alive() && dynamic_cast<Archer*>(w.get())) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int Army::count_AliveCavalry() const {
+    int count{};
+
+    for (const auto& w : warriors) {
+        if (w->is_Alive() && dynamic_cast<Cavalryman*>(w.get())) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Getters
+
+size_t Army::get_ArmySize() const{
+    return warriors.size();
+}
+
+const std::vector<std::shared_ptr<Warrior>>& Army::get_Warriors() const{
+    return warriors;
 }
 
 Warrior& Army::get_RandomAliveWarrior() {
