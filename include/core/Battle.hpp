@@ -18,7 +18,7 @@ private:
     Army Teutonic;
 
     int round{};
-    std::string winner{};
+    std::string winner;
 
     Weather weather;
 
