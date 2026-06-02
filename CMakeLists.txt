@@ -82,8 +82,16 @@ add_executable(
         src/core/Battle.cpp
         src/core/Army.cpp
         src/warriors/Warrior.cpp
+        src/warriors/Knight.cpp
+        src/warriors/Archer.cpp
+        src/warriors/Cavalryman.cpp
+        src/events/Weather.cpp
+        src/utils/Random.cpp
+        src/core/BattleStats.cpp
+        src/events/CommanderDeath.cpp
+        src/events/AlliedHelp.cpp
+        src/events/PanicEvent.cpp
         src/config/ConfigLoader.cpp
-        tests/test_resultsave.cpp
 )
 
 target_include_directories(

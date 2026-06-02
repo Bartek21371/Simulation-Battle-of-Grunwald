@@ -33,11 +33,11 @@ TEST_CASE("Test creating two armies", "[army]") {
 
     SECTION("All warriors have health greater than 0") {
         for (auto& w : Hussars.get_Warriors()) {
-            REQUIRE(w.get_Health()>0);
+            REQUIRE(w->get_Health()>0);
         }
 
         for (auto& w : Teutonic.get_Warriors()) {
-            REQUIRE(w.get_Health()>0);
+            REQUIRE(w->get_Health()>0);
         }
     }
 
