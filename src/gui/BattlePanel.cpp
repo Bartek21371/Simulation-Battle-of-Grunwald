@@ -52,7 +52,7 @@ BattlePanel::BattlePanel(QWidget* parent) : QWidget(parent), battle(nullptr) {
     battleLayout->addWidget(TeutonicMoraleLabel);
 
     VictoryChanceLabel = new QLabel(this);
-    VictoryChanceLabel->setText("Victory Chance: -");
+    VictoryChanceLabel->setText("Victory Chance:");
     battleLayout->addWidget(VictoryChanceLabel);
 
     HussarsProbabilityLabel = new QLabel(this);
@@ -73,7 +73,7 @@ BattlePanel::BattlePanel(QWidget* parent) : QWidget(parent), battle(nullptr) {
     winnerFont.setPointSize(11);
 
     winnerLabel = new QLabel(this);
-    winnerLabel->setText("Winner: -");
+    winnerLabel->setText("Current Winner: -");
     winnerLabel->setFont(winnerFont);
     battleLayout->addWidget(winnerLabel);
 
@@ -121,17 +121,30 @@ void BattlePanel::setTeutonicMorale(int morale) {
         TeutonicMoraleLabel->setStyleSheet("color: orange;");
 }
 
+void BattlePanel::setHussarsProbability(double probability) {
+    HussarsProbabilityLabel->setText(QString("Hussars: %1%")
+        .arg(QString::number(probability, 'f', 1)));
+}
+
+void BattlePanel::setTeutonicProbability(double probability) {
+    TeutonicProbabilityLabel->setText(QString("Teutonic: %1%")
+        .arg(QString::number(probability, 'f', 1)));
+}
+
 void BattlePanel::setCurrentEvent(const QString &event) {
     currentEventLabel->setText("Current event: " + event);
 }
 
 void BattlePanel::setWinner(const QString& winner) {
-    winnerLabel->setText("Winner: " + winner);
+    winnerLabel->setText("Current Winner: " + winner);
 
     if (winner == "HUSSARS") {
         winnerLabel->setStyleSheet("color: green");
     }
-    else {
+    else if (winner == "TEUTONIC") {
         winnerLabel->setStyleSheet("color: red");
+    }
+    else {
+        winnerLabel->setStyleSheet("color: yellow");
     }
 }

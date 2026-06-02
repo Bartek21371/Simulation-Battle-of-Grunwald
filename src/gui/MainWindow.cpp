@@ -206,13 +206,47 @@ void MainWindow::battleStep() {
     hussarsPanel->setKills(currentBattle->get_Stats().get_HussarsKills());
     teutonicPanel->setKills(currentBattle->get_Stats().get_TeutonicKills());
 
+    // probablity
+    int aliveHussars = currentBattle->get_HussarsArmy().count_AliveWarriors();
+    int aliveTeutonic = currentBattle->get_TeutonicArmy().count_AliveWarriors();
+
+    int moraleHussars = currentBattle->get_HussarsArmy().get_moraleLevel();
+    int moraleTeutonic = currentBattle->get_TeutonicArmy().get_moraleLevel();
+
+    int killsHussars = currentBattle->get_Stats().get_HussarsKills();
+    int killsTeutonic = currentBattle->get_Stats().get_TeutonicKills();
+
+    double hussarsPower = aliveHussars*2+moraleHussars+killsHussars;
+    double teutonicPower = aliveTeutonic*2+moraleTeutonic+killsTeutonic;
+
+    double totalPower = hussarsPower+teutonicPower;
+
+    if (totalPower > 0) {
+        double hussarsProbability = (hussarsPower/totalPower)*100.0;
+        double teutonicProbability = (teutonicPower/totalPower)*100.0;
+
+        battlePanel->setHussarsProbability(hussarsProbability);
+        battlePanel->setTeutonicProbability(teutonicProbability);
+
+        double diff = std::abs(hussarsProbability-teutonicProbability);
+
+        if (diff < 1.0) {
+            battlePanel->setWinner("DRAW");
+        }
+        else if (hussarsProbability > teutonicProbability) {
+            battlePanel->setWinner("HUSSARS");
+        }
+        else{
+            battlePanel->setWinner("TEUTONIC");
+        }
+    }
+
+
     if(currentBattle->is_finished())
     {
         battleTimer->stop();
 
         currentBattle->finishBattle();
-
-        battlePanel->setWinner(QString::fromStdString(currentBattle->get_Winner()));
 
         historyPanel->addBattleResult(
             QString("%1 | Rounds: %2 | Weather: %3 | Alive: %4 vs %5")

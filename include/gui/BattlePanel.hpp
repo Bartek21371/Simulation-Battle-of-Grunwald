@@ -41,8 +41,8 @@ public:
     void setWeather(const QString& weather);
     void setHussarsMorale(int morale);
     void setTeutonicMorale(int morale);
-    void setHussarsProbability(int probability);
-    void setTeutonicProbability(int probability);
+    void setHussarsProbability(double probability);
+    void setTeutonicProbability(double probability);
     void setCurrentEvent(const QString& event);
     void setWinner(const QString& winner);
 };
