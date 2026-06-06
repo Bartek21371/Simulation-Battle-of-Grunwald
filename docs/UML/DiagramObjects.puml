@@ -1,0 +1,153 @@
+@startuml
+title Simulation Battle of Grunwald - Object Diagram
+
+skinparam objectAttributeIconSize 0
+skinparam linetype ortho
+
+object "mainWindow: MainWindow" as mainWindow {
+  currentBattleIndex = 0
+  hussarsWins = 0
+  teutonicWins = 0
+  configPath = "../assets/configs/"
+}
+
+object "battlePanel: BattlePanel" as battlePanel
+object "hussarsPanel: HussarsPanel" as hussarsPanel
+object "teutonicPanel: TeutonicPanel" as teutonicPanel
+object "controlPanel: ControlPanel" as controlPanel
+object "historyPanel: HistoryPanel" as historyPanel
+object "battleTimer: QTimer" as battleTimer
+
+object "hussarsConfig: FractionConfig" as hussarsConfig {
+  fraction = "HUSSARS"
+  knight_count = 50
+  archer_count = 45
+  cavalry_count = 40
+  valid = true
+}
+
+object "teutonicConfig: FractionConfig" as teutonicConfig {
+  fraction = "TEUTONIC"
+  knight_count = 80
+  archer_count = 20
+  cavalry_count = 55
+  valid = true
+}
+
+object "hussars: Army" as hussars {
+  name = "HUSSARS"
+  moraleLevel = 50
+  attackBonus = 0
+  defenseBonus = 0
+}
+
+object "teutonic: Army" as teutonic {
+  name = "TEUTONIC"
+  moraleLevel = 50
+  attackBonus = 0
+  defenseBonus = 0
+}
+
+object "battle: Battle" as battle {
+  round = 1
+  winner = ""
+  currentEvent = ""
+  eventsTriggered = 0
+  maxEvents = 3
+}
+
+object "weather: Weather" as weather {
+  weatherType = WeatherType
+}
+
+object "stats: BattleStats" as stats {
+  HussarsDamage_Dealt = 0.0
+  TeutonicDamage_Dealt = 0.0
+  HussarsKills = 0
+  TeutonicKills = 0
+}
+
+object "commanderDeath: CommanderDeath" as commanderDeath
+object "alliedHelp: AlliedHelp" as alliedHelp
+object "panicEvent: PanicEvent" as panicEvent
+
+object "hussarsKnight1: Knight" as hussarsKnight1 {
+  health = 66
+  attack = 40
+  defense = 20
+  alive = true
+}
+
+object "hussarsArcher1: Archer" as hussarsArcher1 {
+  health = 80
+  attack = 45
+  defense = 10
+  alive = true
+}
+
+object "hussarsCavalry1: Cavalryman" as hussarsCavalry1 {
+  health = 100
+  attack = 25
+  defense = 60
+  firstAttack = true
+  alive = true
+}
+
+object "teutonicKnight1: Knight" as teutonicKnight1 {
+  health = 90
+  attack = 35
+  defense = 25
+  alive = true
+}
+
+object "teutonicArcher1: Archer" as teutonicArcher1 {
+  health = 50
+  attack = 50
+  defense = 10
+  alive = true
+}
+
+object "teutonicCavalry1: Cavalryman" as teutonicCavalry1 {
+  health = 80
+  attack = 25
+  defense = 55
+  firstAttack = true
+  alive = true
+}
+
+mainWindow *-- battlePanel
+mainWindow *-- hussarsPanel
+mainWindow *-- teutonicPanel
+mainWindow *-- controlPanel
+mainWindow *-- historyPanel
+mainWindow o-- battleTimer
+mainWindow o-- battle
+mainWindow o-- hussarsConfig
+mainWindow o-- teutonicConfig
+
+hussarsConfig ..> hussars : creates
+teutonicConfig ..> teutonic : creates
+
+battle *-- hussars
+battle *-- teutonic
+battle *-- weather
+battle *-- stats
+battle *-- commanderDeath
+battle *-- alliedHelp
+battle *-- panicEvent
+battle o-- battlePanel : observer
+
+hussars o-- hussarsKnight1 : 50 knights
+hussars o-- hussarsArcher1 : 45 archers
+hussars o-- hussarsCavalry1 : 40 cavalrymen
+
+teutonic o-- teutonicKnight1 : 80 knights
+teutonic o-- teutonicArcher1 : 20 archers
+teutonic o-- teutonicCavalry1 : 55 cavalrymen
+
+battlePanel ..> battle : update(battle)
+hussarsPanel ..> hussars : displays stats
+teutonicPanel ..> teutonic : displays stats
+historyPanel ..> stats : displays result
+
+@enduml

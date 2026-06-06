@@ -1,0 +1,105 @@
+@startuml
+title Simulation Battle of Grunwald - State Machine Diagram
+
+skinparam linetype ortho
+
+[*] --> ApplicationStarted
+
+state ApplicationStarted {
+  [*] --> WindowInitialized
+  WindowInitialized : MainWindow()
+  WindowInitialized : create panels
+  WindowInitialized : connect Qt signals
+}
+
+ApplicationStarted --> WaitingForConfig : GUI visible
+
+WaitingForConfig : configPath points to default directory
+WaitingForConfig --> ConfigSelected : Load clicked\nloadConfig()
+WaitingForConfig --> ReportSelection : Start clicked\nconfigPath not empty
+WaitingForConfig --> WaitingForConfig : Start clicked\nconfigPath empty / warning
+WaitingForConfig --> [*] : Exit clicked
+
+ConfigSelected : CSV file selected
+ConfigSelected --> WaitingForConfig : QMessageBox information
+
+ReportSelection : startBattle()
+ReportSelection : LoadFromFile(configPath)
+ReportSelection --> WaitingForConfig : save report dialog canceled
+ReportSelection --> CampaignInitialized : report path selected\nCSV header written
+
+CampaignInitialized : currentBattleIndex = 0
+CampaignInitialized : hussarsWins = 0
+CampaignInitialized : teutonicWins = 0
+CampaignInitialized --> PreparingBattle : startNextBattle()
+
+state CampaignRunning {
+  [*] --> PreparingBattle
+
+  PreparingBattle --> CampaignFinished : currentBattleIndex >= loadedConfig.size() - 1
+  PreparingBattle --> BattleSkipped : invalid FractionConfig\nor Army constructor throws
+  PreparingBattle --> BattleReady : create Hussars Army\ncreate Teutonic Army\ncreate Battle
+
+  BattleSkipped : BattleReport::save_skipped()
+  BattleSkipped : HistoryPanel::addBattleResult()
+  BattleSkipped --> PreparingBattle : currentBattleIndex += 2
+
+  BattleReady : BattlePanel::setBattleNumber()
+  BattleReady : Battle::attach(battlePanel)
+  BattleReady --> BattleRunning : battleTimer.start()
+
+  state BattleRunning {
+    [*] --> WaitingForTick
+
+    WaitingForTick --> ExecutingRound : QTimer::timeout\nbattleStep()
+
+    ExecutingRound : Battle::do_Round()
+    ExecutingRound : pick random alive warriors
+    ExecutingRound : choose attacker
+    ExecutingRound --> ApplyingCombat
+
+    ApplyingCombat : warrior attacks enemy
+    ApplyingCombat : possible counterattack
+    ApplyingCombat : update damage, kills, morale
+    ApplyingCombat --> RandomEventCheck : round > 20\nand eventsTriggered < maxEvents
+    ApplyingCombat --> NotifyingObservers : otherwise
+
+    RandomEventCheck --> ApplyingRandomEvent : 3% chance succeeds
+    RandomEventCheck --> NotifyingObservers : chance fails
+
+    ApplyingRandomEvent : RandomEvent::apply(targetArmy)
+    ApplyingRandomEvent : currentEvent = event name
+    ApplyingRandomEvent --> NotifyingObservers
+
+    NotifyingObservers : Battle::notify()
+    NotifyingObservers : BattlePanel::update()
+    NotifyingObservers --> UpdatingGui
+
+    UpdatingGui : update alive counts
+    UpdatingGui : update damage and kills
+    UpdatingGui : update probability and current winner
+    UpdatingGui --> BattleFinished : Battle::is_finished() == true
+    UpdatingGui --> WaitingForTick : Battle::is_finished() == false
+  }
+
+  BattleFinished : battleTimer.stop()
+  BattleFinished : Battle::finishBattle()
+  BattleFinished : HistoryPanel::addBattleResult()
+  BattleFinished : BattleReport::save()
+  BattleFinished --> PreparingBattle : update wins\ncurrentBattleIndex += 2\ndelete currentBattle
+
+  CampaignFinished : show campaign summary
+  CampaignFinished --> WaitingForConfig : user may start/load again
+}
+
+PreparingBattle --> CampaignRunning.PreparingBattle
+CampaignRunning.CampaignFinished --> WaitingForConfig
+
+WaitingForConfig --> SpeedChanged : speed changed
+BattleRunning --> SpeedChanged : speed changed
+SpeedChanged : changeSpeed()
+SpeedChanged : battleTimer interval = 500 / 200 / 50
+SpeedChanged --> WaitingForConfig : no active battle
+SpeedChanged --> BattleRunning : active battle
+
+@enduml

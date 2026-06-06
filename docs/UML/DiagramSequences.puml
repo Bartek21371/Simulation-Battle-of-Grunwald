@@ -1,0 +1,134 @@
+@startuml
+title Simulation Battle of Grunwald - Sequence Diagram
+
+actor User
+participant "mainWindow: MainWindow" as MainWindow
+participant "controlPanel: ControlPanel" as ControlPanel
+participant "configLoader: ConfigLoader" as ConfigLoader
+participant "reportFile: ofstream" as ReportFile
+participant "hussars: Army" as Hussars
+participant "teutonic: Army" as Teutonic
+participant "battle: Battle" as Battle
+participant "battlePanel: BattlePanel" as BattlePanel
+participant "hussarsPanel: HussarsPanel" as HussarsPanel
+participant "teutonicPanel: TeutonicPanel" as TeutonicPanel
+participant "historyPanel: HistoryPanel" as HistoryPanel
+participant "battleTimer: QTimer" as BattleTimer
+participant "battleReport: BattleReport" as BattleReport
+participant "random: Random" as Random
+participant "event: RandomEvent" as RandomEvent
+
+User -> ControlPanel : click Start
+ControlPanel -> MainWindow : startBattle()
+activate MainWindow
+
+MainWindow -> HistoryPanel : clearHistoryList()
+MainWindow -> ConfigLoader : LoadFromFile(configPath, false)
+activate ConfigLoader
+ConfigLoader --> MainWindow : vector<FractionConfig>
+deactivate ConfigLoader
+
+MainWindow -> User : choose report file
+User --> MainWindow : savePath
+MainWindow -> ReportFile : create CSV header
+
+MainWindow -> MainWindow : currentBattleIndex = 0\nhussarsWins = 0\nteutonicWins = 0
+MainWindow -> MainWindow : startNextBattle()
+
+alt next config pair exists
+  MainWindow -> BattlePanel : setBattleNumber(current, total)
+  create Hussars
+  MainWindow -> Hussars : Army(loadedConfig[currentBattleIndex])
+  create Teutonic
+  MainWindow -> Teutonic : Army(loadedConfig[currentBattleIndex + 1])
+  create Battle
+  MainWindow -> Battle : Battle(Hussars, Teutonic)
+  Battle -> Battle : create Weather, BattleStats,\nCommanderDeath, AlliedHelp, PanicEvent
+  MainWindow -> Battle : attach(battlePanel)
+  Battle -> BattlePanel : store observer pointer
+  MainWindow -> BattleTimer : start()
+else invalid config
+  MainWindow -> BattleReport : save_skipped(report, battleNo, reason)
+  MainWindow -> HistoryPanel : addBattleResult("Battle skipped")
+  MainWindow -> MainWindow : currentBattleIndex += 2\nstartNextBattle()
+end
+
+loop every timer tick until battle is finished
+  BattleTimer -> MainWindow : battleStep()
+  activate MainWindow
+  MainWindow -> Battle : do_Round()
+  activate Battle
+
+  Battle -> Hussars : get_RandomAliveWarrior()
+  Hussars --> Battle : hussarsWarrior
+  Battle -> Teutonic : get_RandomAliveWarrior()
+  Teutonic --> Battle : teutonicWarrior
+  Battle -> Random : random_Int(0, 1)
+
+  alt Hussars attacks first
+    Battle -> Hussars : get_MoraleModifier()
+    Battle -> Teutonic : take damage from hussarsWarrior
+    opt teutonicWarrior is alive
+      Battle -> Teutonic : get_MoraleModifier()
+      Battle -> Hussars : take damage from teutonicWarrior
+    end
+  else Teutonic attacks first
+    Battle -> Teutonic : get_MoraleModifier()
+    Battle -> Hussars : take damage from teutonicWarrior
+    opt hussarsWarrior is alive
+      Battle -> Hussars : get_MoraleModifier()
+      Battle -> Teutonic : take damage from hussarsWarrior
+    end
+  end
+
+  opt warrior killed
+    Battle -> Hussars : increase/decrease morale
+    Battle -> Teutonic : increase/decrease morale
+    Battle -> Battle : update BattleStats\nupdate currentEvent
+  end
+
+  opt round > 20 and event chance succeeds
+    Battle -> Random : random_Int(...)
+    Battle -> RandomEvent : apply(targetArmy)
+    RandomEvent -> Hussars : change morale or reinforcements
+    RandomEvent -> Teutonic : change morale or reinforcements
+    Battle -> Battle : update currentEvent
+  end
+
+  Battle -> BattlePanel : update(*this)
+  activate BattlePanel
+  BattlePanel -> Battle : get_Rounds()
+  BattlePanel -> Battle : get_Weather()
+  BattlePanel -> Battle : get_HussarsArmy()
+  BattlePanel -> Battle : get_TeutonicArmy()
+  BattlePanel -> Battle : get_CurrentEvent()
+  deactivate BattlePanel
+  deactivate Battle
+
+  MainWindow -> HussarsPanel : setAlive(), setKnights(),\nsetArchers(), setCavalrymans()
+  MainWindow -> TeutonicPanel : setAlive(), setKnights(),\nsetArchers(), setCavalrymans()
+  MainWindow -> HussarsPanel : setDamage(), setKills()
+  MainWindow -> TeutonicPanel : setDamage(), setKills()
+  MainWindow -> BattlePanel : setHussarsProbability()\nsetTeutonicProbability()\nsetWinner()
+
+  MainWindow -> Battle : is_finished()
+  alt battle finished
+    MainWindow -> BattleTimer : stop()
+    MainWindow -> Battle : finishBattle()
+    MainWindow -> HistoryPanel : addBattleResult(result)
+    MainWindow -> BattleReport : save(*battle, ReportFilename, battleNo)
+    MainWindow -> MainWindow : update win counters\ncurrentBattleIndex += 2
+    MainWindow -> Battle : delete currentBattle
+    MainWindow -> MainWindow : startNextBattle()
+  end
+  deactivate MainWindow
+end
+
+alt no next config pair
+  MainWindow -> HistoryPanel : addBattleResult("Campaign Finished")
+  MainWindow -> HistoryPanel : addBattleResult(win summary)
+end
+
+deactivate MainWindow
+
+@enduml

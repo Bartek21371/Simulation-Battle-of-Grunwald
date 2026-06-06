@@ -1,0 +1,369 @@
+@startuml
+title Simulation Battle of Grunwald - Class Diagram
+
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+package "core" {
+  class Battle {
+    - Hussars: Army
+    - Teutonic: Army
+    - round: int
+    - winner: string
+    - weather: Weather
+    - stats: BattleStats
+    - observers: vector<BattleObserver*>
+    - currentEvent: string
+    - randomEvents: vector<unique_ptr<RandomEvent>>
+    - eventsTriggered: int
+    - maxEvents: int
+    - triggerRandomEvent(): void
+    + Battle(HussarsArmy: Army&, TeutonicArmy: Army&)
+    + start_Battle(): void
+    + do_Round(): void
+    + is_finished(): bool
+    + finishBattle(): void
+    + attach(observer: BattleObserver*): void
+    + detach(observer: BattleObserver*): void
+    + notify(): void
+    + get_Rounds(): int
+    + get_Winner(): string
+    + get_HussarsArmy(): const Army&
+    + get_TeutonicArmy(): const Army&
+    + get_Weather(): string
+    + get_Stats(): const BattleStats&
+    + get_CurrentEvent(): const string&
+  }
+
+  class Army {
+    - name: string
+    - warriors: vector<shared_ptr<Warrior>>
+    - knightStats: UnitStats
+    - archerStats: UnitStats
+    - cavalryStats: UnitStats
+    - attackBonus: int
+    - defenseBonus: int
+    - moraleLevel: int
+    + Army(config: const FractionConfig&)
+    + get_ArmySize(): size_t
+    + get_Warriors(): const vector<shared_ptr<Warrior>>&
+    + count_AliveWarriors(): int
+    + count_AliveKnights(): int
+    + count_AliveArchers(): int
+    + count_AliveCavalry(): int
+    + get_RandomAliveWarrior(): Warrior&
+    + get_moraleLevel(): int
+    + get_MoraleModifier(): double
+    + get_Name(): const string&
+    + add_Reinforcements(amount: int): void
+    + increase_Morale(amount: int): void
+    + decrease_Morale(amount: int): void
+  }
+
+  class BattleStats {
+    - HussarsDamage_Dealt: double
+    - TeutonicDamage_Dealt: double
+    - HussarsKills: int
+    - TeutonicKills: int
+    + add_HussarsDamage(damage: double): void
+    + add_TeutonicDamage(damage: double): void
+    + add_HussarsKill(): void
+    + add_TeutonicKill(): void
+    + get_HussarsDamage_Dealt(): double
+    + get_TeutonicDamage_Dealt(): double
+    + get_HussarsKills(): int
+    + get_TeutonicKills(): int
+  }
+
+  struct UnitStats {
+    + hp: int
+    + attack: int
+    + defense: int
+  }
+}
+
+package "warriors" {
+  abstract class Warrior {
+    - health: int
+    - attack: int
+    - defense: int
+    - alive: bool
+    + Warrior(stats: UnitStats)
+    + take_Damage(damage: double): void
+    + attack_Enemy(enemy: Warrior&, moraleModifier: double, weather: WeatherType): void
+    + is_Alive(): bool
+    + get_WeatherModifier(weather: WeatherType): double
+    + get_Type(): string
+    + get_Health(): int
+    + get_Attack(): int
+    + get_Defense(): int
+  }
+
+  class Knight {
+    - atkBonus: double
+    - defBonus: double
+    + Knight(stats: const UnitStats&)
+    + attack_Enemy(enemy: Warrior&, moraleModifier: double, weather: WeatherType): void
+    + take_Damage(damage: double): void
+    + get_WeatherModifier(weather: WeatherType): double
+    + get_Type(): string
+  }
+
+  class Archer {
+    - atkBonus: double
+    - defBonus: double
+    + Archer(stats: const UnitStats&)
+    + attack_Enemy(enemy: Warrior&, moraleModifier: double, weather: WeatherType): void
+    + take_Damage(damage: double): void
+    + get_WeatherModifier(weather: WeatherType): double
+    + get_Type(): string
+  }
+
+  class Cavalryman {
+    - firstAttack: bool
+    - atkBonus: double
+    - defBonus: double
+    + Cavalryman(stats: const UnitStats&)
+    + attack_Enemy(enemy: Warrior&, moraleModifier: double, weather: WeatherType): void
+    + take_Damage(damage: double): void
+    + get_WeatherModifier(weather: WeatherType): double
+    + get_Type(): string
+  }
+}
+
+package "events" {
+  abstract class RandomEvent {
+    + apply(army: Army&): void
+    + getName(): string
+  }
+
+  class PanicEvent {
+    + apply(army: Army&): void
+    + getName(): string
+  }
+
+  class AlliedHelp {
+    + apply(army: Army&): void
+    + getName(): string
+  }
+
+  class CommanderDeath {
+    + apply(army: Army&): void
+    + getName(): string
+  }
+
+  class Weather {
+    - weatherType: WeatherType
+    + Weather()
+    + get_Weather(): WeatherType
+    + to_String(): string
+    + get_WeatherType(): WeatherType
+  }
+
+  enum WeatherType {
+    SUNNY
+    RAINY
+    FOGGY
+    SNOWY
+  }
+}
+
+package "config" {
+  struct FractionConfig {
+    + fraction: string
+    + knight_stats: UnitStats
+    + knight_count: int
+    + archer_stats: UnitStats
+    + archer_count: int
+    + cavalry_stats: UnitStats
+    + cavalry_count: int
+    + valid: bool
+  }
+
+  class ConfigLoader {
+    + LoadFromFile(filename: const string&, printErrors: bool): vector<FractionConfig>
+  }
+}
+
+package "observer" {
+  interface BattleObserver {
+    + update(battle: const Battle&): void
+  }
+}
+
+package "reports" {
+  class BattleReport {
+    + save(battle: const Battle&, filename: const string&, battleNumber: int): void
+    + save_skipped(filename: const string&, battleNumber: int, reason: const string&): void
+  }
+}
+
+package "utils" {
+  class Random {
+    + random_Int(min: int, max: int): int
+  }
+}
+
+package "gui" {
+  class QMainWindow <<Qt>>
+  class QWidget <<Qt>>
+  class QGroupBox <<Qt>>
+  class QLabel <<Qt>>
+  class QPushButton <<Qt>>
+  class QComboBox <<Qt>>
+  class QTimer <<Qt>>
+  class QListWidget <<Qt>>
+
+  class MainWindow {
+    - loadedConfig: vector<FractionConfig>
+    - currentBattleIndex: size_t
+    - hussarsWins: int
+    - teutonicWins: int
+    - battlePanel: BattlePanel*
+    - hussarsPanel: HussarsPanel*
+    - teutonicPanel: TeutonicPanel*
+    - controlPanel: ControlPanel*
+    - historyPanel: HistoryPanel*
+    - battleTimer: QTimer*
+    - currentBattle: Battle*
+    - configPath: QString
+    - ReportFilename: string
+    - startBattle(): void
+    - loadConfig(): void
+    - startNextBattle(): void
+    - battleStep(): void
+    - changeSpeed(): void
+    + MainWindow(parent: QWidget*)
+  }
+
+  class BattlePanel {
+    - battle: Battle*
+    - battleNumberLabel: QLabel*
+    - roundLabel: QLabel*
+    - weatherLabel: QLabel*
+    - HussarsMoraleLabel: QLabel*
+    - TeutonicMoraleLabel: QLabel*
+    - VictoryChanceLabel: QLabel*
+    - HussarsProbabilityLabel: QLabel*
+    - TeutonicProbabilityLabel: QLabel*
+    - currentEventLabel: QLabel*
+    - winnerLabel: QLabel*
+    + BattlePanel(parent: QWidget*)
+    + update(battle: const Battle&): void
+    + setBattleNumber(current: int, total: int): void
+    + setRounds(rounds: int): void
+    + setWeather(weather: const QString&): void
+    + setHussarsMorale(morale: int): void
+    + setTeutonicMorale(morale: int): void
+    + setHussarsProbability(probability: double): void
+    + setTeutonicProbability(probability: double): void
+    + setCurrentEvent(event: const QString&): void
+    + setWinner(winner: const QString&): void
+  }
+
+  class ControlPanel {
+    - startButton: QPushButton*
+    - loadConfigButton: QPushButton*
+    - exitButton: QPushButton*
+    - speedComboBox: QComboBox*
+    + ControlPanel(parent: QWidget*)
+    + get_StartButton(): QPushButton*
+    + get_LoadButton(): QPushButton*
+    + get_ExitButton(): QPushButton*
+    + get_SpeedComboBox(): QComboBox*
+  }
+
+  class HistoryPanel {
+    - historyList: QListWidget*
+    + HistoryPanel(parent: QWidget*)
+    + clearHistoryList(): void
+    + addBattleResult(result: const QString&): void
+  }
+
+  class HussarsPanel {
+    - hussarsLabel: QLabel*
+    - hussarsIMG: QLabel*
+    - aliveHussarsLabel: QLabel*
+    - aliveKnightsLabel: QLabel*
+    - aliveArchersLabel: QLabel*
+    - aliveCavalrymansLabel: QLabel*
+    - hussarsDamageLabel: QLabel*
+    - hussarsKillsLabel: QLabel*
+    + HussarsPanel(parent: QWidget*)
+    + setAlive(alive: int): void
+    + setKnights(knights: int): void
+    + setArchers(archers: int): void
+    + setCavalrymans(cavalrymans: int): void
+    + setDamage(damage: double): void
+    + setKills(kills: int): void
+  }
+
+  class TeutonicPanel {
+    - teutonicLabel: QLabel*
+    - teutonicIMG: QLabel*
+    - aliveTeutonicLabel: QLabel*
+    - aliveKnightsLabel: QLabel*
+    - aliveArchersLabel: QLabel*
+    - aliveCavalrymansLabel: QLabel*
+    - teutonicDamageLabel: QLabel*
+    - teutonicKillsLabel: QLabel*
+    + TeutonicPanel(parent: QWidget*)
+    + setAlive(alive: int): void
+    + setKnights(knights: int): void
+    + setArchers(archers: int): void
+    + setCavalrymans(cavalrymans: int): void
+    + setDamage(damage: double): void
+    + setKills(kills: int): void
+  }
+}
+
+Warrior <|-- Knight
+Warrior <|-- Archer
+Warrior <|-- Cavalryman
+
+RandomEvent <|-- PanicEvent
+RandomEvent <|-- AlliedHelp
+RandomEvent <|-- CommanderDeath
+
+QMainWindow <|-- MainWindow
+QWidget <|-- BattlePanel
+QWidget <|-- ControlPanel
+QWidget <|-- HussarsPanel
+QWidget <|-- TeutonicPanel
+QGroupBox <|-- HistoryPanel
+BattleObserver <|.. BattlePanel
+
+Battle *-- "2" Army
+Battle *-- Weather
+Battle *-- BattleStats
+Battle o-- "0..*" BattleObserver
+Battle *-- "0..*" RandomEvent
+Army *-- UnitStats
+Army o-- "0..*" Warrior
+Army ..> FractionConfig
+Warrior ..> UnitStats
+Warrior ..> WeatherType
+Weather *-- WeatherType
+RandomEvent ..> Army
+FractionConfig *-- UnitStats
+ConfigLoader ..> FractionConfig
+BattleReport ..> Battle
+Battle ..> Random
+
+MainWindow *-- BattlePanel
+MainWindow *-- HussarsPanel
+MainWindow *-- TeutonicPanel
+MainWindow *-- ControlPanel
+MainWindow *-- HistoryPanel
+MainWindow o-- Battle
+MainWindow o-- QTimer
+MainWindow ..> FractionConfig
+BattlePanel o-- Battle
+ControlPanel o-- QPushButton
+ControlPanel o-- QComboBox
+HistoryPanel o-- QListWidget
+HussarsPanel o-- QLabel
+TeutonicPanel o-- QLabel
+
+@enduml
