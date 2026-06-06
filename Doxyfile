@@ -1,0 +1,69 @@
+PROJECT_NAME           = "Simulation Battle of Grunwald"
+PROJECT_BRIEF          = "Battle simulation with Qt GUI, CSV configuration and generated reports"
+OUTPUT_DIRECTORY       = docs/doxygen
+CREATE_SUBDIRS         = NO
+
+INPUT                  = README.md \
+                         docs/DoxygenMainPage.md \
+                         include \
+                         src \
+                         main.cpp
+RECURSIVE              = YES
+FILE_PATTERNS          = *.hpp \
+                         *.cpp \
+                         *.md
+EXCLUDE                = cmake-build-debug \
+                         docs/doxygen \
+                         .git \
+                         .idea
+EXCLUDE_PATTERNS      = */cmake-build-debug/* \
+                         */docs/doxygen/* \
+                         */.git/* \
+                         */.idea/*
+
+USE_MDFILE_AS_MAINPAGE = docs/DoxygenMainPage.md
+EXTENSION_MAPPING      = hpp=C++
+
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+JAVADOC_AUTOBRIEF      = YES
+QT_AUTOBRIEF           = YES
+OPTIMIZE_OUTPUT_FOR_C  = NO
+OPTIMIZE_OUTPUT_JAVA   = NO
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_DYNAMIC_SECTIONS  = YES
+GENERATE_TREEVIEW      = YES
+FULL_SIDEBAR           = NO
+DISABLE_INDEX          = NO
+
+GENERATE_LATEX         = YES
+GENERATE_XML           = NO
+GENERATE_MAN           = NO
+GENERATE_RTF           = NO
+
+HAVE_DOT               = YES
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES
+CALL_GRAPH             = NO
+CALLER_GRAPH           = NO
+UML_LOOK               = YES
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
+
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_NO_PARAMDOC       = NO
+
+QUIET                  = NO
