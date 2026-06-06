@@ -9,6 +9,9 @@
 #include <events/WeatherType.hpp>
 
 
+/**
+ * @brief Represents weather selected for one battle.
+ */
 class Weather {
 private:
 
@@ -16,13 +19,24 @@ private:
 
 public:
 
+    /**
+     * @brief Creates a weather object with a randomly selected weather type.
+     */
     Weather();
 
+    /**
+     * @brief Returns the selected weather type.
+     */
     WeatherType get_Weather() const;
 
+    /**
+     * @brief Converts the selected weather type to text used in GUI and reports.
+     */
     std::string to_String() const;
 
-    // Getter
+    /**
+     * @brief Returns the selected weather type.
+     */
     WeatherType get_WeatherType() const;
 };
 

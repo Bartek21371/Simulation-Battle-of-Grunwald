@@ -7,6 +7,9 @@
 #include <QWidget>
 #include <QLabel>
 
+/**
+ * @brief GUI panel displaying current Hussars army statistics.
+ */
 class HussarsPanel : public QWidget {
 private:
 
@@ -23,16 +26,24 @@ private:
 
 
 public:
+    /**
+     * @brief Creates labels and image for the Hussars army panel.
+     */
     HussarsPanel(QWidget* parent = nullptr);
 
-    // Setters
+    /// Displays count of all living Hussars warriors.
     void setAlive(int alive);
 
+    /// Displays count of living knights.
     void setKnights(int knights);
+    /// Displays count of living archers.
     void setArchers(int archers);
+    /// Displays count of living cavalrymen.
     void setCavalrymans(int cavalrymans);
 
+    /// Displays total damage dealt by Hussars.
     void setDamage(double damage);
+    /// Displays total kills made by Hussars.
     void setKills(int kills);
 };
 

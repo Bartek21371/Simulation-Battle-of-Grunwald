@@ -7,6 +7,9 @@
 
 #include <warriors/Warrior.hpp>
 
+/**
+ * @brief Mounted unit with a stronger first attack.
+ */
 class Cavalryman : public Warrior {
 private:
     bool firstAttack;
@@ -14,12 +17,19 @@ private:
     double defBonus;
 
 public:
+    /**
+     * @brief Creates a cavalryman from base statistics.
+     */
     explicit Cavalryman(const UnitStats& stats);
 
+    /// Performs a cavalry attack against another warrior.
     void attack_Enemy(Warrior& enemy, double moraleModifier, WeatherType weather) override;
+    /// Applies incoming damage using cavalry defense behavior.
     void take_Damage(double damage) override;
+    /// Returns cavalry-specific weather modifier.
     double get_WeatherModifier(WeatherType weather) const override;
 
+    /// Returns "Cavalryman".
     std::string get_Type() const override {
         return "Cavalryman";
     }

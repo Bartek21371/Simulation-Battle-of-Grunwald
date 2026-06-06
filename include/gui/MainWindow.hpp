@@ -16,6 +16,9 @@
 #include "TeutonicPanel.hpp"
 
 
+/**
+ * @brief Main Qt window coordinating configuration, simulation and reports.
+ */
 class MainWindow : public QMainWindow {
 private:
 
@@ -39,17 +42,25 @@ private:
 
     QString configPath = "../assets/configs/";
 
+    /// Starts a campaign from the selected configuration and creates the report file.
     void startBattle();
+    /// Opens a file dialog and stores the selected CSV configuration path.
     void loadConfig();
+    /// Starts the next battle pair or displays the final campaign summary.
     void startNextBattle();
 
     std::string ReportFilename;
 
 private slots:
+    /// Executes one timer-driven battle step and refreshes all GUI panels.
     void battleStep();
+    /// Updates the battle timer interval from the speed combo box.
     void changeSpeed();
 
 public:
+    /**
+     * @brief Builds the main application window and connects UI signals.
+     */
     MainWindow(QWidget* parent = nullptr);
 
 };

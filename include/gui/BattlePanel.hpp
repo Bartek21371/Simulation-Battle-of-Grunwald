@@ -12,6 +12,9 @@
 #include <QLabel>
 
 
+/**
+ * @brief GUI panel displaying battle-wide information.
+ */
 class BattlePanel : public QWidget, public BattleObserver {
 private:
     Battle* battle;
@@ -31,19 +34,33 @@ private:
 
     QLabel* winnerLabel;
 public:
+    /**
+     * @brief Creates labels used to display current battle state.
+     */
     BattlePanel(QWidget* parent = nullptr);
 
+    /**
+     * @brief Updates battle information after observer notification.
+     */
     void update(const Battle& battle) override;
 
-    // Setters
+    /// Displays current battle number.
     void setBattleNumber(int current, int total);
+    /// Displays current round count.
     void setRounds(int rounds);
+    /// Displays current weather.
     void setWeather(const QString& weather);
+    /// Displays Hussars morale.
     void setHussarsMorale(int morale);
+    /// Displays Teutonic morale.
     void setTeutonicMorale(int morale);
+    /// Displays estimated Hussars victory probability.
     void setHussarsProbability(double probability);
+    /// Displays estimated Teutonic victory probability.
     void setTeutonicProbability(double probability);
+    /// Displays the latest combat action or random event.
     void setCurrentEvent(const QString& event);
+    /// Displays the currently predicted or final winner.
     void setWinner(const QString& winner);
 };
 

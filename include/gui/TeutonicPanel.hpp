@@ -9,6 +9,9 @@
 #include <QWidget>
 #include <QLabel>
 
+/**
+ * @brief GUI panel displaying current Teutonic army statistics.
+ */
 class TeutonicPanel : public QWidget {
 private:
 
@@ -24,16 +27,24 @@ private:
     QLabel* teutonicKillsLabel;
 
 public:
+    /**
+     * @brief Creates labels and image for the Teutonic army panel.
+     */
     TeutonicPanel(QWidget* parent = nullptr);
 
-    // Setters
+    /// Displays count of all living Teutonic warriors.
     void setAlive(int alive);
 
+    /// Displays count of living knights.
     void setKnights(int knights);
+    /// Displays count of living archers.
     void setArchers(int archers);
+    /// Displays count of living cavalrymen.
     void setCavalrymans(int cavalrymans);
 
+    /// Displays total damage dealt by Teutonic army.
     void setDamage(double damage);
+    /// Displays total kills made by Teutonic army.
     void setKills(int kills);
 };
 

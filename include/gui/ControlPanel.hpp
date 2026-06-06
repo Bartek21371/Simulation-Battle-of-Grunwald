@@ -9,6 +9,9 @@
 #include <QPushButton>
 #include <QComboBox>
 
+/**
+ * @brief GUI panel with simulation control buttons and speed selector.
+ */
 class ControlPanel : public QWidget {
 private:
     QPushButton* startButton;
@@ -18,13 +21,19 @@ private:
     QComboBox* speedComboBox;
 
 public:
+    /**
+     * @brief Creates buttons for loading, starting, exiting and selecting speed.
+     */
     ControlPanel(QWidget *parent);
 
-    // Getters
+    /// Returns the Start button.
     QPushButton* get_StartButton() const;
+    /// Returns the Load button.
     QPushButton* get_LoadButton() const;
+    /// Returns the Exit button.
     QPushButton* get_ExitButton() const;
 
+    /// Returns the speed selection combo box.
     QComboBox* get_SpeedComboBox() const;
 };
 
