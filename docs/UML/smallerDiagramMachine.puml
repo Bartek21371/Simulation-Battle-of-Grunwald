@@ -1,0 +1,29 @@
+@startuml
+
+[*] --> WaitingForConfig
+
+WaitingForConfig --> CampaignInitialized : Load config\nSelect report path
+
+CampaignInitialized --> PreparingBattle
+
+PreparingBattle --> BattleRunning : Next battle exists
+PreparingBattle --> CampaignFinished : No more battles
+
+BattleRunning --> ExecutingRound : Timer tick
+
+ExecutingRound --> RandomEvent : Event triggered
+ExecutingRound --> UpdatingGUI : No event
+
+RandomEvent --> UpdatingGUI
+
+UpdatingGUI --> BattleRunning : Battle continues
+
+UpdatingGUI --> BattleFinished : Army defeated
+
+BattleFinished --> PreparingBattle : Next battle exists
+
+BattleFinished --> CampaignFinished : Last battle
+
+CampaignFinished --> [*]
+
+@enduml

@@ -1,0 +1,90 @@
+@startuml
+
+title Diagram of objects
+
+object "mainWindow : MainWindow" as mainWindow {
+    currentBattleIndex = 0
+    hussarsWins = 0
+    teutonicWins = 0
+}
+
+object "battle : Battle" as battle {
+    round = 1
+    currentEvent = ""
+    maxEvents = 3
+}
+
+object "hussars : Army" as hussars {
+    name = HUSSARS
+    moraleLevel = 50
+}
+
+object "teutonic : Army" as teutonic {
+    name = TEUTONIC
+    moraleLevel = 50
+}
+
+object "weather : Weather" as weather {
+    weatherType = SUNNY
+}
+
+object "stats : BattleStats" as stats {
+    hussarsKills = 0
+    teutonicKills = 0
+}
+
+object "battlePanel : BattlePanel" as battlePanel
+object "historyPanel : HistoryPanel" as historyPanel
+
+object "hKnight : Knight" as hKnight {
+    health = 100
+    alive = true
+}
+
+object "hArcher : Archer" as hArcher {
+    health = 80
+    alive = true
+}
+
+object "hCavalry : Cavalryman" as hCavalry {
+    health = 120
+    alive = true
+}
+
+object "tKnight : Knight" as tKnight {
+    health = 100
+    alive = true
+}
+
+object "tArcher : Archer" as tArcher {
+    health = 80
+    alive = true
+}
+
+object "tCavalry : Cavalryman" as tCavalry {
+    health = 120
+    alive = true
+}
+
+mainWindow --> battle
+
+mainWindow --> battlePanel
+mainWindow --> historyPanel
+
+battle --> hussars
+battle --> teutonic
+
+battle --> weather
+battle --> stats
+
+battle ..> battlePanel : update()
+
+hussars --> hKnight
+hussars --> hArcher
+hussars --> hCavalry
+
+teutonic --> tKnight
+teutonic --> tArcher
+teutonic --> tCavalry
+
+@enduml

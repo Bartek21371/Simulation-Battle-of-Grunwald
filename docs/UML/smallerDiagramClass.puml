@@ -1,0 +1,80 @@
+@startuml
+title Diagram of classes
+
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Core" {
+class Battle
+class Army
+class BattleStats
+}
+
+package "Warriors" {
+abstract class Warrior
+class Knight
+class Archer
+class Cavalryman
+}
+
+package "Events" {
+abstract class RandomEvent
+class CommanderDeath
+class AlliedHelp
+class PanicEvent
+class Weather
+}
+
+package "Observer" {
+interface BattleObserver
+}
+
+package "GUI" {
+class MainWindow
+class BattlePanel
+class HussarsPanel
+class TeutonicPanel
+class ControlPanel
+class HistoryPanel
+}
+
+package "Configuration" {
+class ConfigLoader
+class FractionConfig
+class UnitStats
+}
+
+package "Reports" {
+class BattleReport
+}
+
+' Dziedziczenie jednostek
+Warrior <|-- Knight
+Warrior <|-- Archer
+Warrior <|-- Cavalryman
+
+' Dziedziczenie zdarzeń
+RandomEvent <|-- CommanderDeath
+RandomEvent <|-- AlliedHelp
+RandomEvent <|-- PanicEvent
+
+' Kompozycja
+Battle *-- Army
+Battle *-- BattleStats
+Battle *-- Weather
+Army *-- Warrior
+
+' Zależności
+Battle --> RandomEvent
+Battle --> BattleObserver
+
+BattleObserver <|.. BattlePanel
+
+MainWindow --> Battle
+
+ConfigLoader --> FractionConfig
+FractionConfig --> UnitStats
+
+BattleReport --> Battle
+
+@enduml

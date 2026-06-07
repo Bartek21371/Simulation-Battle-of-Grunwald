@@ -1,0 +1,50 @@
+@startuml
+
+start
+
+:User clicks Start;
+
+:Load configuration file;
+
+:Initialize campaign;
+
+:Create armies;
+:Create battle;
+
+:Initialize weather,
+statistics and events;
+
+:Attach observer
+(BattlePanel);
+
+:Start simulation timer;
+
+while (Battle not finished?)
+
+    :Execute battle round;
+
+    :Update statistics;
+
+    if (Random event?) then (yes)
+        :Apply random event;
+    endif
+
+    :Notify observers;
+
+    :Update GUI;
+
+endwhile
+
+:Finish battle;
+
+:Save battle report;
+
+if (Next battle exists?) then (yes)
+    :Start next battle;
+else (no)
+    :Display campaign summary;
+endif
+
+stop
+
+@enduml
