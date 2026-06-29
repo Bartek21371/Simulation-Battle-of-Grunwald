@@ -8,8 +8,14 @@ The application supports both single battles and multi-battle campaigns, providi
 
 ![Main Window](assets/startwindow.png)
 
+### Battle Simulation
 
+![Battle](assets/battleview.png)
+(assets/anotherbattle.png)
 
+### Battle History
+
+![History](assets/finish.png)
 
 ## Features
 
