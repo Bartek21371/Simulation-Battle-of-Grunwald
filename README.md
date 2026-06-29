@@ -45,5 +45,6 @@ The repository contains:
 * Unit tests
 
 ## Authors
+Bartosz Marcińczyk & Bartek P.
 
 Project created as part of the **Object-Oriented Programming** course.
