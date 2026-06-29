@@ -4,6 +4,8 @@ Simulation Battle of Grunwald is an object-oriented desktop application written 
 
 The application supports both single battles and multi-battle campaigns, providing real-time statistics, battle reports, and CSV export for further analysis.
 
+## Screenshots
+
 ### Main Window
 
 ![Main Window](assets/startwindow.png)
@@ -17,6 +19,10 @@ The application supports both single battles and multi-battle campaigns, providi
 ### Battle History
 
 ![History](assets/finish.png)
+
+### Generated CSV Report
+
+![Report](assets/csvresult.png)
 
 ## Features
 
