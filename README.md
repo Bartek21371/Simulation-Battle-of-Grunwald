@@ -11,6 +11,7 @@ The application supports both single battles and multi-battle campaigns, providi
 ### Battle Simulation
 
 ![Battle](assets/battleview.png)
+![Another Battle](assets/anotherbattle.png)
 
 
 ### Battle History
